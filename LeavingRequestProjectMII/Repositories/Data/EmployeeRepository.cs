@@ -21,7 +21,7 @@ namespace API.Repositories.Data
 
         public Object Get()
         {
-            return context.employees.Select(emp => new EmployeeViewModel { 
+            return context.employees.Where(emp=>emp.isDeleted==false).Select(emp => new EmployeeViewModel { 
                 employee_id = emp.employee_id,
                 name = emp.name,
                 Email = emp.email,
@@ -34,8 +34,9 @@ namespace API.Repositories.Data
             }).ToList();
         }
 
-        public Object Insert(EmployeeInsertModel employeeInsertModel)
+        public int Insert(EmployeeInsertModel employeeInsertModel)
         {
+            
             Employees emp = new Employees
             {
                 employee_id = "Employee"+GetAutoIncrementConvertString(),

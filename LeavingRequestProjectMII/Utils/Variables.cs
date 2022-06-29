@@ -14,6 +14,8 @@ namespace API.Utils
         public const int WRONG_EMAIL = 4;
 
         public const int SUCCESS = 200;
+        public const int FAIL = 400;
+
 
 
 

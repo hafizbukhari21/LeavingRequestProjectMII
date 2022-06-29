@@ -1,4 +1,6 @@
-﻿using API.ModelsInsert;
+﻿using API.Controllers.Base;
+using API.Models;
+using API.ModelsInsert;
 using API.ModelsResponse;
 using API.Repositories.Data;
 using API.Utils;
@@ -14,11 +16,11 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EmployeeController : ControllerBase
+    public class EmployeeController : BaseController<Employees, EmployeeRepository, string>
     {
         public EmployeeRepository employeeRepository; 
 
-        public EmployeeController (EmployeeRepository employeeRepository)
+        public EmployeeController (EmployeeRepository employeeRepository) :base(employeeRepository)
         {
             this.employeeRepository = employeeRepository;
         }
@@ -37,8 +39,11 @@ namespace API.Controllers
             if (employeeRepository.PhoneIsUsed(employeeInsert.phoneNumber))
                 return BadRequest(new GeneralResponse { ErrorType =Variables.NO_TELP_DUPLICATE, message = "Nomor Telp Telah Digunakan" });
 
-            return Ok(new GeneralResponse { ErrorType = Variables.SUCCESS, message = "Berhasil Menambahkan Data" });
-        }
+            if(employeeRepository.Insert(employeeInsert)>0)
+                return Ok(new GeneralResponse { ErrorType = Variables.SUCCESS, message = "Berhasil Menambahkan Data" });
+            else
+                return BadRequest(new GeneralResponse { ErrorType = Variables.FAIL, message = "Terjadi Kesalahan mohon coba beberapa saat lagi" });
+        }   
     }
 
     
