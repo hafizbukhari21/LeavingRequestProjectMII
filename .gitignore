@@ -10,8 +10,9 @@
 *.userosscache
 *.sln.docstates
 
-LeavingRequestProjectMII/appsettings.json
 
+LeavingRequestProjectMII/appsettings.json
+/LeavingRequestProjectMII/appsettings.json
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
