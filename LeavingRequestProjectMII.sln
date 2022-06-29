@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31129.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeavingRequestProjectMII", "LeavingRequestProjectMII\LeavingRequestProjectMII.csproj", "{8E12B96E-26F0-4A2D-9E65-E8D050E86F86}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "LeavingRequestProjectMII\API.csproj", "{8E12B96E-26F0-4A2D-9E65-E8D050E86F86}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{CBFCC057-7EE5-411C-B149-6C2436111AC7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{8E12B96E-26F0-4A2D-9E65-E8D050E86F86}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E12B96E-26F0-4A2D-9E65-E8D050E86F86}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8E12B96E-26F0-4A2D-9E65-E8D050E86F86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBFCC057-7EE5-411C-B149-6C2436111AC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBFCC057-7EE5-411C-B149-6C2436111AC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBFCC057-7EE5-411C-B149-6C2436111AC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBFCC057-7EE5-411C-B149-6C2436111AC7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
