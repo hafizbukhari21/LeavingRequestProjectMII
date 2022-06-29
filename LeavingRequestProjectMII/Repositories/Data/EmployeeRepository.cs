@@ -21,7 +21,7 @@ namespace API.Repositories.Data
 
         public Object Get()
         {
-            return context.employees.Where(emp=>emp.isDeleted==false).Select(emp => new  { 
+            return context.employees.Where(emp=>emp.isDeleted==false).Select(emp => new  EmployeeViewModel{ 
                 employee_id = emp.employee_id,
                 name = emp.name,
                 Email = emp.email,
@@ -29,7 +29,7 @@ namespace API.Repositories.Data
                 sisaCuti = emp.sisaCuti,
                 roleName = emp.role.roleName,
                 namaDivisi = emp.divisi.namaDivisi,
-                Cuti = emp.leavingRequests
+                
 
 
             }).ToList();
