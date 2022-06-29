@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace API.Repositories.Data
 {
-    public class EmployeeRepository
+    public class EmployeeRepository : GeneralRepository<MyContext, Employees, string>
     {
         private readonly MyContext context;
 
-        public EmployeeRepository(MyContext context)
+        public EmployeeRepository(MyContext context) :base(context)
         {
             this.context = context;
         }
@@ -53,6 +53,18 @@ namespace API.Repositories.Data
             };
             context.Add(emp);
             return context.SaveChanges();
+        }
+
+        public bool EmailIsUsed(string Email)
+        {
+            Employees emp = context.employees.FirstOrDefault(emp => emp.email == Email);
+            return emp != null;
+        }
+
+        public bool PhoneIsUsed(string phoneNumber)
+        {
+            Employees emp = context.employees.FirstOrDefault(emp => emp.phoneNumber == phoneNumber);
+            return emp != null;
         }
 
         public string GetAutoIncrementConvertString()
