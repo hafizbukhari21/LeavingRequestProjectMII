@@ -1,4 +1,5 @@
-﻿using API.Repositories.Data;
+﻿using API.ModelsInsert;
+using API.Repositories.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -23,6 +24,11 @@ namespace API.Controllers
         public ActionResult Get()
         {
             return Ok(employeeRepository.Get());
+        }
+        [HttpPost]
+        public ActionResult Insert(EmployeeInsertModel employeeInsert)
+        {
+            return Ok(employeeRepository.Insert(employeeInsert));
         }
     }
 

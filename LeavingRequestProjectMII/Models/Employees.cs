@@ -23,13 +23,15 @@ namespace API.Models
         public string phoneNumber { set; get; }
         public int sisaCuti { set; get; }
         public int role_Id { set; get; }
-        public int manager_id { set; get; }
+        public string manager_id { set; get; }
         public int divisi_id { set; get; }
         public bool isDeleted { set; get; }
 
         public virtual Role role { set; get; }
         public virtual Divisi divisi { set; get; }
         public virtual  ICollection<LeavingRequest> leavingRequests { set; get; }
+
+       
 
 
 
