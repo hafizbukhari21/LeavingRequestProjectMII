@@ -21,14 +21,15 @@ namespace API.Repositories.Data
 
         public Object Get()
         {
-            return context.employees.Where(emp=>emp.isDeleted==false).Select(emp => new EmployeeViewModel { 
+            return context.employees.Where(emp=>emp.isDeleted==false).Select(emp => new  { 
                 employee_id = emp.employee_id,
                 name = emp.name,
                 Email = emp.email,
                 phoneNumber = emp.phoneNumber,
                 sisaCuti = emp.sisaCuti,
                 roleName = emp.role.roleName,
-                namaDivisi = emp.divisi.namaDivisi
+                namaDivisi = emp.divisi.namaDivisi,
+                Cuti = emp.leavingRequests
 
 
             }).ToList();
