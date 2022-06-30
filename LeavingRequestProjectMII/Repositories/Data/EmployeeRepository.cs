@@ -22,7 +22,7 @@ namespace API.Repositories.Data
 
         public Object Get()
         {
-            return context.employees.Where(emp=>emp.isDeleted==false).Select(emp => new EmployeeViewModel { 
+            return context.employees.Where(emp=>emp.isDeleted==false).Select(emp => new  EmployeeViewModel{ 
                 employee_id = emp.employee_id,
                 name = emp.name,
                 Email = emp.email,
