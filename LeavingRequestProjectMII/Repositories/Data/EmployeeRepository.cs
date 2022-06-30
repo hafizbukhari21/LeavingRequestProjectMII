@@ -28,7 +28,10 @@ namespace API.Repositories.Data
                 phoneNumber = emp.phoneNumber,
                 sisaCuti = emp.sisaCuti,
                 roleName = emp.role.roleName,
-                namaDivisi = emp.divisi.namaDivisi
+                namaDivisi = emp.divisi.namaDivisi,
+                cuti = emp.leavingRequests.Select(cuti => new Cuti {
+                    approvalMessage = cuti.approvalMessage
+                }).ToList()
 
 
             }).ToList();

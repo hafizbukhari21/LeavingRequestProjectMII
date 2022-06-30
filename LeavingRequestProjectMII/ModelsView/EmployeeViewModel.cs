@@ -14,7 +14,14 @@ namespace API.ModelsView
         public int sisaCuti { set; get; }
         public string roleName { set; get; }
         public string namaDivisi { set; get; }
+
+        public ICollection<Cuti> cuti { set; get; }
       
         
+    }
+
+    public class Cuti
+    {
+        public string approvalMessage { get; set; }
     }
 }
