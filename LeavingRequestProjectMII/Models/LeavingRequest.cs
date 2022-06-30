@@ -17,6 +17,8 @@ namespace API.Models
         public DateTime startDate { set; get; }
         public DateTime endDate { set; get; }
 
+        public string leavingMessage { set; get; }
+
         public string approvalMessage { set; get; }
         public virtual Employees employees { set; get; }
         public virtual LeaveCategory leaveCategory { set; get; }

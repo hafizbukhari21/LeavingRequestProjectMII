@@ -79,14 +79,26 @@ namespace API.Repositories.Data
             
         }
 
-        //public int Update (EmployeeUpdateModel employeeUpdate) {
-        //    Employees emp = context.employees.Find(employeeUpdate.employee_id);
-        //    emp.name = employeeUpdate.name;
-        //    emp.gender = (Gender)Enum.Parse(typeof(Gender), employeeUpdate.gender);
+        public int Update(EmployeeUpdateModel employeeUpdate)
+        {
 
-        //}
 
-       
+            Employees emp = context.employees.Find(employeeUpdate.employee_id);
+            emp.name = employeeUpdate.name;
+            emp.gender = (Gender)Enum.Parse(typeof(Gender), employeeUpdate.gender);
+            emp.email = employeeUpdate.email;
+            emp.phoneNumber = employeeUpdate.phoneNumber;
+            emp.role_Id = employeeUpdate.role_Id;
+            emp.manager_id = employeeUpdate.manager_id;
+            emp.divisi_id = employeeUpdate.divisi_id;
+
+            context.employees.Update(emp);
+            if (context.SaveChanges() > 0) return Variables.SUCCESS;
+            else return Variables.FAIL;
+        }
+
+
+
         public bool EmailIsUsed(string Email)
         {
             Employees emp = context.employees.FirstOrDefault(emp => emp.email == Email);
