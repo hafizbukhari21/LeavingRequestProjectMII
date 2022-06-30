@@ -6,6 +6,7 @@ using API.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace API.Repositories.Data
@@ -58,6 +59,27 @@ namespace API.Repositories.Data
             context.Add(emp);
             return context.SaveChanges();
         }
+
+
+        public int Login(EmployeeLoginModel employeeLogin, out Employees empReturn)
+        {
+            Employees empChk = context.employees.FirstOrDefault(emp => emp.email == employeeLogin.email);
+
+            empReturn = null;
+            if (empChk == null) return Variables.WRONG_EMAIL;
+            else if (empChk.email != employeeLogin.email) return Variables.WRONG_EMAIL;
+            else if(!BCrypt.Net.BCrypt.Verify(employeeLogin.password, empChk.password)){
+                return Variables.WRONG_PASSWORD;
+            }
+            else
+            {
+                empReturn = empChk;
+                return Variables.SUCCESS;
+            }
+            
+        }
+
+       
 
         public bool EmailIsUsed(string Email)
         {

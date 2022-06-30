@@ -28,11 +28,11 @@ namespace API.Controllers.Base
             return Ok(repository.Update(entity));
         }
 
-        [HttpDelete("{key}")]
-        [EnableCors("AllowOrigin")]
-        public ActionResult<Entity> Delete(Key key)
-        {
-            return Ok(repository.Delete(key));
-        }
+        //[HttpDelete("{key}")]
+        //[EnableCors("AllowOrigin")]
+        //public ActionResult<Entity> Delete(Key key)
+        //{
+        //    return Ok(repository.Delete(key));
+        //}
     }
 }
