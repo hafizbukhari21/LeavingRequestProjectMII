@@ -1,0 +1,82 @@
+﻿
+@{
+    ViewData["Title"] = "Request Leave";
+    Layout = "_MainLayout";
+}
+
+<div class="container">
+    <h1>Leave Request</h1>
+    <div class="row pt-3">
+        <div class="card col-12 pt-3">
+            <h3>Requester Information</h3>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>Requester</td>
+                        <td> : </td>
+                        <td> 12343 - Puan Maharani </td>
+                    </tr>
+                    <tr>
+                        <td>Department</td>
+                        <td> : </td>
+                        <td> ADD </td>
+                    </tr>
+                    <tr>
+                        <td>Position</td>
+                        <td> : </td>
+                        <td> Employee </td>
+                    </tr>
+                    <tr>
+                        <td>Manager</td>
+                        <td> : </td>
+                        <td> Joko Wi </td>
+                    </tr>
+                </tbody>
+            </table>
+            <hr />
+            <h3>Leave Request Detail</h3>
+            <form class="needs-validation" novalidate id="inputLeave">
+                <div class="row col-sm-12">
+                    <div class="form-group col-sm-6">
+                        <label for="exampleFormControlSelect1">Leave Category</label>
+                        <select class="form-control" id="exampleFormControlSelect1">
+                            <option>Sakit</option>
+                            <option>Izin</option>
+                            <option>Cuti Melahirkan</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label for="exampleFormControlFile1">Upload File</label>
+                        <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                    </div>
+                </div>
+                <div class="row col-sm-12">
+                    <div class="form-group col-sm-6">
+                        <label for="exampleFormControlInput1">Start Date</label>
+                        <input type="date" class="form-control" id="start_date" placeholder="Start Date">
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label for="exampleFormControlInput1">End Date</label>
+                        <input type="date" class="form-control" id="start_date" placeholder="Start Date">
+                    </div>
+                </div>
+                <div class="row col-sm-12">
+                    <div class="form-group col-sm-12">
+                        <label for="exampleFormControlTextarea1">Notes</label>
+                        <textarea class="form-control" id="notes" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-warning" onclick="formReset()" value="Reset">
+                    <button type="button" class="btn btn-primary" id="btnInput" onclick="Insert()">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    function formReset() {
+    document.getElementById("inputLeave").reset();
+}
+</script>
