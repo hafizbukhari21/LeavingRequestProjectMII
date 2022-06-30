@@ -38,6 +38,30 @@ namespace API.Repositories.Data
             }).ToList();
         }
 
+        public Object Get(string employee_id)
+        {
+            return context.employees.Where(emp=>emp.isDeleted==false).Select(emp => new  Employees{ 
+                employee_id = emp.employee_id,
+                name = emp.name,
+                email = emp.email,
+                phoneNumber = emp.phoneNumber,
+                sisaCuti = emp.sisaCuti,
+                role_Id = emp.role_Id,
+                divisi_id = emp.divisi_id,
+                manager_id = emp.employee_id,
+                gender = emp.gender,
+            }).ToList().FirstOrDefault(emp=>emp.employee_id == employee_id);
+        }
+
+        public int softDelete(string employeeId)
+        {
+            Employees employee = context.employees.Find(employeeId);
+            employee.isDeleted = true;
+
+            context.employees.Update(employee);
+            return context.SaveChanges();
+        }
+
         public int Insert(EmployeeInsertModel employeeInsertModel)
         {
             
@@ -79,14 +103,26 @@ namespace API.Repositories.Data
             
         }
 
-        //public int Update (EmployeeUpdateModel employeeUpdate) {
-        //    Employees emp = context.employees.Find(employeeUpdate.employee_id);
-        //    emp.name = employeeUpdate.name;
-        //    emp.gender = (Gender)Enum.Parse(typeof(Gender), employeeUpdate.gender);
+        public int Update(EmployeeUpdateModel employeeUpdate)
+        {
 
-        //}
 
-       
+            Employees emp = context.employees.Find(employeeUpdate.employee_id);
+            emp.name = employeeUpdate.name;
+            emp.gender = (Gender)Enum.Parse(typeof(Gender), employeeUpdate.gender);
+            emp.email = employeeUpdate.email;
+            emp.phoneNumber = employeeUpdate.phoneNumber;
+            emp.role_Id = employeeUpdate.role_Id;
+            emp.manager_id = employeeUpdate.manager_id;
+            emp.divisi_id = employeeUpdate.divisi_id;
+
+            context.employees.Update(emp);
+            if (context.SaveChanges() > 0) return Variables.SUCCESS;
+            else return Variables.FAIL;
+        }
+
+
+
         public bool EmailIsUsed(string Email)
         {
             Employees emp = context.employees.FirstOrDefault(emp => emp.email == Email);
