@@ -21,12 +21,12 @@ namespace API.Controllers.Base
             this.repository = repository;
         }
 
-        [HttpPatch]
-        [EnableCors("AllowOrigin")]
-        public ActionResult<Entity> Update(Entity entity)
-        {
-            return Ok(repository.Update(entity));
-        }
+        //[HttpPatch]
+        //[EnableCors("AllowOrigin")]
+        //public ActionResult<Entity> Update(Entity entity)
+        //{
+        //    return Ok(repository.Update(entity));
+        //}
 
         //[HttpDelete("{key}")]
         //[EnableCors("AllowOrigin")]

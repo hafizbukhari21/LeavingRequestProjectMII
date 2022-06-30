@@ -79,8 +79,14 @@ namespace API.Repositories.Data
             
         }
 
-       
+        public int Update (EmployeeUpdateModel employeeUpdate) {
+            Employees emp = context.employees.Find(employeeUpdate.employee_id);
+            emp.name = employeeUpdate.name;
+            emp.gender = (Gender)Enum.Parse(typeof(Gender), employeeUpdate.gender);
 
+        }
+
+       
         public bool EmailIsUsed(string Email)
         {
             Employees emp = context.employees.FirstOrDefault(emp => emp.email == Email);
@@ -110,5 +116,7 @@ namespace API.Repositories.Data
 
 
         }
+
+        
     }
 }
