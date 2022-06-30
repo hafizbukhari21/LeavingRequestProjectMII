@@ -24,18 +24,26 @@ namespace API.Controllers
         public EmployeeRepository employeeRepository;
         public IConfiguration configuration;
 
-        public EmployeeController (EmployeeRepository employeeRepository, IConfiguration configuration) :base(employeeRepository)
+        public EmployeeController(EmployeeRepository employeeRepository, IConfiguration configuration) : base(employeeRepository)
         {
             this.employeeRepository = employeeRepository;
             this.configuration = configuration;
         }
-        
+
         [HttpGet]
         [EnableCors("AllowOrigin")]
         public ActionResult Get()
         {
             return Ok(employeeRepository.Get());
         }
+
+        [HttpGet("{employee_id}")]
+        [EnableCors("AllowOrigin")]
+        public ActionResult Get(string employee_id)
+        {
+            return Ok(employeeRepository.Get(employee_id));
+        }
+
         [HttpPost]
         [EnableCors("AllowOrigin")]
         public ActionResult Insert(EmployeeInsertModel employeeInsert)
@@ -97,6 +105,13 @@ namespace API.Controllers
 
             else return BadRequest(new GeneralResponse { ErrorType = Variables.FAIL, message = "Terjadi Kesalahan Dalam sistem" });
 
+        }
+
+        [HttpDelete]
+        [EnableCors("AllowOrigin")]
+        public ActionResult DeleteEmployee(Employees employees)
+        {
+            return Ok(employeeRepository.softDelete(employees.employee_id));
         }
 
 

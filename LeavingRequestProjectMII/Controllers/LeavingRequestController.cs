@@ -1,4 +1,5 @@
 ﻿using API.Models;
+using API.ModelsInsert;
 using API.Repositories.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -26,11 +27,30 @@ namespace API.Controllers
         {
             return Ok(leavingRequestRepository.GetLeavingEmployee(employees));
         }
+        [HttpGet("emp/detail")]
+        public ActionResult GetLeaveEmp(LeavingRequest leavingRequest)
+        {
+            return Ok(leavingRequestRepository.GetLeavingEmployee(leavingRequest.request_id));
+        }
+
 
         [HttpGet("man")]
         public ActionResult GetLeaveMananager(Employees employees)
         {
             return Ok(leavingRequestRepository.GetLeavingManager(employees));
         }
+
+        [HttpPost]
+        public ActionResult InsertLeavingRequest(LeavingRequestInserModel leavingRequestInser)
+        {
+            return Ok(leavingRequestRepository.InsertLeaving(leavingRequestInser));
+        }
+
+
+
+        
+
+        
+        
     }
 }

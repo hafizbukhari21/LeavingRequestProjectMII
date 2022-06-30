@@ -38,6 +38,30 @@ namespace API.Repositories.Data
             }).ToList();
         }
 
+        public Object Get(string employee_id)
+        {
+            return context.employees.Where(emp=>emp.isDeleted==false).Select(emp => new  Employees{ 
+                employee_id = emp.employee_id,
+                name = emp.name,
+                email = emp.email,
+                phoneNumber = emp.phoneNumber,
+                sisaCuti = emp.sisaCuti,
+                role_Id = emp.role_Id,
+                divisi_id = emp.divisi_id,
+                manager_id = emp.employee_id,
+                gender = emp.gender,
+            }).ToList().FirstOrDefault(emp=>emp.employee_id == employee_id);
+        }
+
+        public int softDelete(string employeeId)
+        {
+            Employees employee = context.employees.Find(employeeId);
+            employee.isDeleted = true;
+
+            context.employees.Update(employee);
+            return context.SaveChanges();
+        }
+
         public int Insert(EmployeeInsertModel employeeInsertModel)
         {
             

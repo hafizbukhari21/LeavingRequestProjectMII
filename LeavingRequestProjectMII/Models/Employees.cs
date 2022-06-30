@@ -31,14 +31,6 @@ namespace API.Models
         public virtual Divisi divisi { set; get; }
         public virtual  ICollection<LeavingRequest> leavingRequests { set; get; }
 
-       
-
-
-
-
-       
-
-
 
 
     }
