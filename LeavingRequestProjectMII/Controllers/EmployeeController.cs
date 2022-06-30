@@ -54,10 +54,12 @@ namespace API.Controllers
 
         [HttpPost("login")]
         [EnableCors("AllowOrigin")]
+
         public ActionResult Login(EmployeeLoginModel employeeLogin)
         {
             Employees empReturn = new Employees();
             int checkStatus = employeeRepository.Login(employeeLogin, out empReturn);
+
 
             if (checkStatus==Variables.SUCCESS)
             {
