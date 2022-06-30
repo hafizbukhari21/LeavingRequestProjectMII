@@ -6,6 +6,7 @@ using API.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace API.Repositories.Data
@@ -29,7 +30,9 @@ namespace API.Repositories.Data
                 sisaCuti = emp.sisaCuti,
                 roleName = emp.role.roleName,
                 namaDivisi = emp.divisi.namaDivisi,
-                
+                cuti = emp.leavingRequests.Select(cuti => new Cuti {
+                    approvalMessage = cuti.approvalMessage
+                }).ToList()
 
 
             }).ToList();
@@ -57,6 +60,33 @@ namespace API.Repositories.Data
             return context.SaveChanges();
         }
 
+
+        public int Login(EmployeeLoginModel employeeLogin, out Employees empReturn)
+        {
+            Employees empChk = context.employees.FirstOrDefault(emp => emp.email == employeeLogin.email);
+
+            empReturn = null;
+            if (empChk == null) return Variables.WRONG_EMAIL;
+            else if (empChk.email != employeeLogin.email) return Variables.WRONG_EMAIL;
+            else if(!BCrypt.Net.BCrypt.Verify(employeeLogin.password, empChk.password)){
+                return Variables.WRONG_PASSWORD;
+            }
+            else
+            {
+                empReturn = empChk;
+                return Variables.SUCCESS;
+            }
+            
+        }
+
+        //public int Update (EmployeeUpdateModel employeeUpdate) {
+        //    Employees emp = context.employees.Find(employeeUpdate.employee_id);
+        //    emp.name = employeeUpdate.name;
+        //    emp.gender = (Gender)Enum.Parse(typeof(Gender), employeeUpdate.gender);
+
+        //}
+
+       
         public bool EmailIsUsed(string Email)
         {
             Employees emp = context.employees.FirstOrDefault(emp => emp.email == Email);
@@ -86,5 +116,7 @@ namespace API.Repositories.Data
 
 
         }
+
+        
     }
 }

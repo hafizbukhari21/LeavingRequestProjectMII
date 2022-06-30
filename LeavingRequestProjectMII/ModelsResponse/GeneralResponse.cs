@@ -11,4 +11,12 @@ namespace API.ModelsResponse
         public string message { set; get; }
 
     }
+
+    public class LoginResponse
+    {
+        public int ErrorType { set; get; }
+        public string message { set; get; }
+        public string token { set; get; }
+        public string name { set; get; }
+    }
 }
