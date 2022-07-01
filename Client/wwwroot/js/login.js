@@ -3,7 +3,7 @@
     var obj = new Object();
     obj.Email = $("#LoginEmail").val();
     obj.Password = $("#LoginPassword").val();
-    console.log(obj);
+    //console.log(obj);
     $.ajax({
         url: "Login/Auth",
         type: "POST",

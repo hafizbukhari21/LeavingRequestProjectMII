@@ -1,4 +1,10 @@
-﻿$(document).ready(function () {
+﻿$('#insertModal').on('hidden.bs.modal', function () {
+    $(this).find('form').trigger('reset');
+})
+
+$(document).ready(function () {
+    AjaxManager()
+    AjaxDivisi()
     $('#dataTbl').DataTable({
         "ajax": {
             "url": "https://localhost:44302/api/employee",
@@ -256,3 +262,34 @@ $("#updateEmployee").submit(function (e) {
         })
     })
 })
+
+function AjaxManager() {
+    //let insertManagerDropDown = document.querySelector("#CManagerId")
+    $.ajax({
+        url: "https://localhost:44302/api/employee/allManager",
+        type: "GET"
+    }).done(e => {
+        e.forEach(e => {
+            $("#CManagerId").append(`<option value="${e.employee_id}">${e.name}</option>`)
+//            insertManagerDropDown.append(`
+//                <option value="${e.employee_id}">${e.name}</option>
+//`)
+        })
+    })
+}
+
+function AjaxDivisi() {
+    //let insertManagerDropDown = document.querySelector("#CManagerId")
+    $.ajax({
+        url: "https://localhost:44302/api/divisi",
+        type: "GET"
+    }).done(e => {
+        e.forEach(e => {
+            $("#CDivisiId").append(`<option value="${e.divisi_id}">${e.namaDivisi}</option>`)
+            //            insertManagerDropDown.append(`
+            //                <option value="${e.employee_id}">${e.name}</option>
+            //`)
+        })
+    })
+}
+
