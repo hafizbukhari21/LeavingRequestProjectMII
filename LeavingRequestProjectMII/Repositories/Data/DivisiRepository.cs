@@ -29,7 +29,8 @@ namespace API.Repositories.Data
             return context.divisi.Select(div => new Divisi
             {
                 divisi_id = div.divisi_id,
-                namaDivisi = div.namaDivisi
+                namaDivisi = div.namaDivisi,
+                isDeleted = div.isDeleted
             }).ToList().FirstOrDefault(div=>div.divisi_id == divisi.divisi_id);
         }
 

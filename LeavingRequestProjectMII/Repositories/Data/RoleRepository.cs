@@ -21,6 +21,7 @@ namespace API.Repositories.Data
             return context.roles.Select(role => new Role { 
                 role_id  = role.role_id,
                 roleName = role.roleName
+                
             });
         }
     }
