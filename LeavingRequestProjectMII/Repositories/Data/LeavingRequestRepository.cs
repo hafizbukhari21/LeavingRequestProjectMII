@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.Utils;
 
 namespace API.Repositories.Data
 {
@@ -75,7 +76,7 @@ namespace API.Repositories.Data
                 request_id = "Leave" + GetAutoIncrementConvertString(),
                 employee_id = leavingRequestInser.employee_id,
                 category_id = leavingRequestInser.category_id,
-                approvalStatus = (Approval_status)Enum.Parse(typeof(Approval_status), leavingRequestInser.approvalStatus),
+                approvalStatus = Approval_status.Menunggu,
                 requestTime = leavingRequestInser.requestTime,
                 startDate = leavingRequestInser.startDate,
                 endDate = leavingRequestInser.endDate,
@@ -85,6 +86,47 @@ namespace API.Repositories.Data
             context.leavingRequests.Add(leavingRequest);
             return context.SaveChanges();
         }
+
+        public int ApproveLeaving(string request_id,string approvalMessage, out string namaEmp)
+        {
+           
+            LeavingRequest leavingRequest = context.leavingRequests.Find(request_id);
+            Employees managerDetail = context.employees.Find(leavingRequest.employees.manager_id);
+            namaEmp = leavingRequest.employees.name;
+
+            leavingRequest.approvalMessage = approvalMessage;
+            leavingRequest.approvalStatus = Approval_status.Diterima;
+            leavingRequest.employees.sisaCuti = leavingRequest.employees.sisaCuti-(leavingRequest.endDate - leavingRequest.startDate).Days;
+            context.leavingRequests.Update(leavingRequest);
+            EmailServices.SendEmail(leavingRequest.employees.email, "Perihal Cuti", HtmlTemplate.RequestLeaving(managerDetail.name, leavingRequest.employees.name, leavingRequest.startDate.ToString("D"), leavingRequest.endDate.ToString("D")));
+            return context.SaveChanges();
+            
+        }
+
+        public int RejectLeaving(string request_id, string approvalMessage, out string namaEmp)
+        {
+            LeavingRequest leavingRequest = context.leavingRequests.Find(request_id);
+            namaEmp = leavingRequest.employees.name;
+            leavingRequest.approvalMessage = approvalMessage;
+            leavingRequest.approvalStatus = Approval_status.Ditolak;
+            context.leavingRequests.Update(leavingRequest);
+            return context.SaveChanges();
+        }
+
+        public int RevisiLeaving(string request_id, string approvalMessage, out string namaEmp)
+        {
+            LeavingRequest leavingRequest = context.leavingRequests.Find(request_id);
+            namaEmp = leavingRequest.employees.name;
+            leavingRequest.approvalMessage = approvalMessage;
+            leavingRequest.approvalStatus = Approval_status.Revisi;
+            context.leavingRequests.Update(leavingRequest);
+            return context.SaveChanges();
+        }
+
+
+
+
+
 
         public string GetAutoIncrementConvertString()
         {
@@ -101,6 +143,8 @@ namespace API.Repositories.Data
 
 
         }
+
+       
 
         
 

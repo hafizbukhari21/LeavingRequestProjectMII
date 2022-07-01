@@ -10,7 +10,6 @@ namespace API.ModelsInsert
         
         public string employee_id { set; get; }
         public int category_id { set; get; }
-        public string approvalStatus { set; get; }
         public DateTime requestTime { set; get; }
         public DateTime startDate { set; get; }
         public DateTime endDate { set; get; }
