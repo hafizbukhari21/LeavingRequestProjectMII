@@ -71,10 +71,10 @@
                 data: "employee_id",
                 render: function (data, type, row, meta) {
                     return `<div class="btn-group text-center">
-                                <button type="button" class="btn btn-sm btn-warning" title="Delete" onClick="employeeDetail('Employee/Get/${data}')" data-toggle="modal" data-target="#updateModal">
+                                <button type="button" class="btn btn-sm btn-warning" title="Detail" onClick="employeeDetail('https://localhost:44302/api/employee/${data}')" data-toggle="modal" data-target="#updateModal">
                                 <i class="fas fa-edit"></i>
                                 </button>
-                                <button type="button" class="btn btn-sm btn-danger" title="Delete" onClick="employeeDelete('Employee/Delete/${data}')" >
+                                <button type="button" class="btn btn-sm btn-danger" title="Delete" onClick="employeeDelete('${data}')" >
                                 <i class="fas fa-trash"></i>
                                 </button>
                             </div>`
@@ -83,80 +83,6 @@
         ]
     });
 });
-
-/*$(document).ready(function () {
-    $('#dataTbl').DataTable({
-        dom: 'lBfrtip',
-        buttons: [
-            //'copy', 'csv', 'excel', 'pdf', 'print'
-            {
-                extend: 'copy',
-                className: 'btn btn-success btn-sm',
-                text: '<i class="fas fa-copy"> </i>',
-                titleAttr: 'Copy to clipboard'
-            },
-            {
-                extend: 'excel',
-                className: 'btn btn-success btn-sm',
-                text: '<i class="fas fa-file-excel"> </i>',
-                titleAttr: 'Download to excel'
-            },
-            {
-                extend: 'pdf',
-                className: 'btn btn-success btn-sm',
-                text: '<i class="fas fa-file-pdf"> </i>',
-                titleAttr: 'Download to pdf'
-            },
-            {
-                extend: 'print',
-                className: 'btn btn-success btn-sm',
-                text: '<i class="fas fa-print"> </i>',
-                titleAttr: 'Print this table'
-            },
-            {
-                html: `<!-- Button trigger modal -->
-                <button title="Add new data" type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#insertModal">
-                    <i class="fa fa-plus"></i>
-                </button>`
-            }
-        ],
-        initComplete: function () {
-            var btns = $('.dt-button');
-            //btns.addClass('btn btn-primary btn-sm');
-            btns.removeClass('dt-button');
-        },
-    });
-});*/
-
-
-
-/*function insertEmployee() {
-    const FIELD_REQUIRED = "This field is required.";
-    const EMAIL_INVALID = "Please enter a valid email address format.";
-
-    let emailValid = validateEmail(document.getElementById("validationCustomEmail").value, FIELD_REQUIRED, EMAIL_INVALID);
-    let emailDuplicate = validateDuplicateData(document.getElementById("validationCustomEmail").value, "email");
-    let phoneDuplicate = validateDuplicateData(document.getElementById("validationCustom03").value, "phone");
-    if (emailValid && !emailDuplicate && !phoneDuplicate) {
-        //Set Employee Data
-        let firstName = document.getElementById("validationCustom01").value;
-        let lastName = document.getElementById("validationCustom02").value;
-        let email = document.getElementById("validationCustomEmail").value;
-        let phone = document.getElementById("validationCustom03").value;
-        let gender = document.getElementById("inputGender").value;
-        let birthDate = document.getElementById("validationCustom04").value;
-        let degree = document.getElementById("inputDegree").value;
-        let gpa = document.getElementById("validationCustom05").value;
-        let university = document.getElementById("inputUniversity").value;
-
-        let res = registerData(firstName, lastName, email, phone, gender, birthDate, degree, gpa, university);
-
-        table.ajax.reload();
-
-        $('#modalForm').modal('toggle');
-    }
-}*/
-
 
 $("#insertEmployee").submit(function (e) {
     e.preventDefault();
@@ -218,4 +144,75 @@ $("#insertEmployee").submit(function (e) {
 function formReset() {
     document.getElementById("insertEmployee").reset();
     $('#btnInput').prop("disabled", false);
+}
+
+function employeeDelete(empId) {
+
+    let data = {
+        employee_id : empId
+    }
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+    })
+    //sweet altert
+    swalWithBootstrapButtons.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            swalWithBootstrapButtons.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+            ),
+                $.ajax({
+                    url: "https://localhost:44302/api/employee",
+                    data: JSON.stringify(data),
+                    type: "DELETE",
+                    contentType: 'application/json',
+                    //jika terkena 415 unsupported media type (tambahkan headertype Json & JSON.Stringify();)
+                }).done((result) => {
+                    //alert('Sukses');
+                    $('#dataTbl').DataTable().ajax.reload();
+                }).fail((error) => {
+                    console.log(error)
+                })
+        } else if (result.dismiss === Swal.DismissReason.cancel)
+        {
+            swalWithBootstrapButtons.fire(
+                'Cancelled',
+                'Your imaginary file is safe :)',
+                'error'
+            )
+        }
+    })
+}
+
+function employeeDetail(urlEmp) {
+    $.ajax({
+        url: urlEmp
+    }).done(u => {
+        $("#employee_id").val(u.employee_id);
+        $("#updateModal #CName").val(u.name);
+        if (u.gender == 0) {
+            document.getElementById("gend").value = "Male";
+        }
+        else {
+            document.getElementById("gend").value = "Female";
+        }
+        $("#updateModal #CEmail").val(u.email);
+        $("#updateModal #USisaCuti").val(u.sisaCuti);
+        $("#updateModal #CPhoneNumber").val(u.phoneNumber);
+        
+        console.log(u)
+    })
 }

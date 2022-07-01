@@ -44,7 +44,7 @@
                         <div class="row">
                             <div class="form-group col-sm-6">
                                 <label for="group_name">Name <i class="text-danger">*</i></label>
-                                <input required type="text" class="form-control" name="FirstName" id="CName" placeholder="Enter First Name">
+                                <input required type="text" class="form-control" name="FirstName" id="CName" placeholder="Enter Full Name">
                                 <div class="valid-feedback">
                                     Looks good!
                                 </div>
@@ -74,7 +74,7 @@
                             </div>
                             <div class="form-group col-sm-6">
                                 <label for="code_group">Password <i class="text-danger">*</i></label>
-                                <input required type="text" class="form-control" name="Password" id="CPassword" placeholder="Enter Password">
+                                <input required type="password" class="form-control" name="Password" id="CPassword" placeholder="Enter Password">
                                 <div class="valid-feedback">
                                     Looks good!
                                 </div>
@@ -134,6 +134,117 @@
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <input type="button" class="btn btn-warning" onclick="formReset()" value="Reset">
                         <button type="submit" class="btn btn-primary" id="btnInput">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- update Modal -->
+    <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="updateEmployee" class="needs-validation" novalidate>
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Edit Data</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body col-12">
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <label for="group_name">Name <i class="text-danger">*</i></label>
+                                <input required type="hidden" class="form-control" name="" id="employee_id" placeholder="">
+                                <input required type="text" class="form-control" name="" id="CName" placeholder="Enter Full Name">
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">Fill your fullname</div>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="group_name">Gender <i class="text-danger">*</i></label>
+                                <select required class="custom-select" name="Gender" id="gend">
+                                    <option value="">== Choose Your Gender ==</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">Choose Male or Female</div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <label for="code_group">Email <i class="text-danger">*</i></label>
+                                <input required type="email" class="form-control" name="Email" id="CEmail" placeholder="Enter Email">
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">Fill valid email address</div>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="code_group">Sisa Cuti <i class="text-danger">*</i></label>
+                                <input required type="text" class="form-control" name="Password" id="USisaCuti" placeholder="Enter Password">
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">Fill sisa cuti</div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <label for="code_group">Phone Number <i class="text-danger">*</i></label>
+                                <input required type="text" class="form-control" name="Phone" id="CPhoneNumber" placeholder="Enter Phone">
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">Fill your phone number</div>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="group_name">Role <i class="text-danger">*</i></label>
+                                <select required class="custom-select" name="CRoleId" id="CRoleId">
+                                    <option value="">== Choose Your Role ==</option>
+                                    <option value="1">Admin</option>
+                                    <option value="2">Employee</option>
+                                </select>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">Choose Role</div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <label for="group_name">Manager <i class="text-danger">*</i></label>
+                                <select required class="custom-select" name="Gender" id="CManagerId">
+                                    <option value="">== Choose Your manager ==</option>
+                                    <option value="Employee0000">12</option>
+                                    <option value="Employee0001">22</option>
+                                </select>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">Choose Manager</div>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="group_name">Divisi <i class="text-danger">*</i></label>
+                                <select required class="custom-select" name="Gender" id="CDivisiId">
+                                    <option value="">== Choose Your Role ==</option>
+                                    <option value="1">12</option>
+                                    <option value="">22</option>
+                                </select>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">Choose Division</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" id="btnUpdate">Save Changes</button>
                     </div>
                 </form>
             </div>
