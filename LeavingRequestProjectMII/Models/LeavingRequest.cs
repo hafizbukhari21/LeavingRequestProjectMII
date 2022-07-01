@@ -28,6 +28,6 @@ namespace API.Models
 
     public enum Approval_status
     {
-      Menunggu, Diterima, Ditolak   
+      Menunggu, Diterima, Ditolak, Revisi   
     }
 }

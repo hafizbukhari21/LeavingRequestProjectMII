@@ -103,6 +103,29 @@ namespace API.Repositories.Data
             
         }
 
+        public int RejectLeaving(string request_id, string approvalMessage, out string namaEmp)
+        {
+            LeavingRequest leavingRequest = context.leavingRequests.Find(request_id);
+            namaEmp = leavingRequest.employees.name;
+            leavingRequest.approvalMessage = approvalMessage;
+            leavingRequest.approvalStatus = Approval_status.Ditolak;
+            context.leavingRequests.Update(leavingRequest);
+            return context.SaveChanges();
+        }
+
+        public int RevisiLeaving(string request_id, string approvalMessage, out string namaEmp)
+        {
+            LeavingRequest leavingRequest = context.leavingRequests.Find(request_id);
+            namaEmp = leavingRequest.employees.name;
+            leavingRequest.approvalMessage = approvalMessage;
+            leavingRequest.approvalStatus = Approval_status.Revisi;
+            context.leavingRequests.Update(leavingRequest);
+            return context.SaveChanges();
+        }
+
+
+
+
 
 
         public string GetAutoIncrementConvertString()
