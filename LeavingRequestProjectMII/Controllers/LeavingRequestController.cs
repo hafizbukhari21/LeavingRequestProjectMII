@@ -45,7 +45,15 @@ namespace API.Controllers
         [HttpPost]
         public ActionResult InsertLeavingRequest(LeavingRequestInserModel leavingRequestInser)
         {
-            return Ok(leavingRequestRepository.InsertLeaving(leavingRequestInser));
+            int chk = leavingRequestRepository.InsertLeaving(leavingRequestInser);
+
+            if (chk == Variables.CUTI_SUDAH_HABIS)
+                return BadRequest(new GeneralResponse { ErrorType = Variables.CUTI_SUDAH_HABIS, message = "Jatah Cuti tidak mencukupi" });
+            else if(chk == Variables.SYARAT_MIN_TANGGAL_REQUEST)
+                return BadRequest(new GeneralResponse { ErrorType = Variables.CUTI_SUDAH_HABIS, message = "Cuti Harus diajukan H-7 Sebelumnya" });
+            else
+                return Ok(new GeneralResponse { ErrorType = Variables.SUCCESS, message = "Berhasil Mengajukan Cuti" });
+
         }
 
         [HttpPatch("approve")]

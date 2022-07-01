@@ -74,14 +74,17 @@ namespace API.Repositories.Data
 
         public int InsertLeaving(LeavingRequestInserModel leavingRequestInser)
         {
+            var data = DateTime.Now;
             if (!TotalSisaHariCutiApprove(leavingRequestInser)) return Variables.CUTI_SUDAH_HABIS;
+            else if ((leavingRequestInser.startDate - DateTime.Now).TotalDays < 6) return Variables.SYARAT_MIN_TANGGAL_REQUEST;
+
             LeavingRequest leavingRequest = new LeavingRequest()
             {
                 request_id = "Leave" + GetAutoIncrementConvertString(),
                 employee_id = leavingRequestInser.employee_id,
                 category_id = leavingRequestInser.category_id,
                 approvalStatus = Approval_status.Menunggu,
-                requestTime = leavingRequestInser.requestTime,
+                requestTime = DateTime.Now,
                 startDate = leavingRequestInser.startDate,
                 endDate = leavingRequestInser.endDate,
                 leavingMessage = leavingRequestInser.leavingMessage,
