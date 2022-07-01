@@ -4,14 +4,16 @@ using API.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace API.Migrations
 {
     [DbContext(typeof(MyContext))]
-    partial class MyContextModelSnapshot : ModelSnapshot
+    [Migration("20220630080027_messagecuti")]
+    partial class messagecuti
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,9 +27,6 @@ namespace API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool>("isDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<string>("namaDivisi")
                         .HasColumnType("nvarchar(max)");
@@ -48,14 +47,8 @@ namespace API.Migrations
                     b.Property<string>("email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("expired")
-                        .HasColumnType("int");
-
                     b.Property<int>("gender")
                         .HasColumnType("int");
-
-                    b.Property<bool>("isActiveOtp")
-                        .HasColumnType("bit");
 
                     b.Property<bool>("isDeleted")
                         .HasColumnType("bit");
@@ -77,9 +70,6 @@ namespace API.Migrations
 
                     b.Property<int>("sisaCuti")
                         .HasColumnType("int");
-
-                    b.Property<string>("tokenOtp")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("employee_id");
 
@@ -125,9 +115,6 @@ namespace API.Migrations
                     b.Property<DateTime>("endDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<byte[]>("fileBukti")
-                        .HasColumnType("varbinary(max)");
-
                     b.Property<string>("leavingMessage")
                         .HasColumnType("nvarchar(max)");
 
@@ -136,9 +123,6 @@ namespace API.Migrations
 
                     b.Property<DateTime>("startDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("tipeFileBukti")
-                        .HasColumnType("int");
 
                     b.HasKey("request_id");
 

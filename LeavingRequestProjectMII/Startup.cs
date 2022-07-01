@@ -34,6 +34,7 @@ namespace LeavingRequestProjectMII
             services.AddControllersWithViews().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddControllers();
             services.AddScoped<EmployeeRepository>();
+            services.AddScoped<LeavingRequestRepository>();
             services.AddDbContext<MyContext>(options => options.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("APIContext")));
             services.AddAuthentication(auth =>
             {

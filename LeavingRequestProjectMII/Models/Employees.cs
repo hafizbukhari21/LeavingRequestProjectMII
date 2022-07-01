@@ -27,17 +27,13 @@ namespace API.Models
         public int divisi_id { set; get; }
         public bool isDeleted { set; get; }
 
+        public string tokenOtp { set; get; }
+        public bool isActiveOtp { set; get; }
+        public DataType expired { set;get; }
+
         public virtual Role role { set; get; }
         public virtual Divisi divisi { set; get; }
         public virtual  ICollection<LeavingRequest> leavingRequests { set; get; }
-
-       
-
-
-
-
-       
-
 
 
 
