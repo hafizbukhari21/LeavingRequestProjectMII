@@ -20,7 +20,7 @@
     =========================================================
     * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
     -->
-    <link href="architectui/main.css" rel="stylesheet">
+    <link href="~/architectui/main.css" rel="stylesheet">
     @RenderSection("CSSnya", required: false)
 </head>
 <body>
@@ -98,8 +98,8 @@
         </div>
         <div class="ui-theme-settings">
             @*<button type="button" id="TooltipDemo" class="btn-open-options btn btn-warning btn-sm">
-                <i class="fa fa-cog fa-w-16 fa-spin fa-2x"></i>
-            </button>*@
+                    <i class="fa fa-cog fa-w-16 fa-spin fa-2x"></i>
+                </button>*@
             <div class="theme-settings__inner">
                 <div class="scrollbar-container">
                     <div class="theme-settings__options-wrapper">
@@ -506,7 +506,7 @@
 
         @RenderSection("Modal", required: false)
 
-        <script type="text/javascript" src="architectui/assets/scripts/main.js"></script>
+        <script type="text/javascript" src="~/architectui/assets/scripts/main.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         @RenderSection("JSnya", required: false)
