@@ -9,8 +9,8 @@ namespace Client.Controllers
 {
     public class EmployeeController : Controller
     {
-        //[Authorize(Roles = "Employee")]
         [HttpGet("Employee/")]
+        [Authorize(Roles = "Employee")]
         public IActionResult Index()
         {
             return View();

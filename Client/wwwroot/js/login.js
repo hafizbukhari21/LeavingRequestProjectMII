@@ -1,5 +1,4 @@
-﻿
-$('#formLogin').submit(function (e) {
+﻿$('#formLogin').submit(function (e) {
     e.preventDefault();
     var obj = new Object();
     obj.Email = $("#LoginEmail").val();
@@ -36,8 +35,7 @@ $('#formLogin').submit(function (e) {
         });
         switch (result.errorType) {
             case 200:
-                window.location.replace("../Admin")
-                console.log(result)
+                window.location.replace("../login")
                 break;
             case 3:
                 Swal.fire({
@@ -63,4 +61,3 @@ $('#formLogin').submit(function (e) {
         })
     })
 })
-

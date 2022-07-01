@@ -43,7 +43,7 @@ namespace Client.Controllers
                 {
                     return Redirect("Admin/");
                 }
-                else if (HttpContext.User.IsInRole("Employee"))
+                if (HttpContext.User.IsInRole("Employee"))
                 {
                     return Redirect("Employee/");
                 }

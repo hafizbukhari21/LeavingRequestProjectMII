@@ -202,17 +202,57 @@ function employeeDetail(urlEmp) {
         url: urlEmp
     }).done(u => {
         $("#employee_id").val(u.employee_id);
-        $("#updateModal #CName").val(u.name);
+        $("#UName").val(u.name);
         if (u.gender == 0) {
             document.getElementById("gend").value = "Male";
         }
         else {
             document.getElementById("gend").value = "Female";
         }
-        $("#updateModal #CEmail").val(u.email);
-        $("#updateModal #USisaCuti").val(u.sisaCuti);
-        $("#updateModal #CPhoneNumber").val(u.phoneNumber);
+        $("#UEmail").val(u.email);
+        $("#USisaCuti").val(u.sisaCuti);
+        $("#UPhoneNumber").val(u.phoneNumber);
         
         console.log(u)
     })
 }
+
+$("#updateEmployee").submit(function (e) {
+    e.preventDefault();
+    var obj = new Object(); 
+    obj.employee_id = $("#employee_id").val();
+    obj.name = $("#UName").val();
+    obj.gender = $("#gend").val();
+    obj.email = $("#UEmail").val();
+    obj.phoneNumber = $("#UPhoneNumber").val();
+    obj.role_Id = $("#URoleId").val();
+    obj.manager_id = $("#UManagerId").val();
+    //obj.divisi_id = $("#UDivisiId").val();
+    obj.divisi_id = parseInt($("#UDivisiId").val());
+    //obj.Gender = parseInt($("#gend").val());
+    $.ajax({
+        url: "https://localhost:44302/api/Employee/",
+        type: "PATCH",
+        contentType: 'application/json',
+        data: JSON.stringify(obj)
+        //data: obj, //jika terkena 415 unsupported media type (tambahkan headertype Json & JSON.Stringify();)
+    }).done((result) => {
+        Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: 'Data Updated!',
+            footer: '<a href="">Why do I have this issue?</a>'
+        })
+        $('#updateModal').modal('hide');
+        console.log(result);
+        $('#dataTbl').DataTable().ajax.reload();
+    }).fail((error) => {
+        console.log(error)
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong!',
+            footer: '<a href="">Why do I have this issue?</a>'
+        })
+    })
+})
