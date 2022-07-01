@@ -47,7 +47,9 @@ namespace API.Repositories.Data
                       requestTime = lr.requestTime,
                       startDate = lr.startDate,
                       endDate = lr.endDate,
-                      approvalMessage = lr.approvalMessage
+                      approvalMessage = lr.approvalMessage,
+                      fileBukti = lr.fileBukti,
+                      tipeFileBukti = lr.tipeFileBukti
                   }).FirstOrDefault(lr => lr.request_id == request_id);
         }
 
@@ -64,13 +66,15 @@ namespace API.Repositories.Data
                       requestTime = lr.requestTime,
                       startDate = lr.startDate,
                       endDate = lr.endDate,
-                      approvalMessage = lr.approvalMessage
+                      approvalMessage = lr.approvalMessage,
+                      
                   }).ToList();
         }
 
 
         public int InsertLeaving(LeavingRequestInserModel leavingRequestInser)
         {
+            if (!TotalSisaHariCutiApprove(leavingRequestInser)) return Variables.CUTI_SUDAH_HABIS;
             LeavingRequest leavingRequest = new LeavingRequest()
             {
                 request_id = "Leave" + GetAutoIncrementConvertString(),
@@ -81,6 +85,8 @@ namespace API.Repositories.Data
                 startDate = leavingRequestInser.startDate,
                 endDate = leavingRequestInser.endDate,
                 leavingMessage = leavingRequestInser.leavingMessage,
+                fileBukti = leavingRequestInser.fileBukti,
+                tipeFileBukti = (TipeFileBukti)Enum.Parse(typeof(TipeFileBukti), leavingRequestInser.tipeFileBukti),
                 approvalMessage = "Menunggu"
             };
             context.leavingRequests.Add(leavingRequest);
@@ -127,6 +133,13 @@ namespace API.Repositories.Data
 
 
 
+        public bool TotalSisaHariCutiApprove(LeavingRequestInserModel leavingRequestInser)
+        {
+            Employees emp = context.employees.Find(leavingRequestInser.employee_id);
+            int totalCuti = (leavingRequestInser.endDate - leavingRequestInser.startDate).Days;
+            if (totalCuti > emp.sisaCuti) return false;
+            else return true;
+        }
 
         public string GetAutoIncrementConvertString()
         {

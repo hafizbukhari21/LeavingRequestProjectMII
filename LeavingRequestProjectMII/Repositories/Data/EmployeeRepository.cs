@@ -115,6 +115,7 @@ namespace API.Repositories.Data
             emp.role_Id = employeeUpdate.role_Id;
             emp.manager_id = employeeUpdate.manager_id;
             emp.divisi_id = employeeUpdate.divisi_id;
+            
 
             context.employees.Update(emp);
             if (context.SaveChanges() > 0) return Variables.SUCCESS;

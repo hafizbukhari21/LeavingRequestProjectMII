@@ -20,10 +20,23 @@ namespace API.Models
         public string leavingMessage { set; get; }
 
         public string approvalMessage { set; get; }
+
+        public Byte[] fileBukti { get; set; }
+
+        public TipeFileBukti tipeFileBukti { get; set; }
+
         public virtual Employees employees { set; get; }
         public virtual LeaveCategory leaveCategory { set; get; }
 
 
+    }
+
+    public enum TipeFileBukti
+    {
+        jpeg,
+        pdf,
+        png,
+        word
     }
 
     public enum Approval_status

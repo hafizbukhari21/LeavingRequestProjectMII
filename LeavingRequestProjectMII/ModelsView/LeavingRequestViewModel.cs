@@ -13,6 +13,7 @@ namespace API.ModelsView
         public string employeeName { set; get; }
         public string categoryName { set; get; }
         public string approvalStatus { set; get; }
+
         public DateTime requestTime { set; get; }
         public DateTime startDate { set; get; }
         public DateTime endDate { set; get; }

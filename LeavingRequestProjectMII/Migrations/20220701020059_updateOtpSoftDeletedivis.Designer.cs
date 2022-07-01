@@ -4,14 +4,16 @@ using API.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace API.Migrations
 {
     [DbContext(typeof(MyContext))]
-    partial class MyContextModelSnapshot : ModelSnapshot
+    [Migration("20220701020059_updateOtpSoftDeletedivis")]
+    partial class updateOtpSoftDeletedivis
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -125,9 +127,6 @@ namespace API.Migrations
                     b.Property<DateTime>("endDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<byte[]>("fileBukti")
-                        .HasColumnType("varbinary(max)");
-
                     b.Property<string>("leavingMessage")
                         .HasColumnType("nvarchar(max)");
 
@@ -136,9 +135,6 @@ namespace API.Migrations
 
                     b.Property<DateTime>("startDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("tipeFileBukti")
-                        .HasColumnType("int");
 
                     b.HasKey("request_id");
 

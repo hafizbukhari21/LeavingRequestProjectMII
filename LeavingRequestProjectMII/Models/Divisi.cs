@@ -16,6 +16,8 @@ namespace API.Models
         [Key]
         public int divisi_id { set; get; }
         public string namaDivisi { set; get; }
+        public bool isDeleted { set; get; }
         public virtual ICollection<Employees> employees { set; get; }
+
     }
 }

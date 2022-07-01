@@ -14,6 +14,10 @@ namespace API.ModelsInsert
         public DateTime startDate { set; get; }
         public DateTime endDate { set; get; }
 
+        public Byte[] fileBukti { get; set; }
+
+        public string tipeFileBukti { get; set; }
+
         public string leavingMessage { set; get; }
     }
 }
