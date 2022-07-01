@@ -25,6 +25,7 @@ namespace API.Utils
 
         public const int JUMLAH_CUTI_TIDAK_MENCUKUPI=5;
         public const int CUTI_SUDAH_HABIS = 6;
+        public const int SYARAT_MIN_TANGGAL_REQUEST = 7;
 
         public const int SUCCESS = 200;
         public const int FAIL = 400;
