@@ -55,8 +55,8 @@
                         </span>
                     </button>
                 </span>
-            </div>    
-        <div class="app-header__content">
+            </div>
+            <div class="app-header__content">
                 <div class="app-header-right">
                     <div class="header-btn-lg pr-0">
                         <div class="widget-content p-0">
@@ -95,7 +95,7 @@
                     </div>
                 </div>
             </div>
-        </div>        
+        </div>
         <div class="ui-theme-settings">
             @*<button type="button" id="TooltipDemo" class="btn-open-options btn btn-warning btn-sm">
                 <i class="fa fa-cog fa-w-16 fa-spin fa-2x"></i>
@@ -385,7 +385,7 @@
                     </div>
                 </div>
             </div>
-        </div>        
+        </div>
         <div class="app-main">
             <div class="app-sidebar sidebar-shadow">
                 <div class="app-header__logo">
@@ -417,7 +417,7 @@
                             </span>
                         </button>
                     </span>
-                </div>    
+                </div>
                 <div class="scrollbar-sidebar">
                     <div class="app-sidebar__inner">
                         <ul class="vertical-nav-menu">
@@ -428,49 +428,28 @@
                                     Dashboard
                                 </a>
                             </li>
-                            <li class="app-sidebar__heading">Pages</li>
+                            <li class="app-sidebar__heading">Master Data</li>
                             <li>
-                                <a href="#">
-                                    <i class="metismenu-icon pe-7s-diamond"></i>
-                                    Master Data
-                                    <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                <a asp-controller="Admin" asp-action="Employees">
+                                    <i class="metismenu-icon pe-7s-display2"></i>
+                                    Employees
                                 </a>
-                                <ul>
-                                    <li>
-                                        <a href="#">
-                                            <i class="metismenu-icon"></i>
-                                            Employees
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="metismenu-icon">
-                                            </i>Roles
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="metismenu-icon">
-                                            </i>Divisions
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="metismenu-icon">
-                                            </i>Leave Category
-                                        </a>
-                                    </li>
-                                </ul>
                             </li>
                             <li>
-                                <a href="tables-regular.html">
+                                <a asp-controller="Admin" asp-action="Divisions">
                                     <i class="metismenu-icon pe-7s-display2"></i>
-                                    Tables
+                                    Divisions
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-controller="Admin" asp-action="LeaveCategories">
+                                    <i class="metismenu-icon pe-7s-display2"></i>
+                                    Leave Categories
                                 </a>
                             </li>
                             <li class="app-sidebar__heading">Leave</li>
                             <li>
-                                <a asp-controller="Leave" asp-action="Add">
+                                <a asp-controller="Leave" asp-action="LeavingRequest">
                                     <i class="metismenu-icon pe-7s-display2"></i>
                                     Request Leave
                                 </a>
@@ -490,60 +469,46 @@
                         </ul>
                     </div>
                 </div>
-            </div>   
-        <div class="app-main__outer">
-                <div class="app-main__inner">          
+            </div>
+            <div class="app-main__outer">
+                <div class="app-main__inner">
 
                     <div class="row">
-                       
                         <div class="col-12">
                             @RenderBody()
                         </div>
-                        
                     </div>
 
+
                     <br /><br />
-                <div class="app-wrapper-footer">
-                    <div class="app-footer">
-                        <div class="app-footer__inner">
-                            <div class="app-footer-left">
-                                <ul class="nav">
-                                    <li class="nav-item">
-                                        <a href="javascript:void(0);" class="nav-link">
-                                            Footer Link 1
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="javascript:void(0);" class="nav-link">
-                                            Footer Link 2
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="app-footer-right">
-                                <ul class="nav">
-                                    <li class="nav-item">
-                                        <a href="javascript:void(0);" class="nav-link">
-                                            Footer Link 3
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="javascript:void(0);" class="nav-link">
-                                            <div class="badge badge-success mr-1 ml-0">
-                                                <small>NEW</small>
+                    <div class="app-wrapper-footer">
+                        <div class="app-footer">
+                            <div class="app-footer__inner">
+                                <div class="app-footer-left">
+                                    <ul class="nav">
+                                        <li class="nav-item">
+                                            <div class="copyright">
+                                                &copy; Copyright 2022 <strong><span>Cuti Mantap</span></strong>. All Rights Reserved
                                             </div>
-                                            Footer Link 4
-                                        </a>
-                                    </li>
-                                </ul>
+                                        </li>
+                                        <li class="nav-item">
+
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <script type="text/javascript" src="architectui/assets/scripts/main.js"></script>
-    @RenderSection("JSnya", required: false)
+
+
+        @RenderSection("Modal", required: false)
+
+        <script type="text/javascript" src="architectui/assets/scripts/main.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        @RenderSection("JSnya", required: false)
 </body>
 </html>
