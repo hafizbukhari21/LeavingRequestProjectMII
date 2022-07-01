@@ -62,6 +62,16 @@ namespace API.Repositories.Data
             return context.SaveChanges();
         }
 
+        public Object GetAllManager()
+        {
+            return context.employees.Where(emp => emp.role_Id == 2).Select(emp => new Employees { 
+                employee_id = emp.employee_id,
+                name = emp.name,
+                role_Id = emp.role_Id
+                
+            });
+        }
+
         public int Insert(EmployeeInsertModel employeeInsertModel)
         {
             
@@ -135,6 +145,8 @@ namespace API.Repositories.Data
             Employees emp = context.employees.FirstOrDefault(emp => emp.phoneNumber == phoneNumber);
             return emp != null;
         }
+
+        
 
         public string GetAutoIncrementConvertString()
         {

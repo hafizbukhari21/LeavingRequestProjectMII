@@ -30,6 +30,13 @@ namespace API.Controllers
             this.configuration = configuration;
         }
 
+        [HttpGet("allManager")]
+        [EnableCors("AllowOrigin")]
+        public ActionResult GetAllManager()
+        {
+            return Ok(employeeRepository.GetAllManager());
+        }
+
         [HttpGet]
         [EnableCors("AllowOrigin")]
         public ActionResult Get()
