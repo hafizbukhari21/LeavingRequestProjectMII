@@ -10,18 +10,18 @@ namespace Client.Controllers
     public class EmployeeController : Controller
     {
         [HttpGet("Employee/")]
-        [Authorize(Roles = "Employee")]
+        //[Authorize(Roles = "Employee, Manager")]
         public IActionResult Index()
         {
             return View();
         }
-
+        //[Authorize]
         [HttpGet("LeaveRequest/")]
         public IActionResult LeaveRequest()
         {
             return View();
         }
-
+        [Authorize]
         [HttpGet("LeaveHistory/")]
         public IActionResult LeaveHistory()
         {

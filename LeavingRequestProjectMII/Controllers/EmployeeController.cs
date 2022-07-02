@@ -56,15 +56,15 @@ namespace API.Controllers
         public ActionResult Insert(EmployeeInsertModel employeeInsert)
         {
             if (employeeRepository.EmailIsUsed(employeeInsert.email)) 
-                return BadRequest(new GeneralResponse { ErrorType=Variables.EMAIL_DUPLICATE, message="Email Telah Digunakan" }) ;
+                return Ok(new GeneralResponse { ErrorType=Variables.EMAIL_DUPLICATE, message="Email Telah Digunakan" }) ;
 
             if (employeeRepository.PhoneIsUsed(employeeInsert.phoneNumber))
-                return BadRequest(new GeneralResponse { ErrorType =Variables.NO_TELP_DUPLICATE, message = "Nomor Telp Telah Digunakan" });
+                return Ok(new GeneralResponse { ErrorType =Variables.NO_TELP_DUPLICATE, message = "Nomor Telp Telah Digunakan" });
 
             if(employeeRepository.Insert(employeeInsert)>0)
                 return Ok(new GeneralResponse { ErrorType = Variables.SUCCESS, message = "Berhasil Menambahkan Data" });
             else
-                return BadRequest(new GeneralResponse { ErrorType = Variables.FAIL, message = "Terjadi Kesalahan mohon coba beberapa saat lagi" });
+                return Ok(new GeneralResponse { ErrorType = Variables.FAIL, message = "Terjadi Kesalahan mohon coba beberapa saat lagi" });
         }
 
         [HttpPost("login")]
@@ -79,7 +79,7 @@ namespace API.Controllers
             if (checkStatus==Variables.SUCCESS)
             {
                 string token = ApplyJwt.GetJwt(empReturn, configuration);
-                return Ok(new LoginResponse { ErrorType = Variables.SUCCESS, message = "Berhasil Login", token = token, name = empReturn.name });
+                return Ok(new LoginResponse { ErrorType = Variables.SUCCESS, message = "Berhasil Login", token = token, name = empReturn.name, employee_id = empReturn.employee_id });
             }
             else if(checkStatus == Variables.WRONG_EMAIL)
             {

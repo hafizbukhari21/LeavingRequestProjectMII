@@ -32,6 +32,7 @@ namespace Client.Controllers
             }
 
             HttpContext.Session.SetString("JWToken", token.token);
+            HttpContext.Session.SetString("employee_id",token.employee_id);
             return Json(jwtToken);
         }
         [HttpGet("login/")]
@@ -43,7 +44,7 @@ namespace Client.Controllers
                 {
                     return Redirect("Admin/");
                 }
-                if (HttpContext.User.IsInRole("Employee"))
+                if (HttpContext.User.IsInRole("Employee") || HttpContext.User.IsInRole("Manager"))
                 {
                     return Redirect("Employee/");
                 }

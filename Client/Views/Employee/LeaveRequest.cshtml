@@ -3,6 +3,8 @@
     ViewData["Title"] = "Request Leave";
     Layout = "_MainLayout";
 }
+@using Microsoft.AspNetCore.Http
+
 
 <div class="container">
     <h1>Leave Request</h1>
@@ -40,16 +42,13 @@
             </table>
             <hr />
             <h2>Leave Detail</h2>
-            <form class="needs-validation" novalidate id="inputLeave">
-                <input type="hidden" class="form-control" id="approvalStatus" placeholder="approval status" value="Menunggu">
-                <input type="hidden" class="form-control" id="employee_id" placeholder="employee id" value="Employee0006">
+            <form class="needs-validation" novalidate id="inputLeave" enctype="multipart/form-data">
+                @*<input type="hidden" class="form-control" id="approvalStatus" placeholder="approval status" value="Menunggu">
+                    <input type="hidden" class="form-control" id="employee_id" placeholder="employee id" value="Employee0006">*@
                 <div class="row">
                     <div class="form-group col-sm-3">
                         <label for="exampleFormControlSelect1">Leave Category</label>
                         <select class="form-control" id="category_id">
-                            <option value="1">Ibadah</option>
-                            <option value="2">Melahirkan</option>
-                            <option value="3">Menikah</option>
                         </select>
                     </div>
                     <div class="form-group col-sm-3">
@@ -71,18 +70,21 @@
                         <textarea class="form-control" id="leavingMessage" rows="3"></textarea>
                     </div>
                 </div>
-            </form>
 
-            <div class="modal-footer">
-                <input type="button" class="btn btn-warning" onclick="formReset()" value="Reset">
-                <button type="button" class="btn btn-primary" id="btnInput">Submit</button>
-            </div>
+
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-warning" onclick="formReset()" value="Reset">
+                    <button type="submit" class="btn btn-primary" id="btnInput">Submit</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+<script src="~/js/tools.js"></script>
 <script>
     function formReset() {
         document.getElementById("inputLeave").reset();
@@ -99,35 +101,53 @@
         }
     });
 
-    $("#inputLeave").submit(function (e) {
-    e.preventDefault();
-    var obj = new Object(); 
-    obj.employee_id = $("#employee_id").val();
-    obj.category_id = $("#category_id").val();
-    obj.approvalStatus = $("#approvalStatus").val();
-    obj.requestTime = $("#requestTime").val();
-    obj.startDate = $("#startDate").val();
-    obj.endDate = $("#endDate").val();
-    obj.leavingMessage = $("#leavingMessage").val();
-    obj.tipeFileBukti = $("#tipeFileBukti").val();
-    obj.fileBukti = $("#fileBukti").val();
-    console.log(obj);
-    $.ajax({
-        url: "https://localhost:44302/api/leavingrequest",
-        type: "POST",
-        contentType: 'application/json',
-        data: JSON.stringify(obj),
-    }).done((result) => {
-        console.log(result)
-        Swal.fire({
-            icon: 'success',
-            title: 'Success',
-            text: result.message,
-            footer: '<a href="">Why do I have this issue?</a>'
+    $(document).ready(() => {
+        GetCategory()
+    });
+
+    function GetCategory() {
+        $.ajax({
+            url: "https://localhost:44302/api/category"
+        }).done(e => {
+            e.forEach(elem => {
+                $("#category_id").append(`<option value="${elem.category_id}">${elem.nameCategory}</option>`)
+            })
         })
-        formReset();
-    }).fail((error) => {
-        console.log(error)
+    }
+
+    $("#inputLeave").submit(async function (e) {
+        e.preventDefault();
+
+        const fileBukti = document.querySelector('#fileBukti').files[0];
+        const fileBuktiExt = getExtFile(fileBukti.name)
+
+        var obj = {
+            "employee_id": "Employee0015",
+            "category_id": parseInt($("#category_id").val()),
+            "startDate": dateStringToDate($("#start_date").val()),
+            "endDate": dateStringToDate($("#end_date").val()),
+            "leavingMessage": $("#leavingMessage").val(),
+            "tipeFileBukti": fileBuktiExt,
+            "fileBukti": await toBase64(fileBukti)
+        }
+
+        console.log(obj)
+        $.ajax({
+            url: "https://localhost:44302/api/leavingrequest",
+            type: "POST",
+            contentType: 'application/json',
+            data: JSON.stringify(obj),
+        }).done((result) => {
+            console.log(result)
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: result.message,
+                footer: '<a href="">Why do I have this issue?</a>'
+            })
+            formReset();
+        }).fail((error) => {
+            console.log(error)
+        })
     })
-})
 </script>

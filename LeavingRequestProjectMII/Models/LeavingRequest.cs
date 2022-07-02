@@ -34,10 +34,17 @@ namespace API.Models
     public enum TipeFileBukti
     {
         none,
-        jpeg,
+        jpg,
         pdf,
         png,
-        word
+        docx,
+        doc,
+        tiff,
+        ppt,
+        pptx,
+        xlsx,
+        xls,
+        
     }
 
     public enum Approval_status

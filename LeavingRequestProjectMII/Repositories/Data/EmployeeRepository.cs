@@ -120,7 +120,6 @@ namespace API.Repositories.Data
             Employees emp = context.employees.Find(employeeUpdate.employee_id);
             emp.name = employeeUpdate.name;
             emp.gender = (Gender)Enum.Parse(typeof(Gender), employeeUpdate.gender);
-            emp.email = employeeUpdate.email;
             emp.phoneNumber = employeeUpdate.phoneNumber;
             emp.role_Id = employeeUpdate.role_Id;
             emp.manager_id = employeeUpdate.manager_id;

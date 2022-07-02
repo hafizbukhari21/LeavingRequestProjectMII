@@ -1,4 +1,5 @@
-﻿$('#insertModal').on('hidden.bs.modal', function () {
+﻿
+$('#insertModal').on('hidden.bs.modal', function () {
     $(this).find('form').trigger('reset');
 })
 
@@ -100,7 +101,7 @@ $("#insertEmployee").submit(function (e) {
     obj.password = $("#CPassword").val();
     obj.phoneNumber = parseInt($("#CPhoneNumber").val());
     obj.role_Id = $("#CRoleId").val();
-    obj.manager_Id = $("#CManagerId").val();
+    obj.manager = $("#CManagerId").val();
     obj.divisi_Id = $("#CDivisiId").val();
     console.log(obj);
     //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
@@ -113,13 +114,51 @@ $("#insertEmployee").submit(function (e) {
     }).done((result) => {
         console.log(result)
         $('#dataTbl').DataTable().ajax.reload();
-        Swal.fire({
-            icon: 'success',
-            title: 'Success',
-            text: result.message,
-            footer: '<a href="">Why do I have this issue?</a>'
-        })
-        formReset();
+
+        //Swal.fire({
+        //    icon: 'success',
+        //    title: 'Success',
+        //    text: result.message,
+        //    footer: '<a href="">Why do I have this issue?</a>'
+        //})
+        switch (result.errorType) {
+            case 200:
+                formReset();
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Successs',
+                    text: result.message,
+                })
+                break;
+
+            //email duplicate
+            case 1:
+                $(".email").val("")
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Something Wrong',
+                    text: result.message,
+                })
+                break;
+
+            //phone duplicate
+            case 2:
+                $(".phoneNumber").val("")
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Something Wrong',
+                    text: result.message,
+                })
+                break;
+            default:
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: result.message,
+                })
+                break;
+        }
+        
     }).fail((error) => {
         switch (error.errorType) {
             case 1:
@@ -270,7 +309,7 @@ function AjaxManager() {
         type: "GET"
     }).done(e => {
         e.forEach(e => {
-            $(".CManagerId").append(`<option value="${e.employee_id}">${e.name}</option>`)
+            $(".CManagerId").append(`<option value="${e.employee_id}">${e.employee_id}-${e.name}</option>`)
 //            insertManagerDropDown.append(`
 //                <option value="${e.employee_id}">${e.name}</option>
 //`)
@@ -285,7 +324,7 @@ function AjaxDivisi() {
         type: "GET"
     }).done(e => {
         e.forEach(e => {
-            $(".CDivisiId").append(`<option value="${e.divisi_id}">${e.namaDivisi}</option>`)
+            $(".CDivisiId").append(`<option value="${e.divisi_id}">${e.divisi_id}-${e.namaDivisi}</option>`)
             //            insertManagerDropDown.append(`
             //                <option value="${e.employee_id}">${e.name}</option>
             //`)
