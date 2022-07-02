@@ -31,52 +31,103 @@
                         <td> : </td>
                         <td> Joko Wi </td>
                     </tr>
+                    <tr>
+                        <td>Sisa Cuti</td>
+                        <td> : </td>
+                        <td> 12 </td>
+                    </tr>
                 </tbody>
             </table>
             <hr />
-            <h3>Leave Request Detail</h3>
+            <h2>Leave Detail</h2>
             <form class="needs-validation" novalidate id="inputLeave">
-                <div class="row col-sm-12">
-                    <div class="form-group col-sm-6">
+                <input type="hidden" class="form-control" id="approvalStatus" placeholder="approval status" value="Menunggu">
+                <input type="hidden" class="form-control" id="employee_id" placeholder="employee id" value="Employee0006">
+                <div class="row">
+                    <div class="form-group col-sm-3">
                         <label for="exampleFormControlSelect1">Leave Category</label>
-                        <select class="form-control" id="exampleFormControlSelect1">
-                            <option>Sakit</option>
-                            <option>Izin</option>
-                            <option>Cuti Melahirkan</option>
+                        <select class="form-control" id="category_id">
+                            <option value="1">Ibadah</option>
+                            <option value="2">Melahirkan</option>
+                            <option value="3">Menikah</option>
                         </select>
                     </div>
-                    <div class="form-group col-sm-6">
-                        <label for="exampleFormControlFile1">Upload File</label>
-                        <input type="file" class="form-control-file" id="exampleFormControlFile1">
-                    </div>
-                </div>
-                <div class="row col-sm-12">
-                    <div class="form-group col-sm-6">
+                    <div class="form-group col-sm-3">
                         <label for="exampleFormControlInput1">Start Date</label>
-                        <input type="date" class="form-control" id="start_date" placeholder="Start Date">
+                        <input type="text" class="form-control" id="start_date" placeholder="Start Date">
                     </div>
-                    <div class="form-group col-sm-6">
+                    <div class="form-group col-sm-3">
                         <label for="exampleFormControlInput1">End Date</label>
-                        <input type="date" class="form-control" id="start_date" placeholder="Start Date">
+                        <input type="text" class="form-control" id="end_date" placeholder="End Date">
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <label for="exampleFormControlFile1">Upload File</label>
+                        <input type="file" class="form-control-file" id="fileBukti">
                     </div>
                 </div>
-                <div class="row col-sm-12">
+                <div class="row">
                     <div class="form-group col-sm-12">
                         <label for="exampleFormControlTextarea1">Notes</label>
-                        <textarea class="form-control" id="notes" rows="3"></textarea>
+                        <textarea class="form-control" id="leavingMessage" rows="3"></textarea>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <input type="button" class="btn btn-warning" onclick="formReset()" value="Reset">
-                    <button type="button" class="btn btn-primary" id="btnInput" onclick="Insert()">Submit</button>
-                </div>
             </form>
+
+            <div class="modal-footer">
+                <input type="button" class="btn btn-warning" onclick="formReset()" value="Reset">
+                <button type="button" class="btn btn-primary" id="btnInput">Submit</button>
+            </div>
         </div>
     </div>
 </div>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 <script>
     function formReset() {
-    document.getElementById("inputLeave").reset();
-}
+        document.getElementById("inputLeave").reset();
+    }
+    $('#start_date').datepicker({
+        onSelect: function (dateText, inst) {
+            $('#end_date').datepicker('option', 'minDate', new Date(dateText));
+        },
+    });
+
+    $('#end_date').datepicker({
+        onSelect: function (dateText, inst) {
+            $('#start_date').datepicker('option', 'maxDate', new Date(dateText));
+        }
+    });
+
+    $("#inputLeave").submit(function (e) {
+    e.preventDefault();
+    var obj = new Object(); 
+    obj.employee_id = $("#employee_id").val();
+    obj.category_id = $("#category_id").val();
+    obj.approvalStatus = $("#approvalStatus").val();
+    obj.requestTime = $("#requestTime").val();
+    obj.startDate = $("#startDate").val();
+    obj.endDate = $("#endDate").val();
+    obj.leavingMessage = $("#leavingMessage").val();
+    obj.tipeFileBukti = $("#tipeFileBukti").val();
+    obj.fileBukti = $("#fileBukti").val();
+    console.log(obj);
+    $.ajax({
+        url: "https://localhost:44302/api/leavingrequest",
+        type: "POST",
+        contentType: 'application/json',
+        data: JSON.stringify(obj),
+    }).done((result) => {
+        console.log(result)
+        Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: result.message,
+            footer: '<a href="">Why do I have this issue?</a>'
+        })
+        formReset();
+    }).fail((error) => {
+        console.log(error)
+    })
+})
 </script>
