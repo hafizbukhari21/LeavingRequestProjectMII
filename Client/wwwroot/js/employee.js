@@ -243,15 +243,15 @@ $("#updateEmployee").submit(function (e) {
         data: JSON.stringify(obj)
         //data: obj, //jika terkena 415 unsupported media type (tambahkan headertype Json & JSON.Stringify();)
     }).done((result) => {
+        $('#dataTbl').DataTable().ajax.reload();
+        $('#updateModal').modal('hide');
         Swal.fire({
             icon: 'success',
             title: 'Success',
             text: 'Data Updated!',
             footer: '<a href="">Why do I have this issue?</a>'
         })
-        $('#updateModal').modal('hide');
         console.log(result);
-        $('#dataTbl').DataTable().ajax.reload();
     }).fail((error) => {
         console.log(error)
         Swal.fire({
