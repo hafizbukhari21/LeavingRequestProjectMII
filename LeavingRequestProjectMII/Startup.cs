@@ -37,6 +37,7 @@ namespace LeavingRequestProjectMII
             services.AddScoped<LeavingRequestRepository>();
             services.AddScoped<DivisiRepository>();
             services.AddScoped<RoleRepository>();
+            services.AddScoped<CategoryRepository>();
             services.AddDbContext<MyContext>(options => options.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("APIContext")));
             services.AddAuthentication(auth =>
             {

@@ -3,6 +3,7 @@ using API.ModelsInsert;
 using API.ModelsResponse;
 using API.Repositories.Data;
 using API.Utils;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -24,12 +25,16 @@ namespace API.Controllers
         }
 
         [HttpGet("emp")]
+        [EnableCors("AllowOrigin")]
+
 
         public ActionResult GetLeaveEmp(Employees employees)
         {
             return Ok(leavingRequestRepository.GetLeavingEmployee(employees));
         }
         [HttpGet("emp/detail")]
+        [EnableCors("AllowOrigin")]
+
         public ActionResult GetLeaveEmp(LeavingRequest leavingRequest)
         {
             return Ok(leavingRequestRepository.GetLeavingEmployee(leavingRequest.request_id));
@@ -37,26 +42,32 @@ namespace API.Controllers
 
 
         [HttpGet("man")]
+        [EnableCors("AllowOrigin")]
+
         public ActionResult GetLeaveMananager(Employees employees)
         {
             return Ok(leavingRequestRepository.GetLeavingManager(employees));
         }
 
         [HttpPost]
+        [EnableCors("AllowOrigin")]
+
         public ActionResult InsertLeavingRequest(LeavingRequestInserModel leavingRequestInser)
         {
             int chk = leavingRequestRepository.InsertLeaving(leavingRequestInser);
 
             if (chk == Variables.CUTI_SUDAH_HABIS)
-                return BadRequest(new GeneralResponse { ErrorType = Variables.CUTI_SUDAH_HABIS, message = "Jatah Cuti tidak mencukupi" });
+                return Ok(new GeneralResponse { ErrorType = Variables.CUTI_SUDAH_HABIS, message = "Jatah Cuti tidak mencukupi" });
             else if(chk == Variables.SYARAT_MIN_TANGGAL_REQUEST)
-                return BadRequest(new GeneralResponse { ErrorType = Variables.CUTI_SUDAH_HABIS, message = "Cuti Harus diajukan H-7 Sebelumnya" });
+                return Ok(new GeneralResponse { ErrorType = Variables.CUTI_SUDAH_HABIS, message = "Cuti Harus diajukan H-7 Sebelumnya" });
             else
                 return Ok(new GeneralResponse { ErrorType = Variables.SUCCESS, message = "Berhasil Mengajukan Cuti" });
 
         }
 
         [HttpPatch("approve")]
+        [EnableCors("AllowOrigin")]
+
         public ActionResult ApproveRequest(LeavingRequest leaving)
         {
             string namaEmp = "";
@@ -64,7 +75,11 @@ namespace API.Controllers
             if (ckhStatus > 0) return Ok(new GeneralResponse {ErrorType=Variables.SUCCESS, message="Berhasil Melakukan Approval Untuk "+ namaEmp  });
             else return BadRequest(new GeneralResponse { ErrorType = Variables.FAIL, message = "Terjadi Kesalahan Silahkan Coba Lagi" });
         }
+
+
         [HttpPatch("reject")]
+        [EnableCors("AllowOrigin")]
+
         public ActionResult RejectRequest(LeavingRequest leaving)
         {
             string namaEmp = "";
@@ -73,7 +88,10 @@ namespace API.Controllers
             else return BadRequest(new GeneralResponse { ErrorType = Variables.FAIL, message = "Terjadi Kesalahan Silahkan Coba Lagi" });
         }
 
+
         [HttpPatch("revisi")]
+        [EnableCors("AllowOrigin")]
+
         public ActionResult RevisiRequest(LeavingRequest leaving)
         {
             string namaEmp = "";
