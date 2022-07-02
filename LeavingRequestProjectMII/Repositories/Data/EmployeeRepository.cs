@@ -48,7 +48,7 @@ namespace API.Repositories.Data
                 sisaCuti = emp.sisaCuti,
                 role_Id = emp.role_Id,
                 divisi_id = emp.divisi_id,
-                manager_id = emp.employee_id,
+                manager_id = emp.manager_id,
                 gender = emp.gender,
             }).ToList().FirstOrDefault(emp=>emp.employee_id == employee_id);
         }

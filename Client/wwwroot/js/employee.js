@@ -5,6 +5,7 @@
 $(document).ready(function () {
     AjaxManager()
     AjaxDivisi()
+    AjaxRole()
     $('#dataTbl').DataTable({
         "ajax": {
             "url": "https://localhost:44302/api/employee",
@@ -215,8 +216,9 @@ function employeeDetail(urlEmp) {
         else {
             document.getElementById("gend").value = "Female";
         }
-        $("#UEmail").val(u.email);
-        $("#USisaCuti").val(u.sisaCuti);
+        document.getElementById("URoleId").value = u.role_Id;
+        document.getElementById("UDivisiId").value = u.divisi_id;
+        document.getElementById("UManagerId").value = u.manager_id;
         $("#UPhoneNumber").val(u.phoneNumber);
         
         console.log(u)
@@ -229,11 +231,9 @@ $("#updateEmployee").submit(function (e) {
     obj.employee_id = $("#employee_id").val();
     obj.name = $("#UName").val();
     obj.gender = $("#gend").val();
-    obj.email = $("#UEmail").val();
     obj.phoneNumber = $("#UPhoneNumber").val();
     obj.role_Id = $("#URoleId").val();
     obj.manager_id = $("#UManagerId").val();
-    //obj.divisi_id = $("#UDivisiId").val();
     obj.divisi_id = parseInt($("#UDivisiId").val());
     //obj.Gender = parseInt($("#gend").val());
     $.ajax({
@@ -270,7 +270,7 @@ function AjaxManager() {
         type: "GET"
     }).done(e => {
         e.forEach(e => {
-            $("#CManagerId").append(`<option value="${e.employee_id}">${e.name}</option>`)
+            $(".CManagerId").append(`<option value="${e.employee_id}">${e.name}</option>`)
 //            insertManagerDropDown.append(`
 //                <option value="${e.employee_id}">${e.name}</option>
 //`)
@@ -285,7 +285,7 @@ function AjaxDivisi() {
         type: "GET"
     }).done(e => {
         e.forEach(e => {
-            $("#CDivisiId").append(`<option value="${e.divisi_id}">${e.namaDivisi}</option>`)
+            $(".CDivisiId").append(`<option value="${e.divisi_id}">${e.namaDivisi}</option>`)
             //            insertManagerDropDown.append(`
             //                <option value="${e.employee_id}">${e.name}</option>
             //`)
@@ -293,3 +293,17 @@ function AjaxDivisi() {
     })
 }
 
+function AjaxRole() {
+    //let insertManagerDropDown = document.querySelector("#CManagerId")
+    $.ajax({
+        url: "https://localhost:44302/api/role",
+        type: "GET"
+    }).done(e => {
+        e.forEach(e => {
+            $(".CRoleId").append(`<option value="${e.role_id}">${e.roleName}</option>`)
+            //            insertManagerDropDown.append(`
+            //                <option value="${e.employee_id}">${e.name}</option>
+            //`)
+        })
+    })
+}
