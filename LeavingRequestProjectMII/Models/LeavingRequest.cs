@@ -33,6 +33,7 @@ namespace API.Models
 
     public enum TipeFileBukti
     {
+        none,
         jpeg,
         pdf,
         png,
