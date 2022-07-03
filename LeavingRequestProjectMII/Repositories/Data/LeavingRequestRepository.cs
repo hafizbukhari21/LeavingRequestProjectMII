@@ -40,7 +40,7 @@ namespace API.Repositories.Data
         public Object GetLeavingEmployee(string request_id)
         {
             return context.leavingRequests
-                  .Select(lr => new 
+                  .Select(lr => new LeavingRequest
                   {
                       request_id = lr.request_id,
                       employee_id = lr.employee_id,
@@ -49,8 +49,19 @@ namespace API.Repositories.Data
                       startDate = lr.startDate,
                       endDate = lr.endDate,
                       approvalMessage = lr.approvalMessage,
+                      //fileBukti = lr.fileBukti,
+                      //tipeFileBukti = lr.tipeFileBukti
+                  }).FirstOrDefault(lr => lr.request_id == request_id);
+        }
+        public Object DownloadFileBukti(string request_id)
+        {
+            return context.leavingRequests
+                  .Select(lr => new LeavingRequest
+                  {
+                      request_id = lr.request_id,
+                      employee_id = lr.employee_id,
                       fileBukti = lr.fileBukti,
-                      tipeFileBukti = lr.tipeFileBukti.ToString()
+                      tipeFileBukti = lr.tipeFileBukti
                   }).FirstOrDefault(lr => lr.request_id == request_id);
         }
 
