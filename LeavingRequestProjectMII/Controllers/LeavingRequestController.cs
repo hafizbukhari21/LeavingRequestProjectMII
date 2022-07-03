@@ -40,7 +40,7 @@ namespace API.Controllers
         {
             return Ok(leavingRequestRepository.GetLeavingEmployee(employee_id));
         }
-        [HttpGet("emp/detail")]
+        [HttpPost("emp/detail")]
         [EnableCors("AllowOrigin")]
 
         public ActionResult GetLeaveEmp(LeavingRequest leavingRequest)
@@ -48,7 +48,7 @@ namespace API.Controllers
             return Ok(leavingRequestRepository.GetLeavingEmployeeDetail(leavingRequest.request_id));
         }
 
-        [HttpGet("emp/detail/download")]
+        [HttpPost("emp/detail/download")]
         [EnableCors("AllowOrigin")]
 
         public ActionResult GetLeaveEmpDownload(LeavingRequest leavingRequest)
