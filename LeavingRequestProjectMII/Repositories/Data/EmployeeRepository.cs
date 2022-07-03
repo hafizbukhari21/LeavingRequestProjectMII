@@ -197,6 +197,24 @@ namespace API.Repositories.Data
 
         }
 
-        
+
+        public int ForgotPassword(Employees employees)
+        {
+            Employees emp = context.employees.Where(emp => emp.email == employees.email).FirstOrDefault();
+            emp.tokenOtp = Tools.RandomString(10);
+            emp.expired = DateTime.Now.AddMinutes(5);
+            emp.isActiveOtp = true;
+            context.employees.Update(emp);
+            int chk = context.SaveChanges();
+
+            if (chk <= 0) return Variables.FAIL;
+            else
+            {
+                EmailServices.SendEmail(employees.email, "Forgot Password", HtmlTemplate.ForgotPasswordTemplate(emp.tokenOtp, emp.expired.ToString("t"), emp.email));
+                return Variables.SUCCESS;
+            }
+
+        }
+
     }
 }

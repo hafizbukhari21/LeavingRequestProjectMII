@@ -128,11 +128,23 @@ namespace API.Controllers
             return Ok(employeeRepository.softDelete(employees.employee_id));
         }
 
+        [HttpPatch("forgotPassword")]
+        [EnableCors("AllowOrigin")]
+        public ActionResult ForgotPassword(Employees employees)
+        {
+            int chk = employeeRepository.ForgotPassword(employees);
+            if (chk == Variables.SUCCESS) return Ok(new GeneralResponse { ErrorType = Variables.SUCCESS, message = "Silahkan Cek OTP anda di Email " });
+            else return Ok(new GeneralResponse { ErrorType = Variables.FAIL, message = "Terjadi Kesalahan Silahkan coba lagi " })  ;
+
+        }
+
+
+
 
 
 
 
     }
 
-    
+
 }
