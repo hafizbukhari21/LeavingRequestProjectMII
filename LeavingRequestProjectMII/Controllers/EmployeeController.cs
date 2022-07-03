@@ -90,15 +90,15 @@ namespace API.Controllers
             }
             else if(checkStatus == Variables.WRONG_EMAIL)
             {
-                return BadRequest(new LoginResponse { ErrorType=Variables.WRONG_EMAIL, message="Email atau akun tidak ditemukan", token="", name="" });
+                return Ok(new LoginResponse { ErrorType=Variables.WRONG_EMAIL, message="Email atau akun tidak ditemukan", token="", name="" });
             }
             else if (checkStatus == Variables.WRONG_PASSWORD)
             {
-                return BadRequest(new LoginResponse { ErrorType = Variables.WRONG_PASSWORD, message = "Salah Memasukan Password", token = "", name = "" });
+                return Ok(new LoginResponse { ErrorType = Variables.WRONG_PASSWORD, message = "Salah Memasukan Password", token = "", name = "" });
             }
             else
             {
-                return BadRequest(new LoginResponse { ErrorType = Variables.FAIL, message = "Terjadi Kesalahan Silahkan Coba Lagi", token = "", name = "" });
+                return Ok(new LoginResponse { ErrorType = Variables.FAIL, message = "Terjadi Kesalahan Silahkan Coba Lagi", token = "", name = "" });
             }
         }
 
@@ -136,6 +136,25 @@ namespace API.Controllers
             if (chk == Variables.SUCCESS) return Ok(new GeneralResponse { ErrorType = Variables.SUCCESS, message = "Silahkan Cek OTP anda di Email " });
             else return Ok(new GeneralResponse { ErrorType = Variables.FAIL, message = "Terjadi Kesalahan Silahkan coba lagi " })  ;
 
+        }
+
+        [HttpPatch("forgotPassword/validate")]
+        [EnableCors("AllowOrigin")]
+        public ActionResult ForgotPasswordValidate(Employees empVal)
+        {
+            int chk = employeeRepository.ValidateForgotPassword(empVal);
+
+            switch (chk)
+            {
+                case Variables.SUCCESS:
+                    return Ok(new GeneralResponse { ErrorType = Variables.SUCCESS, message = "Password Anda Telah terganti silahkan login kembali"});
+                case Variables.DATA_TIDAK_SESUAI:
+                    return Ok(new GeneralResponse { ErrorType = Variables.DATA_TIDAK_SESUAI, message = "OTP atau email tidak sesuai" });
+                case Variables.FORGET_TOKEN_EXPIRED:
+                    return Ok(new GeneralResponse { ErrorType = Variables.FORGET_TOKEN_EXPIRED, message = "Token Sudah Expired Silahkan Coba pilih menu forgot password kembali" });
+                default:
+                    return Ok(new GeneralResponse { ErrorType = Variables.FAIL, message = "Terjadi Kesalahan silahkan coba lagi " });
+            }
         }
 
 

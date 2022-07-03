@@ -216,5 +216,21 @@ namespace API.Repositories.Data
 
         }
 
+        public int ValidateForgotPassword(Employees empVal)
+        {
+            Employees emp = context.employees.FirstOrDefault(emp => emp.tokenOtp == empVal.tokenOtp && emp.email == empVal.email);
+
+            if (emp == null) return Variables.DATA_TIDAK_SESUAI;
+            else if (DateTime.Now > emp.expired) return Variables.FORGET_TOKEN_EXPIRED;
+            emp.isActiveOtp = false;
+            emp.password = Tools.BCryptHasing(empVal.password);
+
+            context.employees.Update(emp);
+            int chk = context.SaveChanges();
+
+            if (chk > 0) return Variables.SUCCESS;
+            else return Variables.FAIL;
+        }
+
     }
 }
