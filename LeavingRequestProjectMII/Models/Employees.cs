@@ -29,7 +29,7 @@ namespace API.Models
 
         public string tokenOtp { set; get; }
         public bool isActiveOtp { set; get; }
-        public DataType expired { set;get; }
+        public DateTime expired { set;get; }
 
         public virtual Role role { set; get; }
         public virtual Divisi divisi { set; get; }

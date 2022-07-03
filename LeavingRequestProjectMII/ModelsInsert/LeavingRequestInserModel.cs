@@ -19,6 +19,7 @@ namespace API.ModelsInsert
 
         public string tipeFileBukti { get; set; }
 
+
         public string leavingMessage { set; get; }
     }
 }

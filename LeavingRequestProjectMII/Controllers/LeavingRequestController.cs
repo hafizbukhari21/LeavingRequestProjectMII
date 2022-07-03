@@ -99,7 +99,8 @@ namespace API.Controllers
         {
             string namaEmp = "";
             int ckhStatus = leavingRequestRepository.ApproveLeaving(leaving.request_id,leaving.approvalMessage, out namaEmp);
-            if (ckhStatus > 0) return Ok(new GeneralResponse {ErrorType=Variables.SUCCESS, message="Berhasil Melakukan Approval Untuk "+ namaEmp  });
+            if (ckhStatus == Variables.SUCCESS) return Ok(new GeneralResponse {ErrorType=Variables.SUCCESS, message="Berhasil Melakukan Approval Untuk "+ namaEmp  });
+            if (ckhStatus == Variables.JUMLAH_CUTI_TIDAK_MENCUKUPI) return Ok(new GeneralResponse {ErrorType=Variables.JUMLAH_CUTI_TIDAK_MENCUKUPI, message="Sisa hari cuti tidak memenuhi "+ namaEmp  });
             else return BadRequest(new GeneralResponse { ErrorType = Variables.FAIL, message = "Terjadi Kesalahan Silahkan Coba Lagi" });
         }
 

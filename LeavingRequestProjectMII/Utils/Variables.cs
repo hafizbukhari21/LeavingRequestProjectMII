@@ -10,8 +10,8 @@ namespace API.Utils
     public class VariableServices
     {
         //for Email Services
-        public const string EMAIL = "etha.mckenzie80@ethereal.email";
-        public const string PASSWORD = "KCpFfes54sptAmmxJJ";
+        public const string EMAIL = "silas.rohan97@ethereal.email";
+        public const string PASSWORD = "nC5TX5QadFbk7xBHKU";
         public const string CLIENT_DOMAIN = "";
         public const string API_DOMAIN = "";
     }
@@ -49,5 +49,17 @@ namespace API.Utils
                </div>
                 ";
         }
+
+        public static string ForgotPasswordTemplate( string otp, string expiredTime, string email)
+        {
+            return @" <h1>Forgot Password</h1>
+               <p>Otp : <bold>" + otp + @"</bold></p> 
+               <p>Email : " + email + @"</p>
+               <p>Expired_time : " + expiredTime + @"</p>
+               <br/><br/><br/>
+               <p>Segera ganti password Anda Sebelum expired time</p>";
+        }
+
+
     }
 }
