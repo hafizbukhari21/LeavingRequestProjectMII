@@ -1,29 +1,29 @@
 ﻿
 @{
-    ViewData["Title"] = "Forgot Password";
+    ViewData["Title"] = "OTP";
     Layout = "_FrontLayout";
 }
 
 <div class="container">
-    <div class="container-fluid h-custom pt-5">
+    <div class="container-fluid h-custom ">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-md-10 col-lg-7 col-xl-6">
-                <img src="~/FlexStart/assets/img/error-image/forgot-pass.webp"
+                <img src="~/FlexStart/assets/img/error-image/otp.png"
                      class="img-fluid" alt="Sample image">
             </div>
             <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
                 <form id="formLogin" method="POST">
                     <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
-                        <p class="lead fw-normal mb-0 me-3">Forgot Password</p>
+                        <p class="lead fw-normal mb-0 me-3">OTP</p>
                     </div>
 
                     <br />
 
-                    <!-- Email input -->
-                    <div class="form-outline mb-4">
-                        <input type="email" id="LoginEmail" class="form-control"
-                               placeholder="Enter your valid email address" />
-                        <label class="form-label" for="form3Example3">We send the OTP to your email address</label>
+                    <!-- otp input -->
+                    <div class="form-outline">
+                        <input type="email" id="otp" class="form-control"
+                               placeholder="Enter OTP here" />
+                        <label class="form-label" for="form3Example3">OTP sent, check your email address</label>
                     </div>
                     <div class="text-center text-lg-start mt-4 pt-2">
                         <button type="submit" class="btn btn-primary"
