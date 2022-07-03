@@ -33,6 +33,7 @@ namespace Client.Controllers
 
             HttpContext.Session.SetString("JWToken", token.token);
             HttpContext.Session.SetString("employee_id",token.employee_id);
+            HttpContext.Session.SetString("role_name",token.name_role);
             return Json(jwtToken);
         }
         [HttpGet("login/")]
