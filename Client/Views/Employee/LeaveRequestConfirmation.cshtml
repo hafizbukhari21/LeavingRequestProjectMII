@@ -26,6 +26,72 @@
     </div>
 </div>
 
+@section Modal{
+
+    <!-- update Modal -->
+    <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="updateEmployee" class="needs-validation" novalidate>
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Edit Data</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body col-12">
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <label for="group_name">Request id <i class="text-danger">*</i></label>
+                                <input required type="hidden" class="form-control" name="" id="request_ids" placeholder="">
+                                <input required type="text" class="form-control" name="" id="request_id" placeholder="Enter Full Name">
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">Fill your fullname</div>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="group_name">Name <i class="text-danger">*</i></label>
+                                <input required type="text" class="form-control" name="" id="employee_name" placeholder="Enter Full Name">
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">Fill your fullname</div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" id="btnUpdate">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function () {
+            'use strict';
+            window.addEventListener('load', function () {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
+}
+
 
 @section CSSnya {
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
