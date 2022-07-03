@@ -33,11 +33,8 @@ namespace Client.Controllers
 
             HttpContext.Session.SetString("JWToken", token.token);
             HttpContext.Session.SetString("employee_id",token.employee_id);
-<<<<<<< HEAD
             HttpContext.Session.SetString("name", token.name);
-=======
             HttpContext.Session.SetString("role_name",token.name_role);
->>>>>>> f86179efc2f7dea4454d5302a0ad20516b5a7ee6
             return Json(jwtToken);
         }
         [HttpGet("login/")]
@@ -70,6 +67,12 @@ namespace Client.Controllers
 
         [HttpGet("ForgotPassword/")]
         public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpGet("OTP/")]
+        public IActionResult OTP()
         {
             return View();
         }
