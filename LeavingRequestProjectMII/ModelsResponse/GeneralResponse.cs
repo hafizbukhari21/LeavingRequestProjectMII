@@ -19,5 +19,6 @@ namespace API.ModelsResponse
         public string token { set; get; }
         public string name { set; get; }
         public string employee_id { set; get; }
+        public string name_role { set; get; }
     }
 }

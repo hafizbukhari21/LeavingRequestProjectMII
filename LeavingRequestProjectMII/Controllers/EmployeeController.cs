@@ -79,7 +79,7 @@ namespace API.Controllers
             if (checkStatus==Variables.SUCCESS)
             {
                 string token = ApplyJwt.GetJwt(empReturn, configuration);
-                return Ok(new LoginResponse { ErrorType = Variables.SUCCESS, message = "Berhasil Login", token = token, name = empReturn.name, employee_id = empReturn.employee_id });
+                return Ok(new LoginResponse { ErrorType = Variables.SUCCESS, message = "Berhasil Login", token = token, name = empReturn.name, employee_id = empReturn.employee_id, name_role = empReturn.role.roleName });
             }
             else if(checkStatus == Variables.WRONG_EMAIL)
             {

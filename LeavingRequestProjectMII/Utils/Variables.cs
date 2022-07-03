@@ -10,8 +10,8 @@ namespace API.Utils
     public class VariableServices
     {
         //for Email Services
-        public const string EMAIL = "brannon.flatley65@ethereal.email";
-        public const string PASSWORD = "Xf1C1p6MMU2pPsBMV4";
+        public const string EMAIL = "etha.mckenzie80@ethereal.email";
+        public const string PASSWORD = "KCpFfes54sptAmmxJJ";
         public const string CLIENT_DOMAIN = "";
         public const string API_DOMAIN = "";
     }

@@ -40,6 +40,14 @@ namespace API.Controllers
             return Ok(leavingRequestRepository.GetLeavingEmployee(leavingRequest.request_id));
         }
 
+        [HttpGet("emp/detail/download")]
+        [EnableCors("AllowOrigin")]
+
+        public ActionResult GetLeaveEmpDownload(LeavingRequest leavingRequest)
+        {
+            return Ok(leavingRequestRepository.DownloadFileBukti(leavingRequest.request_id));
+        }
+
 
         [HttpGet("man")]
         [EnableCors("AllowOrigin")]
@@ -65,7 +73,7 @@ namespace API.Controllers
 
         }
 
-        [HttpPatch("approve")]
+        [HttpPatch("man/approve")]
         [EnableCors("AllowOrigin")]
 
         public ActionResult ApproveRequest(LeavingRequest leaving)
@@ -77,7 +85,7 @@ namespace API.Controllers
         }
 
 
-        [HttpPatch("reject")]
+        [HttpPatch("man/reject")]
         [EnableCors("AllowOrigin")]
 
         public ActionResult RejectRequest(LeavingRequest leaving)
@@ -89,7 +97,7 @@ namespace API.Controllers
         }
 
 
-        [HttpPatch("revisi")]
+        [HttpPatch("man/revisi")]
         [EnableCors("AllowOrigin")]
 
         public ActionResult RevisiRequest(LeavingRequest leaving)

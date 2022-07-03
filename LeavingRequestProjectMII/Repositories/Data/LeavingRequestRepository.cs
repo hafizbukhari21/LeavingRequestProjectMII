@@ -19,9 +19,10 @@ namespace API.Repositories.Data
             this.context = context;
         }
 
+        //ngeliat request punya sendiri
         public Object GetLeavingEmployee(Employees employee)
         {
-            return context.leavingRequests.Where(lr => lr.employees.employee_id == employee.employee_id)
+            return context.leavingRequests.Where(lr => lr.employee_id == employee.employee_id)
                   .Select(lr => new LeavingRequestViewModel
                   {
                       request_id = lr.request_id,
@@ -48,14 +49,26 @@ namespace API.Repositories.Data
                       startDate = lr.startDate,
                       endDate = lr.endDate,
                       approvalMessage = lr.approvalMessage,
+                      //fileBukti = lr.fileBukti,
+                      //tipeFileBukti = lr.tipeFileBukti
+                  }).FirstOrDefault(lr => lr.request_id == request_id);
+        }
+        public Object DownloadFileBukti(string request_id)
+        {
+            return context.leavingRequests
+                  .Select(lr => new LeavingRequest
+                  {
+                      request_id = lr.request_id,
+                      employee_id = lr.employee_id,
                       fileBukti = lr.fileBukti,
                       tipeFileBukti = lr.tipeFileBukti
                   }).FirstOrDefault(lr => lr.request_id == request_id);
         }
 
+        //ngelihat daftar cuti anak buah
         public Object GetLeavingManager(Employees employee)
         {
-            return context.leavingRequests.Where(lr => lr.employees.manager_id == employee.employee_id)
+            return context.leavingRequests.Where(lr => lr.employees.manager_id == employee.manager_id)
                   .Select(lr => new LeavingRequestViewModel
                   {
                       request_id = lr.request_id,
