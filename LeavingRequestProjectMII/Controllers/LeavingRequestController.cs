@@ -73,6 +73,15 @@ namespace API.Controllers
 
         }
 
+        [HttpPatch]
+        [EnableCors("AllowOrigin")]
+        public ActionResult UpdateLeavingRequest(LeavingRequestInserModel leaving)
+        {
+            return Ok(leavingRequestRepository.UpdateLeaving(leaving));
+        }
+
+
+
         [HttpPatch("man/approve")]
         [EnableCors("AllowOrigin")]
 

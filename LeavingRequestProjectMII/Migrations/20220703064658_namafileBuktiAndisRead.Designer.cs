@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20220701041650_init4")]
-    partial class init4
+    [Migration("20220703064658_namafileBuktiAndisRead")]
+    partial class namafileBuktiAndisRead
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -130,7 +130,13 @@ namespace API.Migrations
                     b.Property<byte[]>("fileBukti")
                         .HasColumnType("varbinary(max)");
 
+                    b.Property<bool>("isRead")
+                        .HasColumnType("bit");
+
                     b.Property<string>("leavingMessage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("namaFileBukti")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("requestTime")

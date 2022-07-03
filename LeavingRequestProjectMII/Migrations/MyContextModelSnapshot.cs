@@ -128,7 +128,13 @@ namespace API.Migrations
                     b.Property<byte[]>("fileBukti")
                         .HasColumnType("varbinary(max)");
 
+                    b.Property<bool>("isRead")
+                        .HasColumnType("bit");
+
                     b.Property<string>("leavingMessage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("namaFileBukti")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("requestTime")
