@@ -21,9 +21,17 @@ namespace Client.Controllers
         {
             return View();
         }
-        [Authorize]
+        
+        //[Authorize]
         [HttpGet("LeaveHistory/")]
         public IActionResult LeaveHistory()
+        {
+            return View();
+        }
+
+        //[Authorize(Roles = "Manager")]
+        [HttpGet("LeaveRequestConfrimation/")]
+        public IActionResult LeaveRequestConfirmation()
         {
             return View();
         }

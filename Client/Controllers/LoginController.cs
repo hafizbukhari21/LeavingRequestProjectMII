@@ -33,6 +33,7 @@ namespace Client.Controllers
 
             HttpContext.Session.SetString("JWToken", token.token);
             HttpContext.Session.SetString("employee_id",token.employee_id);
+            HttpContext.Session.SetString("name", token.name);
             return Json(jwtToken);
         }
         [HttpGet("login/")]
@@ -61,6 +62,12 @@ namespace Client.Controllers
         {
             HttpContext.Session.Clear();
             return RedirectToAction("Index");
+        }
+
+        [HttpGet("ForgotPassword/")]
+        public IActionResult ForgotPassword()
+        {
+            return View();
         }
     }
 }

@@ -9,7 +9,6 @@
         type: "POST",
         data: obj,
     }).done((result) => {
-        console.log(result)
         Swal.fire({
             title: 'Please Wait !!!',
             html: `<div class="spinner-grow text-primary" role="status">
@@ -36,6 +35,7 @@
         switch (result.errorType) {
             case 200:
                 window.location.replace("../login")
+                console.log(result)
                 break;
             case 3:
                 Swal.fire({

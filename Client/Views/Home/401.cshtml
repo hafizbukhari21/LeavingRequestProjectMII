@@ -1,7 +1,27 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "401";
+    Layout = "_ErrorLayout";
 }
 
-<div class="text-center">
-    <h1 class="display-4">401</h1>
+<div class="container-fluid h-custom mt-3">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-md-10 col-lg-7 col-xl-6">
+            <img src="~/FlexStart/assets/img/error-image/401.png"
+                 class="img-fluid" alt="Sample image">
+        </div>
+        <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+            <h1>401</h1>
+            <h5>Unauthorized</h5>
+            <p class="text-gray-500 mb-0">You are not allowed to access this page...</p>
+            <br />
+            <div class="row begin-countdown">
+                <div class="col-md-12">
+                    <p>Redirecting in... <span id="pageBeginCountdownText">5 </span> seconds</p>
+                    <progress value="5" max="5" id="pageBeginCountdown"></progress>
+                </div>
+            </div>
+            <a asp-controller="Login" asp-action="Index">&larr; Or Click This </a>
+        </div>
+        </div>
 </div>
+

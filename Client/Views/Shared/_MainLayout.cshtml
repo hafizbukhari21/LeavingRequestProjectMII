@@ -1,4 +1,8 @@
-﻿<!doctype html>
+﻿@using Microsoft.AspNetCore.Http
+@using System.Net.Mail
+@inject IHttpContextAccessor Accessor
+
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -10,6 +14,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
     <meta name="description" content="This is an example dashboard created using build-in elements and components.">
     <meta name="msapplication-tap-highlight" content="no">
+    <!-- Favicons -->
+    <link href="~/img/logo-ecuti-200-removebg-preview.png" rel="icon">
     <!--
     =========================================================
     * ArchitectUI HTML Theme Dashboard - v1.0.0
@@ -68,27 +74,19 @@
                                             <i class="fa fa-angle-down ml-2 opacity-8"></i>
                                         </a>
                                         <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
-                                            <button type="button" tabindex="0" class="dropdown-item">User Account</button>
-                                            <button type="button" tabindex="0" class="dropdown-item">Settings</button>
-                                            <h6 tabindex="-1" class="dropdown-header">Header</h6>
-                                            <button type="button" tabindex="0" class="dropdown-item">Actions</button>
+                                            <button type="button" tabindex="0" class="dropdown-item">Profile Settings</button>
                                             <div tabindex="-1" class="dropdown-divider"></div>
-                                            <button type="button" tabindex="0" class="dropdown-item">Dividers</button>
+                                            <a href="/Logout" class="btn dropdown-item">Logout</a>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="widget-content-left  ml-3 header-user-info">
-                                    <div class="widget-heading">
-                                        Alina Mclourd
+                                    <div class="widget-heading" id="namaLogin">
+                                        @Context.Session.GetString("name")
                                     </div>
                                     <div class="widget-subheading">
-                                        VP People Manager
+                                        Role (Manager)
                                     </div>
-                                </div>
-                                <div class="widget-content-right header-user-info ml-3">
-                                    <button type="button" class="btn-shadow p-1 btn btn-primary btn-sm show-toastr-example">
-                                        <i class="fa text-white fa-calendar pr-1 pl-1"></i>
-                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -447,19 +445,31 @@
                                     Leave Categories
                                 </a>
                             </li>
+                            @*@if (User.IsInRole("Employee") || User.IsInRole("Manager"))
+                                {*@
                             <li class="app-sidebar__heading">Leave</li>
                             <li>
-                                <a asp-controller="Leave" asp-action="LeavingRequest">
+                                <a asp-controller="Employee" asp-action="LeaveRequest">
                                     <i class="metismenu-icon pe-7s-display2"></i>
                                     Request Leave
                                 </a>
                             </li>
                             <li>
-                                <a asp-controller="Leave" asp-action="Index">
+                                <a asp-controller="Employee" asp-action="LeaveHistory">
                                     <i class="metismenu-icon pe-7s-display2"></i>
                                     Leave Histories
                                 </a>
                             </li>
+                            @*}
+                                @if (User.IsInRole("Manager"))
+                                {*@
+                            <li>
+                                <a asp-controller="Employee" asp-action="LeaveRequestConfirmation">
+                                    <i class="metismenu-icon pe-7s-display2"></i>
+                                    Leave Request Confirmation
+                                </a>
+                            </li>
+                            @*}*@
                             <li>
                                 <a class="btn-open-options bg-warning">
                                     <i class="metismenu-icon fa fa-cog fa-w-16 fa-spin fa-2x"></i>
@@ -510,5 +520,6 @@
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         @RenderSection("JSnya", required: false)
+
 </body>
 </html>
