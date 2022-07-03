@@ -24,6 +24,14 @@ namespace API.Controllers
             this.leavingRequestRepository = leavingRequestRepository;
         }
 
+        [HttpGet("countNotRead/{employee_id}")]
+        [EnableCors("AllowOrigin")]
+
+        public int CountIsNotReadRequest(string employee_id)
+        {
+            return leavingRequestRepository.CountNotReadRequest(employee_id);
+        }
+
         [HttpGet("emp")]
         [EnableCors("AllowOrigin")]
 
@@ -72,6 +80,8 @@ namespace API.Controllers
                 return Ok(new GeneralResponse { ErrorType = Variables.SUCCESS, message = "Berhasil Mengajukan Cuti" });
 
         }
+
+       
 
         [HttpPatch]
         [EnableCors("AllowOrigin")]

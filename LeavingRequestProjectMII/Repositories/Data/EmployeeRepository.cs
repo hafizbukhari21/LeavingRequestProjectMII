@@ -50,7 +50,39 @@ namespace API.Repositories.Data
                 divisi_id = emp.divisi_id,
                 manager_id = emp.manager_id,
                 gender = emp.gender,
+                
             }).ToList().FirstOrDefault(emp=>emp.employee_id == employee_id);
+        }
+
+        public Object GetWithManagerName(string employee_id)
+        {
+            
+            var emp =  context.employees.Where(emp => emp.isDeleted == false).ToList().FirstOrDefault(emp => emp.employee_id == employee_id);
+
+            var manager = context.employees.Find(emp.manager_id);
+
+            return new
+            {
+                employee_id = emp.employee_id,
+                name = emp.name,
+                email = emp.email,
+                phoneNumber = emp.phoneNumber,
+                sisaCuti = emp.sisaCuti,
+                role_Id = emp.role_Id,
+                divisi_id = emp.divisi_id,
+                manager_id = emp.manager_id,
+                gender = emp.gender,
+                manager = new
+                {
+                    managerName = manager.name,
+                    employee_id = manager.employee_id
+
+                },
+                divisi = new {
+                    namaDivisi = emp.divisi.namaDivisi
+                }
+                
+            };
         }
 
         public int softDelete(string employeeId)

@@ -127,6 +127,11 @@ namespace API.Repositories.Data
             return context.SaveChanges();
         }
 
+        public int CountNotReadRequest(string employee_id)
+        {
+            return context.leavingRequests.Where(lr => lr.employee_id == employee_id && lr.isRead == false).Count();
+        }
+
         public int ApproveLeaving(string request_id,string approvalMessage, out string namaEmp)
         {
            
