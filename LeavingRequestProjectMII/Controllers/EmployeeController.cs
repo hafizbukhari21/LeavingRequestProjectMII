@@ -112,12 +112,12 @@ namespace API.Controllers
                 return Ok(new GeneralResponse { ErrorType=Variables.SUCCESS,  message="Berhasil Update"});
             
             else if(checkStatus == Variables.EMAIL_DUPLICATE)
-                return BadRequest(new GeneralResponse { ErrorType = Variables.EMAIL_DUPLICATE, message = "Email Telah Digunakan" });
+                return Ok(new GeneralResponse { ErrorType = Variables.EMAIL_DUPLICATE, message = "Email Telah Digunakan" });
 
             else if (checkStatus == Variables.NO_TELP_DUPLICATE)
-                return BadRequest(new GeneralResponse { ErrorType = Variables.NO_TELP_DUPLICATE, message = "Nomor Telp Telah Digunakan" });
+                return Ok(new GeneralResponse { ErrorType = Variables.NO_TELP_DUPLICATE, message = "Nomor Telp Telah Digunakan" });
 
-            else return BadRequest(new GeneralResponse { ErrorType = Variables.FAIL, message = "Terjadi Kesalahan Dalam sistem" });
+            else return Ok(new GeneralResponse { ErrorType = Variables.FAIL, message = "Terjadi Kesalahan Dalam sistem" });
 
         }
 
