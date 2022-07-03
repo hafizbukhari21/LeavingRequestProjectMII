@@ -90,15 +90,15 @@ namespace API.Controllers
             }
             else if(checkStatus == Variables.WRONG_EMAIL)
             {
-                return Ok(new LoginResponse { ErrorType=Variables.WRONG_EMAIL, message="Email atau akun tidak ditemukan", token="", name="" });
+                return BadRequest(new LoginResponse { ErrorType=Variables.WRONG_EMAIL, message="Email atau akun tidak ditemukan", token="", name="" });
             }
             else if (checkStatus == Variables.WRONG_PASSWORD)
             {
-                return Ok(new LoginResponse { ErrorType = Variables.WRONG_PASSWORD, message = "Salah Memasukan Password", token = "", name = "" });
+                return BadRequest(new LoginResponse { ErrorType = Variables.WRONG_PASSWORD, message = "Salah Memasukan Password", token = "", name = "" });
             }
             else
             {
-                return Ok(new LoginResponse { ErrorType = Variables.FAIL, message = "Terjadi Kesalahan Silahkan Coba Lagi", token = "", name = "" });
+                return BadRequest(new LoginResponse { ErrorType = Variables.FAIL, message = "Terjadi Kesalahan Silahkan Coba Lagi", token = "", name = "" });
             }
         }
 

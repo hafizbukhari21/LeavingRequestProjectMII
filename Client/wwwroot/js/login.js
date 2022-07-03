@@ -37,13 +37,7 @@
                 window.location.replace("../login")
                 console.log(result)
                 break;
-            case 3:
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: result.message,
-                })
-                break;
+           
             default:
                 Swal.fire({
                     icon: 'error',

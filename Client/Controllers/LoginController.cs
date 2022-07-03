@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using API.Controllers.Base;
 using API.Models;
 using API.ModelsInsert;
+using API.Utils;
 using Client.Repositories.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -26,7 +27,7 @@ namespace Client.Controllers
             var jwtToken = await repository.Auth(employeeLoginModel);
             var token = jwtToken;
 
-            if (token == null)
+            if (token == null || token.ErrorType!= Variables.SUCCESS)
             {
                 return Json(jwtToken);
             }
