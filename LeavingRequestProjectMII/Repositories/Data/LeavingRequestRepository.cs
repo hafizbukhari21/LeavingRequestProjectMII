@@ -40,15 +40,19 @@ namespace API.Repositories.Data
         public Object GetLeavingEmployee(string request_id)
         {
             return context.leavingRequests
-                  .Select(lr => new LeavingRequest
+                  .Select(lr => new 
                   {
                       request_id = lr.request_id,
                       employee_id = lr.employee_id,
                       approvalStatus = lr.approvalStatus,
+                      approvalStatusName = lr.approvalStatus.ToString(),
                       requestTime = lr.requestTime,
                       startDate = lr.startDate,
                       endDate = lr.endDate,
                       approvalMessage = lr.approvalMessage,
+                      category_id = lr.category_id,
+                      category_name = lr.leaveCategory.nameCategory,
+                      leavingMessage = lr.leavingMessage,
                       //fileBukti = lr.fileBukti,
                       //tipeFileBukti = lr.tipeFileBukti
                   }).FirstOrDefault(lr => lr.request_id == request_id);
@@ -101,6 +105,7 @@ namespace API.Repositories.Data
                 endDate = leavingRequestInser.endDate,
                 leavingMessage = leavingRequestInser.leavingMessage,
                 fileBukti = leavingRequestInser.fileBukti,
+                namaFileBukti = leavingRequestInser.namaFileBukti,
                 tipeFileBukti = (TipeFileBukti)Enum.Parse(typeof(TipeFileBukti), leavingRequestInser.tipeFileBukti),
                 approvalMessage = "Menunggu"
             };
@@ -139,12 +144,24 @@ namespace API.Repositories.Data
             Employees managerDetail = context.employees.Find(leavingRequest.employees.manager_id);
             namaEmp = leavingRequest.employees.name;
 
+
+            if (!TotalSisaHariCutiApprove(new LeavingRequestInserModel {
+                employee_id = leavingRequest.employee_id,
+                startDate = leavingRequest.startDate,
+                endDate = leavingRequest.endDate
+            })) return Variables.JUMLAH_CUTI_TIDAK_MENCUKUPI;
+
+
             leavingRequest.approvalMessage = approvalMessage;
             leavingRequest.approvalStatus = Approval_status.Diterima;
+            leavingRequest.isRead = false;
             leavingRequest.employees.sisaCuti = leavingRequest.employees.sisaCuti-(leavingRequest.endDate - leavingRequest.startDate).Days;
             context.leavingRequests.Update(leavingRequest);
             EmailServices.SendEmail(leavingRequest.employees.email, "Perihal Cuti", HtmlTemplate.RequestLeaving(managerDetail.name, leavingRequest.employees.name, leavingRequest.startDate.ToString("D"), leavingRequest.endDate.ToString("D")));
-            return context.SaveChanges();
+            int chk = context.SaveChanges();
+
+            if (chk > 0) return Variables.SUCCESS;
+            else return Variables.FAIL;
             
         }
 
@@ -154,6 +171,7 @@ namespace API.Repositories.Data
             namaEmp = leavingRequest.employees.name;
             leavingRequest.approvalMessage = approvalMessage;
             leavingRequest.approvalStatus = Approval_status.Ditolak;
+            leavingRequest.isRead = false;
             context.leavingRequests.Update(leavingRequest);
             return context.SaveChanges();
         }
@@ -164,12 +182,10 @@ namespace API.Repositories.Data
             namaEmp = leavingRequest.employees.name;
             leavingRequest.approvalMessage = approvalMessage;
             leavingRequest.approvalStatus = Approval_status.Revisi;
+            leavingRequest.isRead = false;
             context.leavingRequests.Update(leavingRequest);
             return context.SaveChanges();
         }
-
-
-
 
 
         public bool TotalSisaHariCutiApprove(LeavingRequestInserModel leavingRequestInser)
