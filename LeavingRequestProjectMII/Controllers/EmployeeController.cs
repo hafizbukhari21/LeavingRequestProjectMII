@@ -51,6 +51,13 @@ namespace API.Controllers
             return Ok(employeeRepository.Get(employee_id));
         }
 
+        [HttpGet("{employee_id}/withManager")]
+        [EnableCors("AllowOrigin")]
+        public ActionResult GetWithManagerName(string employee_id)
+        {
+            return Ok(employeeRepository.GetWithManagerName(employee_id));
+        }
+
         [HttpPost]
         [EnableCors("AllowOrigin")]
         public ActionResult Insert(EmployeeInsertModel employeeInsert)

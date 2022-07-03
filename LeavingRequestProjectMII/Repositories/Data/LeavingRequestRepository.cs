@@ -84,7 +84,6 @@ namespace API.Repositories.Data
                   }).ToList();
         }
 
-
         public int InsertLeaving(LeavingRequestInserModel leavingRequestInser)
         {
             var data = DateTime.Now;
@@ -107,6 +106,30 @@ namespace API.Repositories.Data
             };
             context.leavingRequests.Add(leavingRequest);
             return context.SaveChanges();
+        }
+
+        public int UpdateLeaving(LeavingRequestInserModel leaving)
+        {
+            LeavingRequest lrUpdate = context.leavingRequests.Find(leaving.request_id);
+            lrUpdate.leavingMessage = leaving.leavingMessage;
+            lrUpdate.category_id = leaving.category_id;
+            lrUpdate.startDate = leaving.startDate;
+            lrUpdate.endDate = leaving.endDate;
+
+            if(leaving.fileBukti!=null )
+            {
+                lrUpdate.fileBukti = leaving.fileBukti;
+                lrUpdate.namaFileBukti = leaving.namaFileBukti;
+                lrUpdate.tipeFileBukti = (TipeFileBukti)Enum.Parse(typeof(TipeFileBukti), leaving.tipeFileBukti);
+            }
+
+            context.leavingRequests.Update(lrUpdate);
+            return context.SaveChanges();
+        }
+
+        public int CountNotReadRequest(string employee_id)
+        {
+            return context.leavingRequests.Where(lr => lr.employee_id == employee_id && lr.isRead == false).Count();
         }
 
         public int ApproveLeaving(string request_id,string approvalMessage, out string namaEmp)

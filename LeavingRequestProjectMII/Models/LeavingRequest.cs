@@ -23,6 +23,10 @@ namespace API.Models
 
         public Byte[] fileBukti { get; set; }
 
+        public string namaFileBukti { get; set; }
+
+        public bool isRead { get; set; }
+
         public TipeFileBukti tipeFileBukti { get; set; }
 
         public virtual Employees employees { set; get; }
