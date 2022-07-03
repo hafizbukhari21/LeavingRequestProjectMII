@@ -20,9 +20,9 @@ namespace API.Repositories.Data
         }
 
         //ngeliat request punya sendiri
-        public Object GetLeavingEmployee(Employees employee)
+        public Object GetLeavingEmployee(string employee_id)
         {
-            return context.leavingRequests.Where(lr => lr.employee_id == employee.employee_id)
+            return context.leavingRequests.Where(lr => lr.employee_id == employee_id)
                   .Select(lr => new LeavingRequestViewModel
                   {
                       request_id = lr.request_id,
@@ -37,7 +37,7 @@ namespace API.Repositories.Data
                   }).ToList();
         }
 
-        public Object GetLeavingEmployee(string request_id)
+        public Object GetLeavingEmployeeDetail(string request_id)
         {
             return context.leavingRequests
                   .Select(lr => new 
@@ -70,9 +70,9 @@ namespace API.Repositories.Data
         }
 
         //ngelihat daftar cuti anak buah
-        public Object GetLeavingManager(Employees employee)
+        public Object GetLeavingManager(string manager_id)
         {
-            return context.leavingRequests.Where(lr => lr.employees.manager_id == employee.manager_id)
+            return context.leavingRequests.Where(lr => lr.employees.manager_id == manager_id)
                   .Select(lr => new LeavingRequestViewModel
                   {
                       request_id = lr.request_id,

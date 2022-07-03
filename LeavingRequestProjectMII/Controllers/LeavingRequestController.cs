@@ -32,20 +32,20 @@ namespace API.Controllers
             return leavingRequestRepository.CountNotReadRequest(employee_id);
         }
 
-        [HttpGet("emp")]
+        [HttpGet("emp/{employee_id}")]
         [EnableCors("AllowOrigin")]
 
 
-        public ActionResult GetLeaveEmp(Employees employees)
+        public ActionResult GetLeaveEmp(string employee_id)
         {
-            return Ok(leavingRequestRepository.GetLeavingEmployee(employees));
+            return Ok(leavingRequestRepository.GetLeavingEmployee(employee_id));
         }
         [HttpGet("emp/detail")]
         [EnableCors("AllowOrigin")]
 
         public ActionResult GetLeaveEmp(LeavingRequest leavingRequest)
         {
-            return Ok(leavingRequestRepository.GetLeavingEmployee(leavingRequest.request_id));
+            return Ok(leavingRequestRepository.GetLeavingEmployeeDetail(leavingRequest.request_id));
         }
 
         [HttpGet("emp/detail/download")]
@@ -57,12 +57,12 @@ namespace API.Controllers
         }
 
 
-        [HttpGet("man")]
+        [HttpGet("man/{manager_id}")]
         [EnableCors("AllowOrigin")]
 
-        public ActionResult GetLeaveMananager(Employees employees)
+        public ActionResult GetLeaveMananager(string manager_id)
         {
-            return Ok(leavingRequestRepository.GetLeavingManager(employees));
+            return Ok(leavingRequestRepository.GetLeavingManager(manager_id));
         }
 
         [HttpPost]
