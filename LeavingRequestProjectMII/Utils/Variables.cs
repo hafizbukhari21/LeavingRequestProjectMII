@@ -27,6 +27,10 @@ namespace API.Utils
         public const int CUTI_SUDAH_HABIS = 6;
         public const int SYARAT_MIN_TANGGAL_REQUEST = 7;
 
+        public const int FORGET_TOKEN_EXPIRED = 8;
+        public const int DATA_TIDAK_SESUAI = 9;
+
+
         public const int SUCCESS = 200;
         public const int FAIL = 400;
 
