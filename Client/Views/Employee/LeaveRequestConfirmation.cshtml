@@ -42,43 +42,44 @@
                     <div class="modal-body col-12">
                         <div class="row">
                             <div class="form-group col-sm-6">
-                                <label for="group_name">Request id </label>
-                                <input required type="hidden" class="form-control" name="" id="request_ids" placeholder="">
-                                <input  type="text" class="form-control" name="" id="request_id" placeholder="Enter Full Name">
-                                <div class="valid-feedback">
-                                    Looks good!
-                                </div>
-                                <div class="invalid-feedback">Fill your fullname</div>
+                                <label for="group_name">Employee</label>
+                                <input required type="hidden" class="form-control" name="" id="request_ids">
+                                <input readonly type="text" class="form-control" name="" id="employee_id">
                             </div>
                             <div class="form-group col-sm-6">
-                                <label for="group_name">Employee Name </label>
-                                <input readonly type="text" class="form-control" name="" id="employee_name" placeholder="Enter Full Name">
-                                <div class="valid-feedback">
-                                    Looks good!
-                                </div>
-                                <div class="invalid-feedback">Fill your fullname</div>
+                                <label for="group_name">Leave Category</label>
+                                <input readonly type="text" class="form-control" name="" id="category_id">
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-sm-6">
-                                <label for="group_name">Approval Status </label>
-                                <input readonly type="text" class="form-control" name="" id="approvalStatus" placeholder="Enter Full Name">
-                                <div class="valid-feedback">
-                                    Looks good!
-                                </div>
-                                <div class="invalid-feedback">Fill your fullname</div>
+                                <label for="group_name">Start Date</label>
+                                <input readonly type="text" class="form-control" name="" id="startDate">
                             </div>
                             <div class="form-group col-sm-6">
-                                <label for="group_name">Employee Name </label>
-                                <input readonly type="text" class="form-control" name="" id="employee_name" placeholder="Enter Full Name">
-                                <div class="valid-feedback">
-                                    Looks good!
-                                </div>
-                                <div class="invalid-feedback">Fill your fullname</div>
+                                <label for="group_name">End Date</label>
+                                <input readonly type="text" class="form-control" name="" id="endDate">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <label for="group_name">Approval Status</label>
+                                <input readonly type="text" class="form-control" name="" id="approvalStatusName">
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="group_name">File</label>
+                                <input type="file" class="" name="" id="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label for="exampleFormControlTextarea1">Message</label>
+                                <textarea readonly class="form-control" id="leavingMessage" rows="3"></textarea>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
+                        <button type="submit" class="btn btn-info"  onclick=""><i class="fas fa-download"></i> Download File</button>
                         <button type="submit" class="btn btn-danger"  onclick="RejectReq()"><i class="fas fa-times-circle"></i> Reject</button>
                         <button type="submit" class="btn btn-warning" onclick="RevisionReq()" ><i class="fas fa-exclamation-circle"></i> Revision</button>
                         <button type="submit" class="btn btn-primary" id="btnApprove" onclick="ApproveReq()"><i class="fas fa-check-circle"></i> Approve</button>
