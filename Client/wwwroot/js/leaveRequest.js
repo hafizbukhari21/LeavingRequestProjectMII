@@ -52,7 +52,8 @@ async function SubmitFormRequest() {
         "endDate": dateStringToDate($("#end_date").val()),
         "leavingMessage": $("#leavingMessage").val(),
         "tipeFileBukti": fileBuktiExt,
-        "fileBukti": await toBase64(fileBukti)
+        "fileBukti": await toBase64(fileBukti),
+        "namaFileBukti": fileBukti.name
     }
 
     console.log(obj)
