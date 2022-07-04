@@ -1,5 +1,6 @@
 using API.Context;
 using API.Repositories.Data;
+using API.Utils;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -38,6 +39,7 @@ namespace LeavingRequestProjectMII
             services.AddScoped<DivisiRepository>();
             services.AddScoped<RoleRepository>();
             services.AddScoped<CategoryRepository>();
+            services.AddScoped<NationalDayServices>();
             services.AddDbContext<MyContext>(options => options.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("APIContext")));
             services.AddAuthentication(auth =>
             {
