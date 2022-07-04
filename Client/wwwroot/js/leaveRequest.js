@@ -25,7 +25,9 @@ $('#end_date').datepicker({
 });
 
 $(document).ready(() => {
+    let inputLeaveForm = document.getElementsByClassName("inputLeaveForm");
     GetCategory()
+    ValidateForm(inputLeaveForm, SubmitFormRequest)
 });
 
 function GetCategory() {
@@ -38,9 +40,8 @@ function GetCategory() {
     })
 }
 
-$("#inputLeave").submit(async function (e) {
-    e.preventDefault();
-
+async function SubmitFormRequest() {
+    
     const fileBukti = document.querySelector('#fileBukti').files[0];
     const fileBuktiExt = getExtFile(fileBukti.name)
 
@@ -62,14 +63,25 @@ $("#inputLeave").submit(async function (e) {
         data: JSON.stringify(obj),
     }).done((result) => {
         console.log(result)
-        Swal.fire({
-            icon: 'success',
-            title: 'Success',
-            text: result.message,
-            footer: '<a href="">Why do I have this issue?</a>'
-        })
+        switch (result.ErrorType) {
+            case 200:
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: result.message,
+                })
+                break;
+            default :
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Fail',
+                    text: result.message,
+                })
+                break;
+        }
+        
         formReset();
     }).fail((error) => {
         console.log(error)
     })
-})
+}

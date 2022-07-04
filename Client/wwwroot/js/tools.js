@@ -10,24 +10,6 @@ function dateStringToDate(inputDate) {
    
 }
 
-//function fileToB64(file, callback) {
-//    var file = file['files'][0];
-
-//    var reader = new FileReader();
-//    let base64String
-//    let imageBase64Stringsep
-//    reader.onload = function () {
-//        base64String = reader.result.replace("data:", "")
-//            .replace(/^.+,/, "");
-
-//        /*imageBase64Stringsep = base64String;*/
-//        callback(base64String)
-//    }
-//    reader.readAsDataURL(file);
-
-
-
-//}
 
 
 const toBase64 = file => new Promise((resolve, reject) => {
@@ -39,3 +21,25 @@ const toBase64 = file => new Promise((resolve, reject) => {
 });
 
 const getExtFile = filename => (/[.]/.exec(filename))[0] ? /[^.]+$/.exec(filename)[0] : undefined
+
+
+function ValidateForm(forms, actionApi) {
+   
+    var validation = Array.prototype.filter.call(forms, function (form) {
+        
+        form.addEventListener('submit', function (event) {
+            
+            event.preventDefault();
+            event.stopPropagation();
+            if (form.checkValidity() === false) {
+
+            }
+            else {
+
+                actionApi()
+
+            }
+            form.classList.add('was-validated');
+        }, false);
+    });
+}
