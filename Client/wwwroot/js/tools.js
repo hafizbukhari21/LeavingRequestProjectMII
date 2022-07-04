@@ -24,10 +24,10 @@ const getExtFile = filename => (/[.]/.exec(filename))[0] ? /[^.]+$/.exec(filenam
 
 
 function ValidateForm(forms, actionApi) {
-   
     var validation = Array.prototype.filter.call(forms, function (form) {
         
         form.addEventListener('submit', function (event) {
+            alert("sdsd")
             
             event.preventDefault();
             event.stopPropagation();

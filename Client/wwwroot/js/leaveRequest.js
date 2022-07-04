@@ -64,7 +64,7 @@ async function SubmitFormRequest() {
         data: JSON.stringify(obj),
     }).done((result) => {
         console.log(result)
-        switch (result.ErrorType) {
+        switch (result.errorType) {
             case 200:
                 Swal.fire({
                     icon: 'success',

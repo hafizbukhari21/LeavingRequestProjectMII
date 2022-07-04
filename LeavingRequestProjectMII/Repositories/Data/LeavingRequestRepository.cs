@@ -53,8 +53,10 @@ namespace API.Repositories.Data
                       category_id = lr.category_id,
                       category_name = lr.leaveCategory.nameCategory,
                       leavingMessage = lr.leavingMessage,
-                      //fileBukti = lr.fileBukti,
-                      //tipeFileBukti = lr.tipeFileBukti
+                      fileBukti = lr.fileBukti,
+                      tipeFileBukti = lr.tipeFileBukti,
+                       namaFileBukti = lr.namaFileBukti,
+
                   }).FirstOrDefault(lr => lr.request_id == request_id);
         }
         public Object DownloadFileBukti(string request_id)

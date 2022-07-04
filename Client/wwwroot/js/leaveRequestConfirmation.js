@@ -1,8 +1,9 @@
 ﻿const idEmp = $("#login-employee-id").val()
+let accReqForm = document.getElementsByClassName("accReqForm");
 
 
 $(document).ready(function () {
-
+    
     let man = {
         manager_id: "Employee0007"
     }
@@ -10,7 +11,7 @@ $(document).ready(function () {
     $('#dataTbl').DataTable({
         ajax: {
             //url: `https://localhost:44302/api/leavingrequest/man/${idEmp}`,
-            url: `https://localhost:44302/api/leavingrequest/man/Employee0007`,
+            url: `https://localhost:44302/api/leavingrequest/man/Employee0002`,
             "dataType": "json",
             "dataSrc": "",
         },
@@ -69,11 +70,9 @@ $(document).ready(function () {
                 render: function (data, type, row, meta) {
                     return `<div class="btn-group text-center">
                                 <button type="button" class="btn btn-sm btn-warning" title="Delete" onClick="leaveDetail('${data}')" data-toggle="modal" data-target="#updateModal">
-                                <i class="fas fa-edit"></i>
+                                <i class="fas fa-edit"></i> Show Detail
                                 </button>
-                                <button type="button" class="btn btn-sm btn-danger" title="Delete" onClick="employeeDelete('Employee/Delete/${data}')" >
-                                <i class="fas fa-trash"></i>
-                                </button>
+                                
                             </div>`
                 }
             }
@@ -94,18 +93,40 @@ function leaveDetail(reqId) {
     }).done(u => {
         $("#request_ids").val(u.request_id);
         $("#employee_id").val(u.employee_id);
-        $("#category_id").val(u.category_id);
-        $("#startDate").val(u.startDate);
-        $("#endDate").val(u.endDate);
+        $("#category_id").val(u.category_name);
+        $("#startDate").val(moment(u.startDate).format("YYYY-MM-DD").toString());
+        $("#endDate").val(moment(u.endDate).format("YYYY-MM-DD").toString());
         $("#approvalStatusName").val(u.approvalStatusName);
         $("#leavingMessage").val(u.leavingMessage);
+        $("#downloadFileBukti").attr("href", "data:application/octet-stream;base64,"+ u.fileBukti);
+        $("#downloadFileBukti").attr("download", u.namaFileBukti);
+        $("#approvalMessage").val(u.approvalMessage)
         console.log(u)
     })
 }
 
+function miniVal(accReqForm) {
+    var validation = Array.prototype.filter.call(accReqForm, function (form) {
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+            
+            
+            form.classList.add('was-validated');
+        }, false);
+    });
+    }
+
+
 function ApproveReq() {
+    let approvalMessage = $("#approvalMessage").val();
+    if (approvalMessage == "" || approvalMessage == null) {
+        miniVal(accReqForm)
+        return
+    }
     var obj = new Object();
     obj.request_id = $("#request_ids").val();
+    obj.approvalMessage = approvalMessage 
     console.log(obj);
     //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
     $.ajax({
@@ -127,8 +148,14 @@ function ApproveReq() {
 }
 
 function RejectReq() {
+    let approvalMessage = $("#approvalMessage").val();
+    if (approvalMessage == "" || approvalMessage == null) {
+        miniVal(accReqForm)
+        return
+    }
     var obj = new Object();
     obj.request_id = $("#request_ids").val();
+    obj.approvalMessage = approvalMessage 
     console.log(obj);
     //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
     $.ajax({
@@ -150,8 +177,14 @@ function RejectReq() {
 }
 
 function RevisionReq() {
+    let approvalMessage = $("#approvalMessage").val();
+    if (approvalMessage == "" || approvalMessage == null) {
+        miniVal(accReqForm)
+        return
+    }
     var obj = new Object();
     obj.request_id = $("#request_ids").val();
+    obj.approvalMessage = approvalMessage 
     console.log(obj);
     //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
     $.ajax({
