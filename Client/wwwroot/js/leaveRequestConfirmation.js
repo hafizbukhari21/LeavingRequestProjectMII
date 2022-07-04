@@ -7,7 +7,7 @@ $(document).ready(function () {
         manager_id: "Employee0007"
     }
 
-    $('#tblMan').DataTable({
+    $('#dataTbl').DataTable({
         ajax: {
             //url: `https://localhost:44302/api/leavingrequest/man/${idEmp}`,
             url: `https://localhost:44302/api/leavingrequest/man/Employee0007`,
@@ -95,11 +95,81 @@ function leaveDetail(reqId) {
     $.ajax({
         url: "https://localhost:44302/api/leavingrequest/emp/detail",
         data: JSON.stringify(data),
-        type: "GET",
+        type: "POST",
         contentType: 'application/json',
     }).done(u => {
-        $("#request_id").val(u.request_id);
+        $("#request_ids").val(u.request_id);
         $("#employee_name").val(u.employee_id);
+        $("#approvalStatus").val(u.approvalStatus);
         console.log(u)
+    })
+}
+
+function ApproveReq() {
+    var obj = new Object();
+    obj.request_id = $("#request_ids").val();
+    console.log(obj);
+    //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
+    $.ajax({
+        url: "https://localhost:44302/api/leavingrequest/man/approve",
+        type: "PATCH",
+        contentType: 'application/json',
+        data: JSON.stringify(obj)
+    }).done((result) => {
+        console.log(result)
+        Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: result.message,
+        }),
+        $('#dataTbl').DataTable().ajax.reload();
+    }).fail((error) => {
+        console.log(error)
+    })
+}
+
+function RejectReq() {
+    var obj = new Object();
+    obj.request_id = $("#request_ids").val();
+    console.log(obj);
+    //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
+    $.ajax({
+        url: "https://localhost:44302/api/leavingrequest/man/reject",
+        type: "PATCH",
+        contentType: 'application/json',
+        data: JSON.stringify(obj)
+    }).done((result) => {
+        console.log(result)
+        Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: result.message,
+        })
+        $('#dataTbl').DataTable().ajax.reload();
+    }).fail((error) => {
+        console.log(error)
+    })
+}
+
+function RevisionReq() {
+    var obj = new Object();
+    obj.request_id = $("#request_ids").val();
+    console.log(obj);
+    //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
+    $.ajax({
+        url: "https://localhost:44302/api/leavingrequest/man/revisi",
+        type: "PATCH",
+        contentType: 'application/json',
+        data: JSON.stringify(obj)
+    }).done((result) => {
+        console.log(result)
+        Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: result.message,   
+        })
+        $('#dataTbl').DataTable().ajax.reload();
+    }).fail((error) => {
+        console.log(error)
     })
 }
