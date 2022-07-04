@@ -147,23 +147,34 @@ namespace API.Repositories.Data
 
         public int Update(EmployeeUpdateModel employeeUpdate)
         {
-
-
             Employees emp = context.employees.Find(employeeUpdate.employee_id);
             emp.name = employeeUpdate.name;
             emp.gender = (Gender)Enum.Parse(typeof(Gender), employeeUpdate.gender);
+            emp.email = employeeUpdate.email;
             emp.phoneNumber = employeeUpdate.phoneNumber;
             emp.role_Id = employeeUpdate.role_Id;
             emp.manager_id = employeeUpdate.manager_id;
             emp.divisi_id = employeeUpdate.divisi_id;
-            
 
+            if (EmailIsUsed_Update(emp)) return Variables.EMAIL_DUPLICATE;
+            else if (PhoneIsUsed_Update(emp)) return Variables.NO_TELP_DUPLICATE;
+            
             context.employees.Update(emp);
             if (context.SaveChanges() > 0) return Variables.SUCCESS;
             else return Variables.FAIL;
         }
 
+        public bool EmailIsUsed_Update(Employees employees)
+        {
+            var empCheck = context.employees.Where(emp => emp.employee_id != employees.employee_id).FirstOrDefault(emp=>emp.email == employees.email);
+            return empCheck != null;
+        }
 
+        public bool PhoneIsUsed_Update(Employees employees)
+        {
+            var empCheck = context.employees.Where(emp => emp.employee_id != employees.employee_id).FirstOrDefault(emp => emp.phoneNumber == employees.phoneNumber);
+            return empCheck != null;
+        }
 
         public bool EmailIsUsed(string Email)
         {
@@ -178,7 +189,6 @@ namespace API.Repositories.Data
         }
 
         
-
         public string GetAutoIncrementConvertString()
         {
             Employees emp = context.employees.ToList().LastOrDefault();

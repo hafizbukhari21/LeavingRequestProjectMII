@@ -90,15 +90,15 @@ namespace API.Controllers
             }
             else if(checkStatus == Variables.WRONG_EMAIL)
             {
-                return Ok(new LoginResponse { ErrorType=Variables.WRONG_EMAIL, message="Email atau akun tidak ditemukan", token="", name="" });
+                return BadRequest(new LoginResponse { ErrorType=Variables.WRONG_EMAIL, message="Email atau akun tidak ditemukan", token="", name="" });
             }
             else if (checkStatus == Variables.WRONG_PASSWORD)
             {
-                return Ok(new LoginResponse { ErrorType = Variables.WRONG_PASSWORD, message = "Salah Memasukan Password", token = "", name = "" });
+                return BadRequest(new LoginResponse { ErrorType = Variables.WRONG_PASSWORD, message = "Salah Memasukan Password", token = "", name = "" });
             }
             else
             {
-                return Ok(new LoginResponse { ErrorType = Variables.FAIL, message = "Terjadi Kesalahan Silahkan Coba Lagi", token = "", name = "" });
+                return BadRequest(new LoginResponse { ErrorType = Variables.FAIL, message = "Terjadi Kesalahan Silahkan Coba Lagi", token = "", name = "" });
             }
         }
 
@@ -112,12 +112,12 @@ namespace API.Controllers
                 return Ok(new GeneralResponse { ErrorType=Variables.SUCCESS,  message="Berhasil Update"});
             
             else if(checkStatus == Variables.EMAIL_DUPLICATE)
-                return BadRequest(new GeneralResponse { ErrorType = Variables.EMAIL_DUPLICATE, message = "Email Telah Digunakan" });
+                return Ok(new GeneralResponse { ErrorType = Variables.EMAIL_DUPLICATE, message = "Email Telah Digunakan" });
 
             else if (checkStatus == Variables.NO_TELP_DUPLICATE)
-                return BadRequest(new GeneralResponse { ErrorType = Variables.NO_TELP_DUPLICATE, message = "Nomor Telp Telah Digunakan" });
+                return Ok(new GeneralResponse { ErrorType = Variables.NO_TELP_DUPLICATE, message = "Nomor Telp Telah Digunakan" });
 
-            else return BadRequest(new GeneralResponse { ErrorType = Variables.FAIL, message = "Terjadi Kesalahan Dalam sistem" });
+            else return Ok(new GeneralResponse { ErrorType = Variables.FAIL, message = "Terjadi Kesalahan Dalam sistem" });
 
         }
 
