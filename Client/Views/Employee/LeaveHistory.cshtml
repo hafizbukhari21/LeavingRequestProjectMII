@@ -4,111 +4,109 @@
     Layout = "_MainLayout";
 }
 
-    <div class="container">
-        <h1>Leave Request Histories</h1>
-        <div class="row pt-3">
-            <div class="card col-12 pt-3 pb-3">
-                <table class="table table-bordered table-hover" id="leaveHistories">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Type</th>
-                            <th>Leave(Days)</th>
-                            <th>Leave Status</th>
-                            <th>Notes</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td> 123 </td>
-                            <td> Sakit </td>
-                            <td> 2 </td>
-                            <td> Pending </td>
-                            <td> adsjkashdjkasbjk </td>
-                        </tr>
-                        <tr>
-                            <td> 2341 </td>
-                            <td> Melahirkan </td>
-                            <td> 3 </td>
-                            <td> Pending </td>
-                            <td> adsjkashdjkasbjk </td>
-                        </tr>
-                        <tr>
-                            <td> 241 </td>
-                            <td> Nikah </td>
-                            <td> 3 </td>
-                            <td> Pending </td>
-                            <td> adsjkashdjkasbjk </td>
-                        </tr>
-                        <tr>
-                            <td> 2314</td>
-                            <td> Ibadah </td>
-                            <td> 7 </td>
-                            <td> Approved </td>
-                            <td> adsjkashdjkasbjk </td>
-                        </tr>
-                        <tr>
-                            <td> 123 </td>
-                            <td> Sakit </td>
-                            <td> 2 </td>
-                            <td> Pending </td>
-                            <td> adsjkashdjkasbjk </td>
-                        </tr>
-                        <tr>
-                            <td> 2341 </td>
-                            <td> Melahirkan </td>
-                            <td> 3 </td>
-                            <td> Pending </td>
-                            <td> adsjkashdjkasbjk </td>
-                        </tr>
-                        <tr>
-                            <td> 241 </td>
-                            <td> Nikah </td>
-                            <td> 3 </td>
-                            <td> Pending </td>
-                            <td> adsjkashdjkasbjk </td>
-                        </tr>
-                        <tr>
-                            <td> 2314</td>
-                            <td> Ibadah </td>
-                            <td> 7 </td>
-                            <td> Approved </td>
-                            <td> adsjkashdjkasbjk </td>
-                        </tr>
-                        <tr>
-                            <td> 123 </td>
-                            <td> Sakit </td>
-                            <td> 2 </td>
-                            <td> Pending </td>
-                            <td> adsjkashdjkasbjk </td>
-                        </tr>
-                        <tr>
-                            <td> 2341 </td>
-                            <td> Melahirkan </td>
-                            <td> 3 </td>
-                            <td> Pending </td>
-                            <td> adsjkashdjkasbjk </td>
-                        </tr>
-                        <tr>
-                            <td> 241 </td>
-                            <td> Nikah </td>
-                            <td> 3 </td>
-                            <td> Pending </td>
-                            <td> adsjkashdjkasbjk </td>
-                        </tr>
-                        <tr>
-                            <td> 2314</td>
-                            <td> Ibadah </td>
-                            <td> 7 </td>
-                            <td> Approved </td>
-                            <td> adsjkashdjkasbjk </td>
-                        </tr>
-                    </tbody>
-                </table>
+<div class="container">
+    <h1>Leave Histories</h1>
+    <div class="row pt-3">
+        <div class="card col-12 pt-3 pb-3">
+            <table class="table table-bordered table-hover" id="dataTbl">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Employee</th>
+                        <th>Category</th>
+                        <th>Approval Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
 
+        </div>
+    </div>
+</div>
+
+@section Modal{
+
+    <!-- update Modal -->
+    <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                @*<form id="updateEmployee" class="needs-validation" novalidate>*@
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Data</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body col-12">
+                    <div class="row">
+                        <div class="form-group col-sm-6">
+                            <label for="group_name">Employee</label>
+                            <input required type="hidden" class="form-control" name="" id="request_ids">
+                            <input readonly type="text" class="form-control" name="" id="employee_id">
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="group_name">Leave Category</label>
+                            <input readonly type="text" class="form-control" name="" id="category_id">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-6">
+                            <label for="group_name">Start Date</label>
+                            <input readonly type="text" class="form-control" name="" id="startDate">
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="group_name">End Date</label>
+                            <input readonly type="text" class="form-control" name="" id="endDate">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-6">
+                            <label for="group_name">Approval Status</label>
+                            <input readonly type="text" class="form-control" name="" id="approvalStatusName">
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="group_name">File</label>
+                            <input type="file" class="" name="" id="">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label for="exampleFormControlTextarea1">Message</label>
+                            <textarea readonly class="form-control" id="leavingMessage" rows="3"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" id="btnApprove"> Save Changes</button>
+                </div>
+                @*</form>*@
             </div>
         </div>
     </div>
+
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function () {
+            'use strict';
+            window.addEventListener('load', function () {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
+}
 
 
 @section CSSnya {
@@ -118,7 +116,6 @@
 
 @section JSnya {
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/js/leave.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
@@ -126,4 +123,5 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
+    <script src="~/js/leaveHistories.js"></script>
 }

@@ -40,12 +40,6 @@ $(document).ready(function () {
                 className: 'btn btn-success btn-sm',
                 text: '<i class="fas fa-print"> </i>',
                 titleAttr: 'Print this table'
-            },
-            {
-                html: `<!-- Button trigger modal -->
-                <button title="Add new data" type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
-                    <i class="fa fa-plus"></i>
-                </button>`
             }
         ],
         initComplete: function () {
@@ -99,8 +93,12 @@ function leaveDetail(reqId) {
         contentType: 'application/json',
     }).done(u => {
         $("#request_ids").val(u.request_id);
-        $("#employee_name").val(u.employee_id);
-        $("#approvalStatus").val(u.approvalStatus);
+        $("#employee_id").val(u.employee_id);
+        $("#category_id").val(u.category_id);
+        $("#startDate").val(u.startDate);
+        $("#endDate").val(u.endDate);
+        $("#approvalStatusName").val(u.approvalStatusName);
+        $("#leavingMessage").val(u.leavingMessage);
         console.log(u)
     })
 }
