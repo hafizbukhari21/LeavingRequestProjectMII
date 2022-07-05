@@ -168,7 +168,7 @@ namespace API.Repositories.Data
             int chk = context.SaveChanges();
 
             if (chk > 0) return new Tuple<int, string>(Variables.SUCCESS, namaEmp); 
-            else return new Tuple<int, string>(Variables.FAIL, namaEmp); ;
+            else return new Tuple<int, string>(Variables.FAIL, namaEmp); 
             
         }
 
