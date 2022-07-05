@@ -13,10 +13,12 @@ namespace API.Repositories.Data
     public class LeavingRequestRepository
     {
         private readonly MyContext context;
+        private readonly NationalDayServices nationalDay;
 
         public LeavingRequestRepository(MyContext context)
         {
             this.context = context;
+            this.nationalDay = new NationalDayServices();
         }
 
         //ngeliat request punya sendiri
@@ -90,10 +92,10 @@ namespace API.Repositories.Data
                   }).ToList();
         }
 
-        public int InsertLeaving(LeavingRequestInserModel leavingRequestInser)
+        public async Task<int> InsertLeaving(LeavingRequestInserModel leavingRequestInser)
         {
             var data = DateTime.Now;
-            if (!TotalSisaHariCutiApprove(leavingRequestInser)) return Variables.CUTI_SUDAH_HABIS;
+            if (!  await TotalSisaHariCutiApprove(leavingRequestInser)) return Variables.CUTI_SUDAH_HABIS;
             else if ((leavingRequestInser.startDate - DateTime.Now).TotalDays < 6) return Variables.SYARAT_MIN_TANGGAL_REQUEST;
 
             LeavingRequest leavingRequest = new LeavingRequest()
@@ -139,31 +141,34 @@ namespace API.Repositories.Data
             return context.leavingRequests.Where(lr => lr.employee_id == employee_id && lr.isRead == false).Count();
         }
 
-        public int ApproveLeaving(string request_id,string approvalMessage, out string namaEmp)
+        public async Task<Tuple<int, string>> ApproveLeaving(string request_id,string approvalMessage) 
         {
            
             LeavingRequest leavingRequest = context.leavingRequests.Find(request_id);
             Employees managerDetail = context.employees.Find(leavingRequest.employees.manager_id);
-            namaEmp = leavingRequest.employees.name;
+            string namaEmp = leavingRequest.employees.name;
+             
 
-
-            if (!TotalSisaHariCutiApprove(new LeavingRequestInserModel {
+            if (!await TotalSisaHariCutiApprove(new LeavingRequestInserModel {
                 employee_id = leavingRequest.employee_id,
                 startDate = leavingRequest.startDate,
                 endDate = leavingRequest.endDate
-            })) return Variables.JUMLAH_CUTI_TIDAK_MENCUKUPI;
+            })) return new Tuple<int, string>(Variables.JUMLAH_CUTI_TIDAK_MENCUKUPI, namaEmp);
 
 
             leavingRequest.approvalMessage = approvalMessage;
             leavingRequest.approvalStatus = Approval_status.Diterima;
             leavingRequest.isRead = false;
-            leavingRequest.employees.sisaCuti = leavingRequest.employees.sisaCuti-(leavingRequest.endDate - leavingRequest.startDate).Days;
+            leavingRequest.employees.sisaCuti = 
+                leavingRequest.employees.sisaCuti-(
+                    (leavingRequest.endDate - leavingRequest.startDate).Days - await nationalDay.CountPotonganLibur(leavingRequest.startDate,leavingRequest.endDate)
+                );
             context.leavingRequests.Update(leavingRequest);
             EmailServices.SendEmail(leavingRequest.employees.email, "Perihal Cuti", HtmlTemplate.RequestLeaving(managerDetail.name, leavingRequest.employees.name, leavingRequest.startDate.ToString("D"), leavingRequest.endDate.ToString("D")));
             int chk = context.SaveChanges();
 
-            if (chk > 0) return Variables.SUCCESS;
-            else return Variables.FAIL;
+            if (chk > 0) return new Tuple<int, string>(Variables.SUCCESS, namaEmp); 
+            else return new Tuple<int, string>(Variables.FAIL, namaEmp); ;
             
         }
 
@@ -190,10 +195,10 @@ namespace API.Repositories.Data
         }
 
 
-        public bool TotalSisaHariCutiApprove(LeavingRequestInserModel leavingRequestInser)
+        public async Task<bool> TotalSisaHariCutiApprove(LeavingRequestInserModel leavingRequestInser)
         {
             Employees emp = context.employees.Find(leavingRequestInser.employee_id);
-            int totalCuti = (leavingRequestInser.endDate - leavingRequestInser.startDate).Days;
+            int totalCuti = (leavingRequestInser.endDate - leavingRequestInser.startDate).Days - await nationalDay.CountPotonganLibur(leavingRequestInser.startDate, leavingRequestInser.endDate);
             if (totalCuti > emp.sisaCuti) return false;
             else return true;
         }
