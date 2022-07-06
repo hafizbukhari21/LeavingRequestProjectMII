@@ -117,8 +117,16 @@ namespace API.Repositories.Data
             return context.SaveChanges();
         }
 
-        public int UpdateLeaving(LeavingRequestInserModel leaving)
+        public async Task<int> UpdateLeaving(LeavingRequestInserModel leaving)
         {
+
+            if (!await TotalSisaHariCutiApprove(new LeavingRequestInserModel
+            {
+                employee_id = leaving.employee_id,
+                startDate = leaving.startDate,
+                endDate = leaving.endDate
+            })) return Variables.JUMLAH_CUTI_TIDAK_MENCUKUPI;
+
             LeavingRequest lrUpdate = context.leavingRequests.Find(leaving.request_id);
             lrUpdate.leavingMessage = leaving.leavingMessage;
             lrUpdate.category_id = leaving.category_id;
@@ -133,7 +141,10 @@ namespace API.Repositories.Data
             }
 
             context.leavingRequests.Update(lrUpdate);
-            return context.SaveChanges();
+            int ctx = context.SaveChanges();
+
+            if (ctx > 0) return Variables.SUCCESS;
+            else return Variables.FAIL;
         }
 
         public int CountNotReadRequest(string employee_id)

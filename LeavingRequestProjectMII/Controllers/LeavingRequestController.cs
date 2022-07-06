@@ -85,9 +85,19 @@ namespace API.Controllers
 
         [HttpPatch]
         [EnableCors("AllowOrigin")]
-        public ActionResult UpdateLeavingRequest(LeavingRequestInserModel leaving)
+        public async Task<ActionResult> UpdateLeavingRequest(LeavingRequestInserModel leaving)
         {
-            return Ok(leavingRequestRepository.UpdateLeaving(leaving));
+            int chk = await leavingRequestRepository.UpdateLeaving(leaving);
+            switch (chk)
+            {
+                case Variables.SUCCESS:
+                    return Ok(new GeneralResponse { ErrorType = Variables.SUCCESS, message="Berhasil Mengupdate data" });
+                case Variables.JUMLAH_CUTI_TIDAK_MENCUKUPI:
+                    return Ok(new GeneralResponse { ErrorType = Variables.JUMLAH_CUTI_TIDAK_MENCUKUPI, message = "Jumlah Cuti anda tidak mencukupi" });
+                default:
+                    return Ok(new GeneralResponse { ErrorType = Variables.FAIL, message = "Terjadi kesalahan silakhkan coba lagi nanti" });
+            }
+
         }
 
 
