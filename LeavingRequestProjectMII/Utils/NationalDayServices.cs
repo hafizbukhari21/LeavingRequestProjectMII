@@ -1,4 +1,5 @@
-﻿using API.ModelsResponse;
+﻿using API.Controllers;
+using API.ModelsResponse;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -29,10 +30,9 @@ namespace API.Utils
             return JsonConvert.DeserializeObject<List<NationalDayResponse>>(response);
         }
 
-        public async Task<int> CountPotonganLibur()
+        public async Task<int> CountPotonganLibur(DateTime startDate, DateTime endDate)
         {
-            DateTime startDate = new DateTime(2022, 8, 10);
-            DateTime endDate = new DateTime(2022, 8, 18);
+            
 
             TimeSpan diff = endDate - startDate;
             int Days = diff.Days;

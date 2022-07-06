@@ -102,6 +102,13 @@ function leaveDetail(reqId) {
         $("#downloadFileBukti").attr("download", u.namaFileBukti);
         $("#approvalMessage").val(u.approvalMessage)
         console.log(u)
+        let modalUpdateFooter = document.querySelector("#modalFooterUpdate")
+        if (u.approvalStatus == 1 || u.approvalStatus == 2) {
+            modalUpdateFooter.style.display = "none";
+        }
+        else {
+            modalUpdateFooter.style.display = "flex";
+        }
     })
 }
 

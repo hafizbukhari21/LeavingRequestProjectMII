@@ -68,9 +68,9 @@ namespace API.Controllers
         [HttpPost]
         [EnableCors("AllowOrigin")]
 
-        public ActionResult InsertLeavingRequest(LeavingRequestInserModel leavingRequestInser)
+        public async Task<ActionResult> InsertLeavingRequest(LeavingRequestInserModel leavingRequestInser)
         {
-            int chk = leavingRequestRepository.InsertLeaving(leavingRequestInser);
+            int chk = await leavingRequestRepository.InsertLeaving(leavingRequestInser);
 
             if (chk == Variables.CUTI_SUDAH_HABIS)
                 return Ok(new GeneralResponse { ErrorType = Variables.CUTI_SUDAH_HABIS, message = "Jatah Cuti tidak mencukupi" });
@@ -95,12 +95,12 @@ namespace API.Controllers
         [HttpPatch("man/approve")]
         [EnableCors("AllowOrigin")]
 
-        public ActionResult ApproveRequest(LeavingRequest leaving)
+        public async Task<ActionResult> ApproveRequest(LeavingRequest leaving)
         {
-            string namaEmp = "";
-            int ckhStatus = leavingRequestRepository.ApproveLeaving(leaving.request_id,leaving.approvalMessage, out namaEmp);
-            if (ckhStatus == Variables.SUCCESS) return Ok(new GeneralResponse {ErrorType=Variables.SUCCESS, message="Berhasil Melakukan Approval Untuk "+ namaEmp  });
-            if (ckhStatus == Variables.JUMLAH_CUTI_TIDAK_MENCUKUPI) return Ok(new GeneralResponse {ErrorType=Variables.JUMLAH_CUTI_TIDAK_MENCUKUPI, message="Sisa hari cuti tidak memenuhi "+ namaEmp  });
+            
+            Tuple<int,string> ckhStatus = await leavingRequestRepository.ApproveLeaving(leaving.request_id,leaving.approvalMessage);
+            if (ckhStatus.Item1 == Variables.SUCCESS) return Ok(new GeneralResponse {ErrorType=Variables.SUCCESS, message="Berhasil Melakukan Approval Untuk "+ ckhStatus.Item2  });
+            if (ckhStatus.Item1 == Variables.JUMLAH_CUTI_TIDAK_MENCUKUPI) return Ok(new GeneralResponse {ErrorType=Variables.JUMLAH_CUTI_TIDAK_MENCUKUPI, message="Sisa hari cuti tidak memenuhi "+ ckhStatus.Item2 });
             else return BadRequest(new GeneralResponse { ErrorType = Variables.FAIL, message = "Terjadi Kesalahan Silahkan Coba Lagi" });
         }
 

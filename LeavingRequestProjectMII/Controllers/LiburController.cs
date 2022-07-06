@@ -25,10 +25,12 @@ namespace API.Controllers
              return Ok(await nationalDay.GetNationalDay());
         }
 
-        [HttpGet("tot")]
-        public async Task<ActionResult> GetTotalhari()
+        [HttpGet("tot/{startDate}/{endDate}")]
+        public async Task<ActionResult> GetTotalhari(DateTime startDate, DateTime endDate)
         {
-            return Ok(await nationalDay.CountPotonganLibur());
+            return Ok(await nationalDay.CountPotonganLibur(startDate,endDate));
         }
     }
+
+   
 }

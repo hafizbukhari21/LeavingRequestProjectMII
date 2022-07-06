@@ -211,6 +211,7 @@ namespace API.Repositories.Data
         public int ForgotPassword(Employees employees)
         {
             Employees emp = context.employees.Where(emp => emp.email == employees.email).FirstOrDefault();
+            if (emp == null) return Variables.DATA_TIDAK_SESUAI;
             emp.tokenOtp = Tools.RandomString(10);
             emp.expired = DateTime.Now.AddMinutes(5);
             emp.isActiveOtp = true;

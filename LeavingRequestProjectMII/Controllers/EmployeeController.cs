@@ -134,7 +134,8 @@ namespace API.Controllers
         {
             int chk = employeeRepository.ForgotPassword(employees);
             if (chk == Variables.SUCCESS) return Ok(new GeneralResponse { ErrorType = Variables.SUCCESS, message = "Silahkan Cek OTP anda di Email " });
-            else return Ok(new GeneralResponse { ErrorType = Variables.FAIL, message = "Terjadi Kesalahan Silahkan coba lagi " })  ;
+            else if (chk == Variables.DATA_TIDAK_SESUAI) return Ok(new GeneralResponse { ErrorType =Variables.DATA_TIDAK_SESUAI, message="Email tidak Sesuai"});
+            else return Ok(new GeneralResponse { ErrorType = Variables.FAIL, message = "Terjadi Kesalahan Silahkan coba lagi " });
 
         }
 
