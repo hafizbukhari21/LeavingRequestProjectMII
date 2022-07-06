@@ -73,6 +73,36 @@ namespace API.Repositories.Data
                   }).FirstOrDefault(lr => lr.request_id == request_id);
         }
 
+        //untuk dashboart manager
+        public object CountStatisticManager(string manager_id)
+        {
+            List<LeavingRequest> lr = context.leavingRequests.Where(lr => lr.employees.manager_id == manager_id && lr.isDelete == false).ToList();
+            return new
+            {
+                total = lr.Count(),
+                totalApprove = lr.Where(lr=>lr.approvalStatus== Approval_status.Diterima).Count(),
+                totalRevisi= lr.Where(lr=>lr.approvalStatus== Approval_status.Revisi).Count(),
+                totalReject = lr.Where(lr=>lr.approvalStatus== Approval_status.Ditolak).Count(),
+                totalMenunggu = lr.Where(lr=>lr.approvalStatus== Approval_status.Menunggu).Count(),
+            };
+                    
+        }
+
+        //untuk dashboart emp
+        public object CountStatisticEmployee(string employee_id)
+        {
+            List<LeavingRequest> lr = context.leavingRequests.Where(lr => lr.employees.employee_id == employee_id && lr.isDelete == false).ToList();
+            return new
+            {
+                total = lr.Count(),
+                totalApprove = lr.Where(lr => lr.approvalStatus == Approval_status.Diterima).Count(),
+                totalRevisi = lr.Where(lr => lr.approvalStatus == Approval_status.Revisi).Count(),
+                totalReject = lr.Where(lr => lr.approvalStatus == Approval_status.Ditolak).Count(),
+                totalMenunggu = lr.Where(lr => lr.approvalStatus == Approval_status.Menunggu).Count(),
+            };
+
+        }
+
         //ngelihat daftar cuti anak buah
         public Object GetLeavingManager(string manager_id)
         {
@@ -231,8 +261,19 @@ namespace API.Repositories.Data
         }
 
        
-
-        
+        //untuk chart calendar manager
+        public Object GetCutiEmployeeForManager(string manager_id)
+        {
+            return context.leavingRequests.Where(lr => lr.employees.manager_id == manager_id && lr.isDelete == false)
+                .Select(lr=>new { 
+                    request_id = lr.request_id,
+                    startDate = lr.startDate,
+                    endDate = lr.endDate,
+                    nameEmployee = lr.employees.name,
+                    leavingMessage = lr.leavingMessage,
+                    status = lr.approvalStatus.ToString()
+                }).ToList();
+        }
 
 
 

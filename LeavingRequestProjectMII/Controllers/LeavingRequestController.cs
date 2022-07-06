@@ -24,6 +24,28 @@ namespace API.Controllers
             this.leavingRequestRepository = leavingRequestRepository;
         }
 
+
+        [HttpGet("man/{manager_id}/statistic")]
+        [EnableCors("AllowOrigin")]
+        public ActionResult Statistic(string manager_id)
+        {
+            return Ok(leavingRequestRepository.CountStatisticManager(manager_id));
+        }
+
+        [HttpGet("emp/{employee_id}/statistic")]
+        [EnableCors("AllowOrigin")]
+        public ActionResult StatisticEmp(string employee_id)
+        {
+            return Ok(leavingRequestRepository.CountStatisticEmployee(employee_id));
+        }
+
+        [HttpGet("man/{manager_id}/calendar")]
+        [EnableCors("AllowOrigin")]
+        public ActionResult GetCutiDateEmp(string manager_id)
+        {
+            return Ok(leavingRequestRepository.GetCutiEmployeeForManager(manager_id));
+        }
+
         [HttpGet("countNotRead/{employee_id}")]
         [EnableCors("AllowOrigin")]
 
@@ -138,5 +160,7 @@ namespace API.Controllers
             else return BadRequest(new GeneralResponse { ErrorType = Variables.FAIL, message = "Terjadi Kesalahan Silahkan Coba Lagi" });
         }
 
+
+       
     }
 }

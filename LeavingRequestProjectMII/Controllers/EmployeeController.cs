@@ -30,11 +30,26 @@ namespace API.Controllers
             this.configuration = configuration;
         }
 
+        [HttpGet("{employee_id}/sisaCuti")]
+        [EnableCors("AllowOrigin")]
+
+        public ActionResult SisaCuti(string employee_id)
+        {
+            return Ok(employeeRepository.GetTotCutiSaya(employee_id));
+        }
+
         [HttpGet("allManager")]
         [EnableCors("AllowOrigin")]
         public ActionResult GetAllManager()
         {
             return Ok(employeeRepository.GetAllManager());
+        }
+
+        [HttpGet("man/{manager_id}/empWithTotCuti")]
+        [EnableCors("AllowOrigin")]
+        public ActionResult GetEmpWithTotalCuti(string manager_id)
+        {
+            return Ok(employeeRepository.GetEmployeeWithTotalCuti(manager_id));
         }
 
         [HttpGet]

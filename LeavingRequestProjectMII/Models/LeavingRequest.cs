@@ -27,6 +27,8 @@ namespace API.Models
 
         public bool isRead { get; set; }
 
+        public bool isDelete { get; set; }
+
         public TipeFileBukti tipeFileBukti { get; set; }
 
         public virtual Employees employees { set; get; }
