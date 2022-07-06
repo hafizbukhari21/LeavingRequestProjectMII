@@ -30,6 +30,11 @@
     <link rel="stylesheet" href="//cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css" />
     <link rel="stylesheet" href="//cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <style>
+        .aktif{
+            color:#3f6ad8;background:#e0f3ff;font-weight:bold
+        }
+    </style>
 
     @RenderSection("CSSnya", required: false)
 </head>
@@ -71,19 +76,6 @@
                     <div class="header-btn-lg pr-0">
                         <div class="widget-content p-0">
                             <div class="widget-content-wrapper">
-                                <div class="widget-content-left">
-                                    <div class="btn-group">
-                                        <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn">
-                                            @*<img width="42" class="rounded-circle" src="architectui/assets/images/avatars/1.jpg" alt="">*@
-                                            <i class="fa fa-angle-down ml-2 opacity-8"></i>
-                                        </a>
-                                        <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
-                                            <button type="button" tabindex="0" class="dropdown-item">Profile Settings</button>
-                                            <div tabindex="-1" class="dropdown-divider"></div>
-                                            <a href="/Logout" class="btn dropdown-item">Logout</a>
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="widget-content-left  ml-3 header-user-info">
                                     <input type="hidden" id="login-employee-id" value="@Context.Session.GetString("employee_id")" />
                                     <div class="widget-heading" id="namaLogin">
@@ -91,6 +83,19 @@
                                     </div>
                                     <div class="widget-subheading">
                                         @Context.Session.GetString("role_name")
+                                    </div>
+                                </div>
+                                <div class="widget-content-left">
+                                    <div class="btn-group">
+                                        <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn">
+                                            @*<img width="42" class="rounded-circle" src="architectui/assets/images/avatars/1.jpg" alt="">*@
+                                            <i class="fa fa-angle-down ml-2 opacity-8"></i>
+                                        </a>
+                                        <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
+                                            <button type="button" tabindex="0" class="dropdown-item"><i class="fas fa-address-card"></i> &nbsp;Profile Settings</button>
+                                            <div tabindex="-1" class="dropdown-divider"></div>
+                                            <a href="/Logout" class="btn dropdown-item"><i class="fas fa-sign-out-alt"></i> &nbsp;Logout</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -426,7 +431,7 @@
                         <ul class="vertical-nav-menu">
                             <li class="app-sidebar__heading">Home</li>
                             <li>
-                                <a href="index.html" class="mm-active">
+                                <a href="/Employee" class="">
                                     <i class="metismenu-icon pe-7s-rocket"></i>
                                     Dashboard
                                 </a>
@@ -455,13 +460,13 @@
                             <li class="app-sidebar__heading">Leave</li>
                             <li>
                                 <a asp-controller="Employee" asp-action="LeaveRequest">
-                                    <i class="metismenu-icon pe-7s-display2"></i>
+                                    <i class="metismenu-icon pe-7s-back-2"></i>
                                     Request Leave
                                 </a>
                             </li>
                             <li>
                                 <a asp-controller="Employee" asp-action="LeaveHistory">
-                                    <i class="metismenu-icon pe-7s-display2"></i>
+                                    <i class="metismenu-icon pe-7s-note2"></i>
                                     Leave Histories
                                 </a>
                             </li>
@@ -470,7 +475,7 @@
                             {*@
                             <li>
                                 <a asp-controller="Employee" asp-action="LeaveRequestConfirmation">
-                                    <i class="metismenu-icon pe-7s-display2"></i>
+                                    <i class="metismenu-icon pe-7s-mail-open-file"></i>
                                     Leave Request Confirmation
                                 </a>
                             </li>
@@ -539,7 +544,16 @@
         @RenderSection("Modal", required: false)
         @RenderSection("JSnya", required: false)
 
-
+    <script>
+        $(function($) {
+          let url = window.location.href;
+          $('li a').each(function() {
+            if (this.href === url) {
+              $(this).closest('li').addClass('aktif');
+            }
+          });
+        });
+    </script>
 
 
 </body>

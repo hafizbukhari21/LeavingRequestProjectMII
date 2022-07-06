@@ -9,7 +9,7 @@ namespace Client.Controllers
 {
     public class AdminController : Controller
     {
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpGet("Admin/")]
         public IActionResult Index()
         {

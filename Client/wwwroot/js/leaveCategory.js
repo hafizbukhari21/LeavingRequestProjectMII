@@ -51,6 +51,7 @@ $(document).ready(function () {
             {
                 "className": 'details-control',
                 "orderable": false,
+                "ordering": false,
                 "data": null,
                 "defaultContent": ''
             },
