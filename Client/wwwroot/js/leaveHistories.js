@@ -1,12 +1,17 @@
 ﻿const idEmp = $("#login-employee-id").val()
 
 
+
+
 $(document).ready(function () {
+    let formUpdate = document.getElementsByClassName("updateLeaveForm")
+    ValidateForm(formUpdate, UpdateRequest)
+    
     GetCategory();
     $('#dataTbl').DataTable({
         ajax: {
             //url: `https://localhost:44302/api/leavingrequest/emp/${idEmp}`,
-            url: `https://localhost:44302/api/leavingrequest/emp/Employee0002`,
+            url: `https://localhost:44302/api/leavingrequest/emp/Employee0003`,
             "dataType": "json",
             "dataSrc": "",
         },
@@ -85,28 +90,61 @@ function leaveDetail(reqId) {
         type: "POST",
         contentType: 'application/json',
     }).done(u => {
+        $("#namaFileBukti").val(u.namaFileBukti);
+        $("#tipeFileBukti").val(u.tipeFileBukti);
+
         $("#request_id").val(u.request_id);
-        $("#employee_id").val(u.employee_id);
         document.getElementById("category_id").value = u.category_id;
         $("#start_date").val(moment(u.startDate).format("MM/DD/yyyy").toString());
         $("#end_date").val(moment(u.endDate).format("MM/DD/yyyy").toString());
         $("#approvalStatusName").val(u.approvalStatusName);
         $("#leavingMessage").val(u.leavingMessage);
-        console.log(u)
+        $("#approvalMessage").val(u.approvalMessage);
+        $("#downloadFileBukti").attr("href", "data:application/octet-stream;base64," + u.fileBukti);
+        $("#downloadFileBukti").attr("download", u.namaFileBukti);
+        console.log(moment(u.startDate).format("YYYY-MM-DD").toString())
+
+        $('#dateLeave').daterangepicker({
+            "startDate": moment(u.startDate).format("MM/DD/YYYY").toString(),
+            "endDate": moment(u.endDate).format("MM/DD/YYYY").toString(),
+            "minDate": GetDateToday()
+        }, function (start, end, label) {
+            StartDate = start.format('YYYY-MM-DD')
+            console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
+        });
     })
 }
 
-$("#updateReq").submit(function (e) {
-    e.preventDefault();
-    var obj = new Object();
-    obj.request_id = $("#request_id").val();
-    obj.employee_id = $("#employee_id").val();
-    obj.category_id = parseInt($("#category_id").val()),
-    obj.startDate = $("#start_date").val();
-    obj.endDate = $("#end_date").val();
-    $("#downloadFileBukti").attr("href", "data:application/octet-stream;base64," + obj.fileBukti);
-        //obj.fileBukti = $("#fileBukti").val();
-    obj.leavingMessage = $("#leavingMessage").val();
+async function UpdateRequest() {
+    const DateReqLeave = document.querySelector("#dateLeave").value
+    const [startDate, endDate] = SpliteDate(DateReqLeave)
+    let fileBukti = null
+    let uploadFileUpdate = document.querySelector("#newfileBukti")
+    let namaFileBukti = $("#namaFileBukti").val()
+    let fileBuktiExt = $("#tipeFileBukti").val()
+
+    if (!uploadFileUpdate.files.length == 0) {
+        uploadFileUpdate = document.querySelector("#newfileBukti").files[0]
+        fileBuktiExt = getExtFile(uploadFileUpdate.name)
+        namaFileBukti = uploadFileUpdate.name
+        fileBukti = await toBase64(uploadFileUpdate)
+    }
+
+    let obj = {
+        "request_id": $("#request_id").val(),
+       
+        "category_id": $("#category_id").val(),
+        "startDate": startDate,
+        "endDate": endDate,
+        "leavingMessage": $("#leavingMessage").val(),
+
+        "tipeFileBukti": fileBuktiExt,
+        "namaFileBukti": namaFileBukti,
+        "fileBukti": fileBukti
+    }
+
+    
+    //obj.fileBukti = $("#fileBukti").val();
     $.ajax({
         url: "https://localhost:44302/api/leavingrequest/",
         type: "PATCH",
@@ -130,7 +168,8 @@ $("#updateReq").submit(function (e) {
             footer: '<a href="">Why do I have this issue?</a>'
         })
     })
-})
+}
+   
 
 $('#start_date').datepicker({
     onSelect: function (dateText, inst) {

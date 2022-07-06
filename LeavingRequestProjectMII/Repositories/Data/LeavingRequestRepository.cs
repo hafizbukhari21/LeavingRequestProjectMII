@@ -56,7 +56,7 @@ namespace API.Repositories.Data
                       category_name = lr.leaveCategory.nameCategory,
                       leavingMessage = lr.leavingMessage,
                       fileBukti = lr.fileBukti,
-                      tipeFileBukti = lr.tipeFileBukti,
+                      tipeFileBukti = lr.tipeFileBukti.ToString(),
                        namaFileBukti = lr.namaFileBukti,
 
                   }).FirstOrDefault(lr => lr.request_id == request_id);
