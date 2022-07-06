@@ -6,10 +6,12 @@
 @using Microsoft.AspNetCore.Http
 
 
-<div class="container">
-    <h1>Leave Request</h1>
+<div >
+    
     <div class="row pt-3">
+        
         <div class="card col-12 pt-3">
+            <h1>Leave Request</h1>
             <h3>Requester Information</h3>
             <table>
                 <tbody>
@@ -44,31 +46,39 @@
             <h2>Leave Detail</h2>
             <form class="inputLeaveForm" novalidate id="inputLeave" enctype="multipart/form-data">
                 @*<input type="hidden" class="form-control" id="approvalStatus" placeholder="approval status" value="Menunggu">
-                    <input type="hidden" class="form-control" id="employee_id" placeholder="employee id" value="Employee0006">*@
+            <input type="hidden" class="form-control" id="employee_id" placeholder="employee id" value="Employee0006">*@
                 <div class="row">
-                    <div class="form-group col-sm-3">
+                    <div class="form-group col-sm-4">
                         <label for="exampleFormControlSelect1">Leave Category</label>
                         <select class="form-control" id="category_id">
                         </select>
                         <div class="invalid-feedback emailfeedbackInsert">
-                           WajibCategory
+                            WajibCategory
                         </div>
                     </div>
-                    <div class="form-group col-sm-3">
+                    @*<div class="form-group col-sm-3">
+                    <label for="exampleFormControlInput1">Start Date</label>
+                    <input required type="text" class="form-control" id="start_date" placeholder="Start Date">
+                    <div class="invalid-feedback emailfeedbackInsert">
+                        Start Date Wajib
+                    </div>
+                </div>
+                <div class="form-group col-sm-3">
+                    <label for="exampleFormControlInput1">End Date</label>
+                    <input required type="text" class="form-control" id="end_date" placeholder="End Date">
+                    <div class="invalid-feedback emailfeedbackInsert">
+                        End data Wajib
+                    </div>
+                </div>*@
+                    <div class="form-group col-sm-4">
                         <label for="exampleFormControlInput1">Start Date</label>
-                        <input required type="text" class="form-control" id="start_date" placeholder="Start Date">
+                        <input required type="text" name="daterange" class="form-control inputDate" id="dateLeave" value="01/01/2020 - 01/10/2020" />
+
                         <div class="invalid-feedback emailfeedbackInsert">
                             Start Date Wajib
                         </div>
                     </div>
-                    <div class="form-group col-sm-3">
-                        <label for="exampleFormControlInput1">End Date</label>
-                        <input required type="text" class="form-control" id="end_date" placeholder="End Date">
-                        <div class="invalid-feedback emailfeedbackInsert">
-                            End data Wajib
-                        </div>
-                    </div>
-                    <div class="form-group col-sm-3">
+                    <div class="form-group col-sm-4">
                         <label for="exampleFormControlFile1">Upload File</label>
                         <input required type="file" class="form-control-file" id="fileBukti">
                         <div class="invalid-feedback emailfeedbackInsert">
@@ -102,5 +112,7 @@
 
 @section JSnya{
     <script src="~/js/tools.js"></script>
+    
     <script src="~/js/leaveRequest.js"></script>
+    
 }

@@ -1,5 +1,16 @@
 ﻿$(document).ready(function () {
+    console.log(GetDateToday())
+    $('#dateLeave').daterangepicker({
+
+        "minDate": GetDateToday()
+    }, function (start, end, label) {
+        StartDate = start.format('YYYY-MM-DD')
+        console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
+    });
+
+
     const idEmp = $("#login-employee-id").val()
+    console.log("idemp :"+idEmp)
     $.ajax({
         url: `https://localhost:44302/api/employee/${idEmp}/withManager`
     }).done(e => {
@@ -44,12 +55,18 @@ async function SubmitFormRequest() {
     
     const fileBukti = document.querySelector('#fileBukti').files[0];
     const fileBuktiExt = getExtFile(fileBukti.name)
+    const DateReqLeave = document.querySelector("#dateLeave").value
+    const [startDate, endDate] = SpliteDate(DateReqLeave)
+    console.log(startDate)
+    console.log(endDate)
+    
+    
 
     var obj = {
         "employee_id": $("#login-employee-id").val(),
         "category_id": parseInt($("#category_id").val()),
-        "startDate": dateStringToDate($("#start_date").val()),
-        "endDate": dateStringToDate($("#end_date").val()),
+        "startDate": startDate,
+        "endDate": endDate,
         "leavingMessage": $("#leavingMessage").val(),
         "tipeFileBukti": fileBuktiExt,
         "fileBukti": await toBase64(fileBukti),
