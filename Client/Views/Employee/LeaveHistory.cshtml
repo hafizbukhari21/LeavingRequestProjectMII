@@ -32,56 +32,64 @@
     <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                @*<form id="updateEmployee" class="needs-validation" novalidate>*@
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit Data</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body col-12">
-                    <div class="row">
-                        <div class="form-group col-sm-6">
-                            <label for="group_name">Employee</label>
-                            <input required type="hidden" class="form-control" name="" id="request_ids">
-                            <input readonly type="text" class="form-control" name="" id="employee_id">
+                <form id="updateReq" class="updateLeaveForm" novalidate>
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Edit Data</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body col-12">
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <label for="group_name">Leave Request</label>
+                                <input required type="hidden" class="form-control" name="" id="request_id">
+                                <input readonly type="text" class="form-control" name="" id="employee_id">
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="group_name">Leave Category</label>
+                                <select required class="custom-select" name="" id="category_id">
+                                    <option value="">== Choose Leave Category ==</option>
+
+                                </select>
+                            </div>
                         </div>
-                        <div class="form-group col-sm-6">
-                            <label for="group_name">Leave Category</label>
-                            <input readonly type="text" class="form-control" name="" id="category_id">
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <label for="group_name">Start Date</label>
+                                <input type="text" class="form-control" id="start_date" placeholder="Start Date">
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="group_name">End Date</label>
+                                <input type="text" class="form-control" name="" id="end_date">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-4">
+                                <label for="group_name">Approval Status</label>
+                                <input readonly type="text" class="form-control" name="" id="approvalStatusName">
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label for="group_name">File</label>
+                                <a id="downloadFileBukti" href="" download="" class="form-control btn btn-info" onclick=""><i class="fas fa-download"></i> Current File</a>
+                                
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label for="group_name">New File</label>
+                                <input required type="file" class="form-control-file" id="newfileBukti">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label for="exampleFormControlTextarea1">Message</label>
+                                <textarea class="form-control" id="leavingMessage" rows="3"></textarea>
+                            </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="form-group col-sm-6">
-                            <label for="group_name">Start Date</label>
-                            <input readonly type="text" class="form-control" name="" id="startDate">
-                        </div>
-                        <div class="form-group col-sm-6">
-                            <label for="group_name">End Date</label>
-                            <input readonly type="text" class="form-control" name="" id="endDate">
-                        </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" id="btnApprove"> Save Changes</button>
                     </div>
-                    <div class="row">
-                        <div class="form-group col-sm-6">
-                            <label for="group_name">Approval Status</label>
-                            <input readonly type="text" class="form-control" name="" id="approvalStatusName">
-                        </div>
-                        <div class="form-group col-sm-6">
-                            <label for="group_name">File</label>
-                            <input type="file" class="" name="" id="">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-sm-12">
-                            <label for="exampleFormControlTextarea1">Message</label>
-                            <textarea readonly class="form-control" id="leavingMessage" rows="3"></textarea>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary" id="btnApprove"> Save Changes</button>
-                </div>
-                @*</form>*@
+                </form>
             </div>
         </div>
     </div>
@@ -110,18 +118,10 @@
 
 
 @section CSSnya {
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css" />
+    
 }
 
 @section JSnya {
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
     <script src="~/js/leaveHistories.js"></script>
+    <script src="~/js/tools.js"></script>
 }

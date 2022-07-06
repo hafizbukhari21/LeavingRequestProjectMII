@@ -2,7 +2,7 @@
 
 
 $(document).ready(function () {
-
+    GetCategory();
     $('#dataTbl').DataTable({
         ajax: {
             //url: `https://localhost:44302/api/leavingrequest/emp/${idEmp}`,
@@ -85,13 +85,72 @@ function leaveDetail(reqId) {
         type: "POST",
         contentType: 'application/json',
     }).done(u => {
-        $("#request_ids").val(u.request_id);
+        $("#request_id").val(u.request_id);
         $("#employee_id").val(u.employee_id);
-        $("#category_id").val(u.category_id);
-        $("#startDate").val(u.startDate);
-        $("#endDate").val(u.endDate);
+        document.getElementById("category_id").value = u.category_id;
+        $("#start_date").val(moment(u.startDate).format("MM/DD/yyyy").toString());
+        $("#end_date").val(moment(u.endDate).format("MM/DD/yyyy").toString());
         $("#approvalStatusName").val(u.approvalStatusName);
         $("#leavingMessage").val(u.leavingMessage);
         console.log(u)
+    })
+}
+
+$("#updateReq").submit(function (e) {
+    e.preventDefault();
+    var obj = new Object();
+    obj.request_id = $("#request_id").val();
+    obj.employee_id = $("#employee_id").val();
+    obj.category_id = parseInt($("#category_id").val()),
+    obj.startDate = $("#start_date").val();
+    obj.endDate = $("#end_date").val();
+    $("#downloadFileBukti").attr("href", "data:application/octet-stream;base64," + obj.fileBukti);
+        //obj.fileBukti = $("#fileBukti").val();
+    obj.leavingMessage = $("#leavingMessage").val();
+    $.ajax({
+        url: "https://localhost:44302/api/leavingrequest/",
+        type: "PATCH",
+        contentType: 'application/json',
+        data: JSON.stringify(obj)
+        //data: obj, //jika terkena 415 unsupported media type (tambahkan headertype Json & JSON.Stringify();)
+    }).done((result) => {
+        $('#dataTbl').DataTable().ajax.reload();
+        Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: 'Data Updated!',
+        })
+        console.log(result);
+    }).fail((error) => {
+        console.log(error)
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong!',
+            footer: '<a href="">Why do I have this issue?</a>'
+        })
+    })
+})
+
+$('#start_date').datepicker({
+    onSelect: function (dateText, inst) {
+        $('#end_date').datepicker('option', 'minDate', new Date(dateText));
+    },
+});
+
+$('#end_date').datepicker({
+    onSelect: function (dateText, inst) {
+        $('#start_date').datepicker('option', 'maxDate', new Date(dateText));
+    }
+});
+
+
+function GetCategory() {
+    $.ajax({
+        url: "https://localhost:44302/api/category"
+    }).done(e => {
+        e.forEach(elem => {
+            $("#category_id").append(`<option value="${elem.category_id}">${elem.nameCategory}</option>`)
+        })
     })
 }

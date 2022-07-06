@@ -8,13 +8,13 @@
     <h1>Division Data</h1>
     <div class="row pt-3">
         <div class="card col-12 pt-3 pb-3">
-            <table class="table table-bordered table-hover" id="dataTbl">
+            <table class="align-middle mb-0 table table-borderless table-striped table-hover" id="dataTbl">
                 <thead>
                     <tr>
-                        <th>No</th>
-                        <th>Id</th>
+                        <th></th>
+                        @*<th>Id</th>*@
                         <th>Division Name</th>
-                        <th>Action</th>
+                        @*<th>Action</th>*@
                     </tr>
                 </thead>
                 <tbody>
@@ -30,7 +30,7 @@
     <div class="modal fade" id="insertModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form id="insertEmployee" class="needs-validation" novalidate>
+                <form id="insertDivisi" class="needs-validation" novalidate>
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Add Data</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -39,87 +39,13 @@
                     </div>
                     <div class="modal-body col-12">
                         <div class="row">
-                            <div class="form-group col-sm-6">
+                            <div class="form-group col-sm-12">
                                 <label for="group_name">Name <i class="text-danger">*</i></label>
-                                <input required type="text" class="form-control" name="FirstName" id="CName" placeholder="Enter Full Name">
+                                <input required type="text" class="form-control" name="" id="namaDivisi" placeholder="Enter Division Name">
                                 <div class="valid-feedback">
                                     Looks good!
                                 </div>
                                 <div class="invalid-feedback">Fill your fullname</div>
-                            </div>
-                            <div class="form-group col-sm-6">
-                                <label for="group_name">Gender <i class="text-danger">*</i></label>
-                                <select required class="custom-select" name="Gender" id="CGender">
-                                    <option value="">== Choose Your Gender ==</option>
-                                    <option value="Male">Male</option>
-                                    <option value="Female">Female</option>
-                                </select>
-                                <div class="valid-feedback">
-                                    Looks good!
-                                </div>
-                                <div class="invalid-feedback">Choose Male or Female</div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-sm-6">
-                                <label for="code_group">Email <i class="text-danger">*</i></label>
-                                <input required type="email" class="form-control email" name="Email" id="CEmail" placeholder="Enter Email">
-                                <div class="valid-feedback">
-                                    Looks good!
-                                </div>
-                                <div class="invalid-feedback">Fill valid email address</div>
-                            </div>
-                            <div class="form-group col-sm-6">
-                                <label for="code_group">Password <i class="text-danger">*</i></label>
-                                <input required type="password" class="form-control" name="Password" id="CPassword" placeholder="Enter Password">
-                                <div class="valid-feedback">
-                                    Looks good!
-                                </div>
-                                <div class="invalid-feedback">Fill password</div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-sm-6">
-                                <label for="code_group">Phone Number <i class="text-danger">*</i></label>
-                                <input required type="text" class="form-control phoneNumber" name="Phone" id="CPhoneNumber" placeholder="Enter Phone">
-                                <div class="valid-feedback">
-                                    Looks good!
-                                </div>
-                                <div class="invalid-feedback">Fill your phone number</div>
-                            </div>
-                            <div class="form-group col-sm-6">
-                                <label for="group_name">Role <i class="text-danger">*</i></label>
-                                <select required class="custom-select CRoleId" name="CRoleId" id="CRoleId">
-                                    <option value="">== Choose Your Role ==</option>
-                                </select>
-                                <div class="valid-feedback">
-                                    Looks good!
-                                </div>
-                                <div class="invalid-feedback">Choose Role</div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-sm-6">
-                                <label for="group_name">Manager <i class="text-danger">*</i></label>
-                                <select required class="custom-select CManagerId" name="Gender" id="CManagerId">
-                                    <option value="">== Choose Your manager ==</option>
-
-                                </select>
-                                <div class="valid-feedback">
-                                    Looks good!
-                                </div>
-                                <div class="invalid-feedback">Choose Manager</div>
-                            </div>
-                            <div class="form-group col-sm-6">
-                                <label for="group_name">Divisi <i class="text-danger">*</i></label>
-                                <select required class="custom-select CDivisiId" name="Gender" id="CDivisiId">
-                                    <option value="">== Choose Your Role ==</option>
-
-                                </select>
-                                <div class="valid-feedback">
-                                    Looks good!
-                                </div>
-                                <div class="invalid-feedback">Choose Division</div>
                             </div>
                         </div>
                     </div>
@@ -148,8 +74,8 @@
                         <div class="row">
                             <div class="form-group col-sm-6">
                                 <label for="group_name">Name <i class="text-danger">*</i></label>
-                                <input required type="hidden" class="form-control" name="" id="employee_id" placeholder="">
-                                <input required type="text" class="form-control" name="" id="UName" placeholder="Enter Full Name">
+                                <input required type="hidden" class="form-control" name="" id="divisi_id" placeholder="">
+                                <input required type="text" class="form-control" name="" id="namaDivisi" placeholder="Enter Full Name">
                                 <div class="valid-feedback">
                                     Looks good!
                                 </div>
@@ -166,51 +92,6 @@
                                     Looks good!
                                 </div>
                                 <div class="invalid-feedback">Choose Male or Female</div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-sm-6">
-                                <label for="code_group">Phone Number <i class="text-danger">*</i></label>
-                                <input required type="text" class="form-control " name="Phone" id="UPhoneNumber" placeholder="Enter Phone">
-                                <div class="valid-feedback">
-                                    Looks good!
-                                </div>
-                                <div class="invalid-feedback">Fill your phone number</div>
-                            </div>
-                            <div class="form-group col-sm-6">
-                                <label for="group_name">Role <i class="text-danger">*</i></label>
-                                <select required class="custom-select CRoleId" name="CRoleId" id="URoleId">
-                                    <option value="">== Choose Your Role ==</option>
-
-                                </select>
-                                <div class="valid-feedback">
-                                    Looks good!
-                                </div>
-                                <div class="invalid-feedback">Choose Role</div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-sm-6">
-                                <label for="group_name">Manager <i class="text-danger">*</i></label>
-                                <select required class="custom-select CManagerId" name="Manager" id="UManagerId">
-                                    <option value="">== Choose Your manager ==</option>
-
-                                </select>
-                                <div class="valid-feedback">
-                                    Looks good!
-                                </div>
-                                <div class="invalid-feedback">Choose Manager</div>
-                            </div>
-                            <div class="form-group col-sm-6">
-                                <label for="group_name">Divisi <i class="text-danger">*</i></label>
-                                <select required class="custom-select CDivisiId" name="Gender" id="UDivisiId">
-                                    <option value="">== Choose Your Role ==</option>
-
-                                </select>
-                                <div class="valid-feedback">
-                                    Looks good!
-                                </div>
-                                <div class="invalid-feedback">Choose Division</div>
                             </div>
                         </div>
                     </div>
@@ -248,19 +129,23 @@
 
 
 @section CSSnya {
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css" />
+    <style>
+        td.details-control {
+            background: url(https://www.datatables.net/examples/resources/details_open.png) no-repeat center center;
+            cursor: pointer;
+            width: 30px;
+            transition: .5s;
+        }
+
+        tr.shown td.details-control {
+            background: url(https://www.datatables.net/examples/resources/details_close.png) no-repeat center center;
+            width: 30px;
+            transition: .5s;
+        }
+    </style>
 }
 
 @section JSnya {
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/division.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
 }
 

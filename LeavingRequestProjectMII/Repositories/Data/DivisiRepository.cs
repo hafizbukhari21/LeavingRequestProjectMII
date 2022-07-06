@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.Utils;
 
 namespace API.Repositories.Data
 {
@@ -17,11 +18,11 @@ namespace API.Repositories.Data
         }
         public Object Get()
         {
-            return context.divisi.ToList().Select(div=>new Divisi { 
+            return context.divisi.Where(div => div.isDeleted == false).Select(div=>new Divisi { 
                 divisi_id =div.divisi_id,
                 namaDivisi = div.namaDivisi
 
-            });
+            }).ToList();
         }
 
         public Object Get(Divisi divisi)
@@ -40,6 +41,37 @@ namespace API.Repositories.Data
             div.namaDivisi = divisi.namaDivisi;
 
             context.divisi.Update(div);
+            return context.SaveChanges();
+        }
+
+        public Object GetId(int divisi_id)
+        {
+            return context.divisi.Where(div => div.isDeleted == false).Select(div => new Divisi
+            {
+                divisi_id = div.divisi_id,
+                namaDivisi = div.namaDivisi,
+            }).ToList().FirstOrDefault(div => div.divisi_id == divisi_id);
+        }
+
+        public int softDelete(int divisi_id)
+        {
+            Divisi div = context.divisi.Find(divisi_id);
+            div.isDeleted = true;
+
+            context.divisi.Update(div);
+            return context.SaveChanges();
+        }
+
+        public int Insert(Divisi divisi)
+        {
+
+            Divisi div = new Divisi
+            {
+                namaDivisi = divisi.namaDivisi,
+                isDeleted = false,
+
+            };
+            context.Add(div);
             return context.SaveChanges();
         }
     }

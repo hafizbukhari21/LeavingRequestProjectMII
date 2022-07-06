@@ -27,5 +27,34 @@ namespace API.Controllers
         {
             return Ok(divisiRepository.Get());
         }
+
+        [HttpGet("{divisi_id}")]
+        [EnableCors("AllowOrigin")]
+        public ActionResult GetDivisi(int divisi_id)
+        {
+            return Ok(divisiRepository.GetId(divisi_id));
+        }
+
+        [HttpPatch]
+        [EnableCors("AllowOrigin")]
+        public ActionResult Update(Divisi divisi)
+        {
+             return Ok(divisiRepository.Update(divisi));
+
+        }
+
+        [HttpDelete]
+        [EnableCors("AllowOrigin")]
+        public ActionResult DeleteEmployee(Divisi divisi)
+        {
+            return Ok(divisiRepository.softDelete(divisi.divisi_id));
+        }
+
+        [HttpPost]
+        [EnableCors("AllowOrigin")]
+        public ActionResult Insert(Divisi divisi)
+        {
+            return Ok(divisiRepository.Insert(divisi));
+        }
     }
 }
