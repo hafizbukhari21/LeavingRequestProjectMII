@@ -1,4 +1,5 @@
-﻿using API.Repositories.Data;
+﻿using API.Models;
+using API.Repositories.Data;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -26,6 +27,28 @@ namespace API.Controllers
         public ActionResult GetCategory()
         {
             return Ok(categoryRepository.GetCategory());
+        }
+
+        [HttpGet("{category_id}")]
+        [EnableCors("AllowOrigin")]
+        public ActionResult GetCategory(int category_id)
+        {
+            return Ok(categoryRepository.GetId(category_id));
+        }
+
+        [HttpPatch]
+        [EnableCors("AllowOrigin")]
+        public ActionResult Update(LeaveCategory category)
+        {
+            return Ok(categoryRepository.Update(category));
+
+        }
+
+        [HttpPost]
+        [EnableCors("AllowOrigin")]
+        public ActionResult Insert(LeaveCategory category)
+        {
+            return Ok(categoryRepository.Insert(category));
         }
     }
 }

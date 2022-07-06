@@ -23,5 +23,32 @@ namespace API.Repositories.Data
                 nameCategory = cate.nameCategory
             });
         }
+        public Object GetId(int category_id)
+        {
+            return context.leaveCategories.Select(cat => new LeaveCategory
+            {
+                category_id = cat.category_id,
+                nameCategory = cat.nameCategory,
+            }).ToList().FirstOrDefault(cat => cat.category_id == category_id);
+        }
+
+        public Object Update(LeaveCategory category)
+        {
+            LeaveCategory cat = context.leaveCategories.Find(category.category_id);
+            cat.nameCategory = category.nameCategory;
+
+            context.leaveCategories.Update(cat);
+            return context.SaveChanges();
+        }
+
+        public int Insert(LeaveCategory category)
+        {
+            LeaveCategory cat = new LeaveCategory
+            {
+                nameCategory = category.nameCategory
+            };
+            context.Add(cat);
+            return context.SaveChanges();
+        }
     }
 }

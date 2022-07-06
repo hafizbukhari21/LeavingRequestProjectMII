@@ -34,15 +34,23 @@
                     </div>
 
                     <div class="d-flex justify-content-between align-items-center">
-                        <a  asp-controller="Login" asp-action="ForgotPassword" class="text-body">Forgot password?</a>
+                        <div class="text-left text-lg-start">
+                            <a asp-controller="Login" asp-action="ForgotPassword" class="text-body">Forgot password?</a>
+                        </div>
+                        <div class="text-right text-lg-start">
+                            <button type="submit" class="btn btn-primary"
+                                    style="padding-left: 2.5rem; padding-right: 2.5rem;">
+                                Login
+                            </button>
+                        </div>
                     </div>
 
-                    <div class="text-center text-lg-start mt-4 pt-2">
+                    @*<div class="text-left text-lg-start mt-4 pt-2">
                         <button type="submit" class="btn btn-primary"
                                 style="padding-left: 2.5rem; padding-right: 2.5rem;">
                             Login
                         </button>
-                    </div>
+                    </div>*@
                 </form>
             </div>
         </div>
