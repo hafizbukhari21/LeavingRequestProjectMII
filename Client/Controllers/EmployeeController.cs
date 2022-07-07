@@ -9,27 +9,27 @@ namespace Client.Controllers
 {
     public class EmployeeController : Controller
     {
+        [Authorize(Roles = "Employee, Manager")]
         [HttpGet("Employee/")]
-        //[Authorize(Roles = "Employee, Manager")]
         public IActionResult Index()
         {
             return View();
         }
-        //[Authorize]
+        [Authorize(Roles = "Employee, Manager")]
         [HttpGet("LeaveRequest/")]
         public IActionResult LeaveRequest()
         {
             return View();
         }
-        
-        //[Authorize]
+
+        [Authorize(Roles = "Employee, Manager")]
         [HttpGet("LeaveHistory/")]
         public IActionResult LeaveHistory()
         {
             return View();
         }
 
-        //[Authorize(Roles = "Manager")]
+        [Authorize(Roles = "Manager")]
         [HttpGet("LeaveRequestConfrimation/")]
         public IActionResult LeaveRequestConfirmation()
         {

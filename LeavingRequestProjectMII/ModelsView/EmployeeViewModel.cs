@@ -9,6 +9,7 @@ namespace API.ModelsView
     {
         public string employee_id { set; get; }
         public string name { set; get; }
+        public string gender { set; get; }
         public string Email { set; get; }
         public string phoneNumber { set; get; }
         public int sisaCuti { set; get; }

@@ -1,28 +1,34 @@
-﻿$(document).ready(function () {
+﻿
+$(document).ready(function () {
 
+    // get emp data
     $.ajax({
         type: "GET",
         url: "https://localhost:44302/api/employee",
         dataType: "json",
     }).done((result) => {
-        let m = 0
-        let fm = 0
 
-        $.each(result, function (key, val) {
-            if (val.gender == 0) {
-                m += 1
-            } else if (val.gender == 1) {
-                fm += 1
-            }
-        })
-        let total = m + fm
-        console.log("male : ", m)
-        console.log("female : ", fm)
-        console.log("Total : ", total)
+        let man1 = [...result.filter(e => e.roleName == "Manager")].length
+        let emp1 = [...result.filter(e => e.roleName == "Employee")].length
+        let total1 = [...result.filter(e => e.roleName != "Admin")].length
 
+        let male = [...result.filter(g => g.gender == "Male" && g.roleName != "Admin")].length
+        let female = [...result.filter(g => g.gender == "Female" && g.roleName != "Admin")].length
 
+        console.log("man " + man1)
+        console.log("emp " + emp1)
+        console.log("total man + emp " + total1)
+
+        console.log("Male " + male)
+        console.log("Female " + female)
+
+        $("#total_emp").html(total1);
+        $("#man").html(man1);
+        $("#emp").html(emp1);
+
+    // chart from emp data
         var options = {
-            series: [m, fm],
+            series: [male, female],
             labels: ['Male', 'Female'],
             chart: {
                 type: 'donut',
@@ -86,4 +92,52 @@
 
         chart.render();
     })
-});
+})
+
+$(document).ready(function () {
+    // get emp data
+    $.ajax({
+        type: "GET",
+        url: "https://localhost:44302/api/employee",
+        dataType: "json",
+    }).done((result) => {
+
+        let man1 = [...result.filter(e => e.roleName == "Manager")].length
+        let emp1 = [...result.filter(e => e.roleName == "Employee")].length
+        let total1 = [...result.filter(e => e.roleName != "Admin")].length
+
+        let male = [...result.filter(g => g.gender == "Male" && g.roleName != "Admin")].length
+        let female = [...result.filter(g => g.gender == "Female" && g.roleName != "Admin")].length
+
+        console.log("man " + man1)
+        console.log("emp " + emp1)
+        console.log("total man + emp " + total1)
+
+        console.log("Male " + male)
+        console.log("Female " + female)
+
+        $("#total_emp").html(total1);
+        $("#man").html(man1);
+        $("#emp").html(emp1);
+
+
+            var options = {
+                chart: {
+                    type: 'bar'
+                },
+                series: [{
+                    name: 'Total',
+                    data: [man1, emp1]
+                }],
+                xaxis: {
+                    categories: ["Manager", "Employee"]
+                },
+                legend: {
+                    show: true,
+                    position: 'top'
+                }
+            }
+            var chart = new ApexCharts(document.querySelector("#myBarChart"), options);
+            chart.render();
+        })
+    })

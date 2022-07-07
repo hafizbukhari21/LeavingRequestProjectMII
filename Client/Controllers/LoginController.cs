@@ -45,7 +45,7 @@ namespace Client.Controllers
             {
                 if (HttpContext.User.IsInRole("Admin"))
                 {
-                    return Redirect("Admin/");
+                    return Redirect("/Admin");
                 }
                 if (HttpContext.User.IsInRole("Employee") || HttpContext.User.IsInRole("Manager"))
                 {

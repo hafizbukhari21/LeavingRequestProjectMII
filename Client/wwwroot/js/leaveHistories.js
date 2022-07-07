@@ -1,6 +1,6 @@
 ﻿const idEmp = $("#login-employee-id").val()
 
-
+console.log(idEmp)
 
 
 $(document).ready(function () {
@@ -10,8 +10,8 @@ $(document).ready(function () {
     GetCategory();
     $('#dataTbl').DataTable({
         ajax: {
-            //url: `https://localhost:44302/api/leavingrequest/emp/${idEmp}`,
-            url: `https://localhost:44302/api/leavingrequest/emp/Employee0003`,
+            url: `https://localhost:44302/api/leavingrequest/emp/${idEmp}`,
+            //url: `https://localhost:44302/api/leavingrequest/emp/Employee0002`,
             "dataType": "json",
             "dataSrc": "",
         },
@@ -92,6 +92,7 @@ function leaveDetail(reqId) {
     }).done(u => {
         $("#namaFileBukti").val(u.namaFileBukti);
         $("#tipeFileBukti").val(u.tipeFileBukti);
+        $("#employee_id").val(u.employee_id);
 
         $("#request_id").val(u.request_id);
         document.getElementById("category_id").value = u.category_id;
@@ -132,7 +133,7 @@ async function UpdateRequest() {
 
     let obj = {
         "request_id": $("#request_id").val(),
-       
+        "employee_id": $("#employee_id").val(),
         "category_id": $("#category_id").val(),
         "startDate": startDate,
         "endDate": endDate,
@@ -152,12 +153,10 @@ async function UpdateRequest() {
         data: JSON.stringify(obj)
         //data: obj, //jika terkena 415 unsupported media type (tambahkan headertype Json & JSON.Stringify();)
     }).done((result) => {
-        $('#dataTbl').DataTable().ajax.reload();
-        Swal.fire({
-            icon: 'success',
-            title: 'Success',
-            text: 'Data Updated!',
-        })
+        if (result.errorType == 200) {
+            SwallSuccess(result.message)
+        }
+        else SwallFail(result.message)
         console.log(result);
     }).fail((error) => {
         console.log(error)

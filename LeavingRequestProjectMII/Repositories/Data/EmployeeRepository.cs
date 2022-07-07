@@ -20,11 +20,21 @@ namespace API.Repositories.Data
             this.context = context;
         }
 
+        
+        public Object GetTotCutiSaya(string employee_id)
+        {
+            return context.employees.Select(emp => new
+            {
+                sisaCuti = emp.sisaCuti,
+                employee_id = emp.employee_id
+            }).First(emp => emp.employee_id == employee_id);
+        }
         public Object Get()
         {
             return context.employees.Where(emp=>emp.isDeleted==false).Select(emp => new  EmployeeViewModel{ 
                 employee_id = emp.employee_id,
                 name = emp.name,
+                gender = emp.gender.ToString(),
                 Email = emp.email,
                 phoneNumber = emp.phoneNumber,
                 sisaCuti = emp.sisaCuti,
@@ -52,6 +62,19 @@ namespace API.Repositories.Data
                 gender = emp.gender,
                 
             }).ToList().FirstOrDefault(emp=>emp.employee_id == employee_id);
+        }
+
+        public Object GetEmployeeWithTotalCuti(string manager_id)
+        {
+            return context.employees.Where(emp => emp.manager_id == manager_id && emp.isDeleted == false)
+                .Select(emp => new
+                {
+                    name = emp.name,
+                    sisaCuti = emp.sisaCuti,
+                    namaDivisi = emp.divisi.namaDivisi,
+                    namaRole = emp.role.roleName,
+                    employee_id = emp.employee_id,
+                }).ToList();
         }
 
         public Object GetWithManagerName(string employee_id)
