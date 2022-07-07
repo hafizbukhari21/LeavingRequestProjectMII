@@ -21,6 +21,17 @@ namespace API.Repositories.Data
             this.nationalDay = new NationalDayServices();
         }
 
+        //untuk notfikasi update employee
+        public Object GetNotifikasiEmployee(string employee_id)
+        {
+            return context.leavingRequests.Where(lr=>lr.employees.employee_id==employee_id && lr.isDelete==false && lr.isRead == false).Select(lr => new
+            {
+                request_id = lr.request_id,
+                approvaMessage = lr.approvalMessage,
+                status = lr.approvalStatus.ToString()
+            }).ToList();
+        }
+
         //ngeliat request punya sendiri
         public Object GetLeavingEmployee(string employee_id)
         {
@@ -141,7 +152,9 @@ namespace API.Repositories.Data
                 fileBukti = leavingRequestInser.fileBukti,
                 namaFileBukti = leavingRequestInser.namaFileBukti,
                 tipeFileBukti = (TipeFileBukti)Enum.Parse(typeof(TipeFileBukti), leavingRequestInser.tipeFileBukti),
-                approvalMessage = "Menunggu"
+                approvalMessage = "Menunggu",
+                isRead = true,
+                isDelete = false
             };
             context.leavingRequests.Add(leavingRequest);
             return context.SaveChanges();
@@ -162,6 +175,7 @@ namespace API.Repositories.Data
             lrUpdate.category_id = leaving.category_id;
             lrUpdate.startDate = leaving.startDate;
             lrUpdate.endDate = leaving.endDate;
+            lrUpdate.isRead = true;
 
             if(leaving.fileBukti!=null )
             {

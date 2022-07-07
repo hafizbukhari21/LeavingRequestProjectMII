@@ -24,6 +24,12 @@ namespace API.Controllers
             this.leavingRequestRepository = leavingRequestRepository;
         }
 
+        [HttpGet("emp/{employee_id}/notif")]
+        [EnableCors("AllowOrigin")]
+        public ActionResult GetEmployeeNotif(string employee_id)
+        {
+            return Ok(leavingRequestRepository.GetNotifikasiEmployee(employee_id));
+        }
 
         [HttpGet("man/{manager_id}/statistic")]
         [EnableCors("AllowOrigin")]
