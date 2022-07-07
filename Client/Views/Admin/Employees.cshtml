@@ -185,6 +185,16 @@
                             </div>
                         </div>
                         <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label for="code_group">Email<i class="text-danger">*</i></label>
+                                <input required type="email" class="form-control " name="email" id="UPEmail" placeholder="Enter email">
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">Fill your Email</div>
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="form-group col-sm-6">
                                 <label for="code_group">Phone Number <i class="text-danger">*</i></label>
                                 <input required type="text" class="form-control " name="Phone" id="UPhoneNumber" placeholder="Enter Phone">
@@ -219,7 +229,7 @@
                             </div>
                             <div class="form-group col-sm-6">
                                 <label for="group_name">Divisi <i class="text-danger">*</i></label>
-                                <select required class="custom-select CDivisiId" name="Gender" id="UDivisiId">
+                                <select  class="custom-select CDivisiId" name="Gender" id="UDivisiId">
                                     <option value="">== Choose Your Role ==</option>
                                  
                                 </select>
@@ -232,7 +242,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary" data-dismiss="modal" id="btnUpdate">Save Changes</button>
+                        <button type="submit" class="btn btn-primary"   id="btnUpdate">Save Changes</button>
                     </div>
                 </form>
             </div>
