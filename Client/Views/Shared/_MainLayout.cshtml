@@ -62,6 +62,24 @@
                     <div class="header-btn-lg pr-0">
                         <div class="widget-content p-0">
                             <div class="widget-content-wrapper">
+                                <div class="widget-content-left">
+                                    <div class="btn-group">
+                                        <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn ">
+                                            <button class="mb-2 mr-2 btn btn-link">Notification<span class="badge badge-pill badge-primary " id="countNotif">6</span></button>
+
+                                        </a>
+                                        <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right" id="listNotif">
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="header-btn-lg pr-0">
+                        <div class="widget-content p-0">
+                            <div class="widget-content-wrapper">
 
                                 <div class="widget-content-left  ml-3 header-user-info">
                                     <input type="hidden" id="login-employee-id" value="@Context.Session.GetString("employee_id")" />
@@ -91,7 +109,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="app-main">
             <div class="app-sidebar sidebar-shadow">
                 <div class="app-header__logo">
@@ -238,12 +256,72 @@
         <script src="//cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
         <script src="//cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.1/howler.min.js"></script>
+
 
         @RenderSection("Modal", required: false)
         @RenderSection("JSnya", required: false)
 
 
-        
 
+        <script>
+
+            let idEmpMain = "@Context.Session.GetString("employee_id")"
+           
+            var sound = new Howl({
+                src: ['../Notif.wav'],
+                volume: 1.0,
+                onend: function () {
+
+                }
+            });
+            $(document).ready(() => {
+                
+                
+
+                setInterval(
+                    () => { getNotif() },
+                2000)
+            })
+
+            
+
+            function getNotif() {
+                $.ajax({
+                    url: `https://localhost:44302/api/leavingrequest/emp/${idEmpMain}/notif`
+                }).done(e => {
+                    $("#countNotif").html(e.length)
+                    let lastNotifLength = localStorage.getItem("notifLenght")
+
+                    if (!lastNotifLength) localStorage.setItem("notifLenght", e.length)
+                    else {
+                        if (e.length > lastNotifLength) {
+                            console.log("ada data baru masuk")
+                            sound.play()
+                        }
+                        else console.log("tidak ada data baru")
+                        localStorage.setItem("notifLenght", e.length)
+
+                    }
+
+                    let stringRetrun = ""
+
+                    e.forEach(elem => stringRetrun += `<button type="button" tabindex="0" class="dropdown-item" onclick="ReadNotif('${elem.request_id}')">${elem.leavingMessage}</button>`)
+                    $("#listNotif").html(stringRetrun)
+                    console.log(e)
+                })
+            }
+
+            function ReadNotif(request_id) {
+                $.ajax({
+                    url: `https://localhost:44302/api/leavingrequest/emp/${request_id}/isRead`
+                }).done(e => {
+                    if (e == 200) {
+                        window.location.replace("../LeaveHistory")
+                    }
+                })
+            }
+
+        </script>
 </body>
 </html>

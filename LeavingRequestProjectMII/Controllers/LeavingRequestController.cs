@@ -31,6 +31,16 @@ namespace API.Controllers
             return Ok(leavingRequestRepository.GetNotifikasiEmployee(employee_id));
         }
 
+        [HttpGet("emp/{request_id}/isRead")]
+        [EnableCors("AllowOrigin")]
+        public int SetIsReadRequest(string request_id)
+        {
+            int chk = leavingRequestRepository.IsReadNotif(request_id);
+            if (chk == Variables.SUCCESS) return Variables.SUCCESS;
+            else return Variables.FAIL;
+        }
+
+
         [HttpGet("man/{manager_id}/statistic")]
         [EnableCors("AllowOrigin")]
         public ActionResult Statistic(string manager_id)

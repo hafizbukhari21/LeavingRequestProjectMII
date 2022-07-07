@@ -21,13 +21,27 @@ namespace API.Repositories.Data
             this.nationalDay = new NationalDayServices();
         }
 
+        //untuk isRead Notifikasi 
+        public int IsReadNotif(string request_id)
+        {
+            LeavingRequest lr = context.leavingRequests.Find(request_id);
+            lr.isRead = true;
+            context.leavingRequests.Update(lr);
+            int chk =context.SaveChanges();
+
+            if (chk > 0) return Variables.SUCCESS;
+            else return Variables.FAIL;
+        }
+
         //untuk notfikasi update employee
         public Object GetNotifikasiEmployee(string employee_id)
         {
             return context.leavingRequests.Where(lr=>lr.employees.employee_id==employee_id && lr.isDelete==false && lr.isRead == false).Select(lr => new
             {
                 request_id = lr.request_id,
-                approvaMessage = lr.approvalMessage,
+                approvalMessage = lr.approvalMessage,
+                leavingMessage = lr.leavingMessage,
+
                 status = lr.approvalStatus.ToString()
             }).ToList();
         }

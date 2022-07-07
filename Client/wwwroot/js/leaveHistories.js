@@ -10,8 +10,8 @@ $(document).ready(function () {
     GetCategory();
     $('#dataTbl').DataTable({
         ajax: {
-            //url: `https://localhost:44302/api/leavingrequest/emp/${idEmp}`,
-            url: `https://localhost:44302/api/leavingrequest/emp/Employee0003`,
+            url: `https://localhost:44302/api/leavingrequest/emp/${idEmp}`,
+            //url: `https://localhost:44302/api/leavingrequest/emp/Employee0003`,
             "dataType": "json",
             "dataSrc": "",
         },
