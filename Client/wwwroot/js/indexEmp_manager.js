@@ -28,7 +28,7 @@ $.ajax({
 function drawChart() {
     $.ajax({
         type: "GET",
-        url: "https://localhost:44302/api/leavingrequest/man/Employee0002/calendar",
+        url: "https://localhost:44302/api/leavingrequest/man/${idEmp}/calendar",
 
         success: function (response) {
             var container = document.getElementById('timeline');
