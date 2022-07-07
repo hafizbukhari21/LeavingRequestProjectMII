@@ -11,7 +11,6 @@ $(document).ready(function () {
     $('#dataTbl').DataTable({
         ajax: {
             url: `https://localhost:44302/api/leavingrequest/emp/${idEmp}`,
-            //url: `https://localhost:44302/api/leavingrequest/emp/Employee0002`,
             "dataType": "json",
             "dataSrc": "",
         },

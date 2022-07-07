@@ -24,6 +24,22 @@ namespace API.Controllers
             this.leavingRequestRepository = leavingRequestRepository;
         }
 
+        [HttpGet("emp/{employee_id}/notif")]
+        [EnableCors("AllowOrigin")]
+        public ActionResult GetEmployeeNotif(string employee_id)
+        {
+            return Ok(leavingRequestRepository.GetNotifikasiEmployee(employee_id));
+        }
+
+        [HttpGet("emp/{request_id}/isRead")]
+        [EnableCors("AllowOrigin")]
+        public int SetIsReadRequest(string request_id)
+        {
+            int chk = leavingRequestRepository.IsReadNotif(request_id);
+            if (chk == Variables.SUCCESS) return Variables.SUCCESS;
+            else return Variables.FAIL;
+        }
+
 
         [HttpGet("man/{manager_id}/statistic")]
         [EnableCors("AllowOrigin")]
