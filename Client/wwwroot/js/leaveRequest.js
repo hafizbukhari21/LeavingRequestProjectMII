@@ -20,6 +20,11 @@
     })
 })
 
+$("#fileBukti").change(function () {
+    let namaFile = document.querySelector('#fileBukti').files[0];
+    $("#fileBuktiLabel").html(namaFile.name)
+});
+
 function formReset() {
     document.getElementById("inputLeave").reset();
 }
@@ -83,13 +88,15 @@ async function SubmitFormRequest() {
         console.log(result)
         switch (result.errorType) {
             case 200:
+                $("#fileBuktiLabel").html("Choose File")
                 Swal.fire({
                     icon: 'success',
                     title: 'Success',
                     text: result.message,
                 })
                 break;
-            default :
+            default:
+                $("#fileBuktiLabel").html("Choose File")
                 Swal.fire({
                     icon: 'error',
                     title: 'Fail',

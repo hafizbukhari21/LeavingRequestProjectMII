@@ -231,7 +231,7 @@ namespace API.Repositories.Data
             leavingRequest.isRead = false;
             leavingRequest.employees.sisaCuti = 
                 leavingRequest.employees.sisaCuti-(
-                    (leavingRequest.endDate - leavingRequest.startDate).Days - await nationalDay.CountPotonganLibur(leavingRequest.startDate,leavingRequest.endDate)
+                    (leavingRequest.endDate - leavingRequest.startDate.AddDays(-1)).Days  - await nationalDay.CountPotonganLibur(leavingRequest.startDate,leavingRequest.endDate)
                 );
             context.leavingRequests.Update(leavingRequest);
             EmailServices.SendEmail(leavingRequest.employees.email, "Perihal Cuti", HtmlTemplate.RequestLeaving(managerDetail.name, leavingRequest.employees.name, leavingRequest.startDate.ToString("D"), leavingRequest.endDate.ToString("D")));
