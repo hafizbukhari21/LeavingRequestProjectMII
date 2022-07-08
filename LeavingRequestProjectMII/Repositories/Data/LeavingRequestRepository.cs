@@ -268,7 +268,7 @@ namespace API.Repositories.Data
         public async Task<bool> TotalSisaHariCutiApprove(LeavingRequestInserModel leavingRequestInser)
         {
             Employees emp = context.employees.Find(leavingRequestInser.employee_id);
-            int totalCuti = (leavingRequestInser.endDate - leavingRequestInser.startDate).Days - await nationalDay.CountPotonganLibur(leavingRequestInser.startDate, leavingRequestInser.endDate);
+            int totalCuti = (leavingRequestInser.endDate - leavingRequestInser.startDate.AddDays(-1)).Days - await nationalDay.CountPotonganLibur(leavingRequestInser.startDate, leavingRequestInser.endDate);
             if (totalCuti > emp.sisaCuti) return false;
             else return true;
         }
