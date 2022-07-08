@@ -149,7 +149,7 @@ namespace API.Repositories.Data
 
         public async Task<int> InsertLeaving(LeavingRequestInserModel leavingRequestInser)
         {
-            if (DateTime.Now.Month == 1 && DateTime.Now.Day == 1) return Variables.MANAGER_DILARANG_APPROVE_CUTI;
+            //if (DateTime.Now.Month == 1 && DateTime.Now.Day == 1) return Variables.MANAGER_DILARANG_APPROVE_CUTI;
             var data = DateTime.Now;
             if (!  await TotalSisaHariCutiApprove(leavingRequestInser)) return Variables.CUTI_SUDAH_HABIS;
             else if ((leavingRequestInser.startDate - DateTime.Now).TotalDays < 6) return Variables.SYARAT_MIN_TANGGAL_REQUEST;

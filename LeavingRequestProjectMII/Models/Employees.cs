@@ -31,6 +31,9 @@ namespace API.Models
         public bool isActiveOtp { set; get; }
         public DateTime expired { set;get; }
 
+        public bool resetCutiAkhirTahun { set; get; }
+        public int resettahunCuti { set; get; }
+
         public virtual Role role { set; get; }
         public virtual Divisi divisi { set; get; }
         public virtual  ICollection<LeavingRequest> leavingRequests { set; get; }

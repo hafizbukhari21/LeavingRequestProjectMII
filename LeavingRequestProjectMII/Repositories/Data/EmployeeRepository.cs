@@ -142,6 +142,7 @@ namespace API.Repositories.Data
                 role_Id = employeeInsertModel.role_id,
                 manager_id = employeeInsertModel.manager,
                 divisi_id = employeeInsertModel.divisi_id,
+                resettahunCuti= DateTime.Now.Year,
                 isDeleted = false,
 
             };
@@ -216,8 +217,9 @@ namespace API.Repositories.Data
         public void ResetJatahCuti(string employee_id)
         {
             Employees emp = context.employees.Find(employee_id);
-            if(DateTime.Now.Month ==1 && DateTime.Now.Day == 1)
+            if(DateTime.Now.Year != emp.resettahunCuti)
             {
+                emp.resettahunCuti = DateTime.Now.Year;
                 emp.sisaCuti = 12;
                 context.employees.Update(emp);
                 context.SaveChanges();
