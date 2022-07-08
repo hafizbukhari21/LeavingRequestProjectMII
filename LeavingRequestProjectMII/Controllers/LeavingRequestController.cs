@@ -149,6 +149,7 @@ namespace API.Controllers
             Tuple<int,string> ckhStatus = await leavingRequestRepository.ApproveLeaving(leaving.request_id,leaving.approvalMessage);
             if (ckhStatus.Item1 == Variables.SUCCESS) return Ok(new GeneralResponse {ErrorType=Variables.SUCCESS, message="Berhasil Melakukan Approval Untuk "+ ckhStatus.Item2  });
             if (ckhStatus.Item1 == Variables.JUMLAH_CUTI_TIDAK_MENCUKUPI) return Ok(new GeneralResponse {ErrorType=Variables.JUMLAH_CUTI_TIDAK_MENCUKUPI, message="Sisa hari cuti tidak memenuhi "+ ckhStatus.Item2 });
+            if (ckhStatus.Item1 == Variables.MANAGER_DILARANG_APPROVE_CUTI) return Ok(new GeneralResponse {ErrorType=Variables.MANAGER_DILARANG_APPROVE_CUTI, message="Approval Cuti Tidak bisa dilakukan tanggal 1 Januari " });
             else return BadRequest(new GeneralResponse { ErrorType = Variables.FAIL, message = "Terjadi Kesalahan Silahkan Coba Lagi" });
         }
 
