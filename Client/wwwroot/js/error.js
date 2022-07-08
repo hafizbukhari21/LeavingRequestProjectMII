@@ -9,7 +9,7 @@ function ProgressCountdown(timeleft, bar, text) {
             document.getElementById(text).textContent = timeleft;
 
             if (timeleft <= 0) {
-                window.location.replace("../Login")
+                window.location.replace("../Logout")
                 clearInterval(countdownTimer);
                 resolve(true);
             }

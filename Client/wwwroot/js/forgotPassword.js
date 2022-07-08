@@ -36,24 +36,24 @@ function InsertOtpModal() {
         title: 'Insert Your OTP And new Password',
         html:
            `        <div class="form-outline mb-4">
-                        <input type="text" id="otp" class="form-control"
+                        <input type="text" id="otp" class="form-control" autocomplete="off"
                                placeholder="Input your OTP" />
                     </div>
 
                     <!-- Password input -->
                     <div class="form-outline mb-3">
-                        <input type="password" id="inputforgot" class="form-control"
+                        <input type="password" id="inputforgot" class="form-control" autocomplete="off"
                                placeholder="Enter New password" />
                    </div>
                     <!-- Password input -->
                     <div class="form-outline mb-3">
-                        <input type="password" id="validateForgot" class="form-control"
+                        <input type="password" id="validateForgot" class="form-control" autocomplete="off"
                                placeholder="Enter Confirm New password" />
                    </div>
                     `,
         
         inputAttributes: {
-            autocapitalize: 'off'
+            autocapitalize: 'off',
         },
         showCancelButton: true,
         confirmButtonText: 'Look up',

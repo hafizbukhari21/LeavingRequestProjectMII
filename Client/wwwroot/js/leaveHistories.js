@@ -14,6 +14,7 @@ $(document).ready(function () {
             "dataType": "json",
             "dataSrc": "",
         },
+        "order": [[0, "desc"]],
         dom: 'lBfrtip',
         buttons: [
             //'copy', 'csv', 'excel', 'pdf', 'print'
@@ -49,11 +50,8 @@ $(document).ready(function () {
         },
         columns: [
             {
-                "data": null,
-                "sortable": true,
-                render: function (data, type, row, meta) {
-                    return meta.row + meta.settings._iDisplayStart + 1;
-                },
+                "data": "requestTime",
+                visible: false,
             },
             {
                 "data": "employeeName"
@@ -62,7 +60,25 @@ $(document).ready(function () {
                 "data": "categoryName"
             },
             {
-                "data": "approvalStatus"
+                "data": "approvalStatus",
+                "render": function (data, type, row, meta) {
+                    let badge = ""
+                    switch (data) {
+                        case "Menunggu":
+                            badge = "primary"
+                            break;
+                        case "Ditolak":
+                            badge = "danger"
+                            break
+                        case "Diterima":
+                            badge = "success"
+                            break;
+                        case "Revisi":
+                            badge = "warning"
+                            break;
+                    }
+                    return `<span class="badge badge-${badge}">${data}</span>`
+                }
             },
             {
                 data: "request_id",

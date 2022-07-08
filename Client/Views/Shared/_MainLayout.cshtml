@@ -70,7 +70,7 @@
                                 <div class="widget-content-left">
                                     <div class="btn-group">
                                         <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn ">
-                                            <button class="mb-2 mr-2 btn btn-link">Notification<span class="badge badge-pill badge-primary " id="countNotif">6</span></button>
+                                            <button class="mb-2 mr-2 btn btn-link"><i class="fas fa-bell"></i><span class="badge badge-pill badge-primary " id="countNotif"></span></button>
 
                                         </a>
                                         <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right" id="listNotif">
@@ -325,7 +325,7 @@
                     if (!lastNotifLength) localStorage.setItem("notifLenght", e.length)
                     else {
                         if (e.length > lastNotifLength) {
-                            console.log("ada data baru masuk")
+                            //console.log("ada data baru masuk")
                             Swal.fire({
                                 position: 'top-end',
                                 icon: 'success',

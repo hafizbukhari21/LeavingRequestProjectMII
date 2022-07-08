@@ -34,6 +34,7 @@
         });
         switch (result.errorType) {
             case 200:
+                localStorage.setItem("notifLenght",0)
                 window.location.replace("../login")
                 console.log(result)
                 break;

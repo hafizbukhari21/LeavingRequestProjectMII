@@ -46,7 +46,26 @@ namespace API.Utils
     {
         public static string RequestLeaving(string namaManager,string namaEmployee, string dateFrom, string dateEnd)
         {
-            return @"
+            return @"<div style='font - family: Helvetica,Arial,sans - serif; min-width:1000px; overflow: auto; line - height:2'>
+              <div style = 'margin:50px auto;width:70%;padding:20px 0'>
+                 <div style = 'border-bottom:1px solid #eee'>
+                    <a href = '' style = 'font-size:1.4em;color: #00466a;text-decoration:none;font-weight:600' > e-Cuti </a>
+                 </div>
+                         <p style = 'font-size:1.1em'> Hi, " + namaEmployee + @"</p>
+                              <p> Thank you for choosing e-Cuti to make your leave request. </p>
+                              <p> Your Leave Request has been approved. Your leave start at "+dateFrom+@" until "+dateEnd+@" </p>
+                              <br/>
+                              <p> Please use this email use properly. </p>
+                               <p style = 'font-size:0.9em;' > Regards,<br/> e-Cuti </p>
+                               <hr style = 'border:none;border-top:1px solid #eee'/>
+                               <div style = 'float:right;padding:8px 0;color:#aaa;font-size:0.8em;line-height:1;font-weight:300'>
+                                 <p> "+namaManager+@" </p>
+                                 <p> APL Tower, Jakarta </p>
+                                 <p> Indonesia </p>
+                               </div>
+                             </div>
+                           </div> ";
+            /*return @"
                <div>
                     <h1>From:"+namaManager+@"</h1>
 
@@ -55,17 +74,36 @@ namespace API.Utils
                      <br/><br/>
                     <p>ttd. " + namaManager + @"</p>
                </div>
-                ";
+                ";*/
         }
 
         public static string ForgotPasswordTemplate( string otp, string expiredTime, string email)
         {
-            return @" <h1>Forgot Password</h1>
+            return @"<div style='font - family: Helvetica,Arial,sans - serif; min-width:1000px; overflow: auto; line - height:2'>
+              <div style = 'margin:50px auto;width:70%;padding:20px 0'>
+                 <div style = 'border-bottom:1px solid #eee'>
+                    <a href = '' style = 'font-size:1.4em;color: #00466a;text-decoration:none;font-weight:600' > e-Cuti </a>
+                 </div>
+                         <p style = 'font-size:1.1em'> Hi, " +email+ @"</p>
+                              <p> You have 5 minutes, please use the OTP code below on e-Cute Website: </p>
+                               <h2 style = 'background: #00466a;margin: 0 auto;width: max-content;padding: 0 10px;color: #fff;border-radius: 4px;' > " +otp+ @"</h2>
+                              <p> Thank you for choosing e-Cuti. Use the following OTP to complete your Forgot Password procedures. OTP code is valid until <b>" +expiredTime+ @"</b> </p>
+                               <p style = 'font-size:0.9em;' > Regards,<br/> e-Cuti </p>
+                               <hr style = 'border:none;border-top:1px solid #eee'/>
+                               <div style = 'float:right;padding:8px 0;color:#aaa;font-size:0.8em;line-height:1;font-weight:300'>
+                                 <p> e-Cuti </p>
+                                 <p> APL Tower, Jakarta </p>
+                                 <p> Indonesia </p>
+                               </div>
+                             </div>
+                           </div> ";
+
+            /*return @" <h1>Forgot Password</h1>
                <p>Otp : <bold>" + otp + @"</bold></p> 
                <p>Email : " + email + @"</p>
                <p>Expired_time : " + expiredTime + @"</p>
                <br/><br/><br/>
-               <p>Segera ganti password Anda Sebelum expired time</p>";
+               <p>Segera ganti password Anda Sebelum expired time</p>";*/
         }
 
 
