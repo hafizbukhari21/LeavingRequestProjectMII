@@ -4,14 +4,16 @@ using API.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace API.Migrations
 {
     [DbContext(typeof(MyContext))]
-    partial class MyContextModelSnapshot : ModelSnapshot
+    [Migration("20220708023731_resetJatahCutiEmpBool")]
+    partial class resetJatahCutiEmpBool
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -74,9 +76,6 @@ namespace API.Migrations
 
                     b.Property<bool>("resetCutiAkhirTahun")
                         .HasColumnType("bit");
-
-                    b.Property<int>("resettahunCuti")
-                        .HasColumnType("int");
 
                     b.Property<int>("role_Id")
                         .HasColumnType("int");
