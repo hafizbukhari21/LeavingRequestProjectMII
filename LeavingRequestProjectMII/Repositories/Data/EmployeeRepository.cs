@@ -270,8 +270,13 @@ namespace API.Repositories.Data
             Employees emp = context.employees.FirstOrDefault(emp => emp.tokenOtp == empVal.tokenOtp && emp.email == empVal.email);
 
             if (emp == null) return Variables.DATA_TIDAK_SESUAI;
-            else if (DateTime.Now > emp.expired) return Variables.FORGET_TOKEN_EXPIRED;
-            emp.isActiveOtp = false;
+            else if (DateTime.Now > emp.expired) {
+                emp.isActiveOtp = false;
+                context.employees.Update(emp);
+                context.SaveChanges();
+                return Variables.FORGET_TOKEN_EXPIRED;
+            } 
+           
             emp.password = Tools.BCryptHasing(empVal.password);
 
             context.employees.Update(emp);

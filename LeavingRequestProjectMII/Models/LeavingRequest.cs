@@ -50,6 +50,10 @@ namespace API.Models
         pptx,
         xlsx,
         xls,
+        htm,
+        mp3,
+        mp4,
+        txt,
         
     }
 
