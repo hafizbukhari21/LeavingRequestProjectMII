@@ -216,7 +216,13 @@
                                 </a>
                             </li>
                             }
-                        </ul>
+                            @*<li class="pt-5">
+                                <a class="btn-open-options bg-warning">
+                                    <i class="metismenu-icon fa fa-cog fa-w-16 fa-spin fa-2x"></i>
+                                    Theme Setting
+                                </a>
+                            </li>
+                        </ul>*@
                     </div>
                 </div>
             </div>
@@ -320,6 +326,13 @@
                     else {
                         if (e.length > lastNotifLength) {
                             console.log("ada data baru masuk")
+                            Swal.fire({
+                                position: 'top-end',
+                                icon: 'success',
+                                title: 'New NotifiCation',
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
                             sound.play()
                         }
                         else console.log("tidak ada data baru")

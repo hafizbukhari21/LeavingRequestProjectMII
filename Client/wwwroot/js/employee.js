@@ -259,10 +259,12 @@ function employeeDetail(urlEmp) {
         document.getElementById("UDivisiId").value = u.divisi_id;
         document.getElementById("UManagerId").value = u.manager_id;
         $("#UPhoneNumber").val(u.phoneNumber);
+        $("#UPEmail").val(u.email);
         
         console.log(u)
     })
 }
+
 
 $("#updateEmployee").submit(function (e) {
     e.preventDefault();
@@ -274,7 +276,9 @@ $("#updateEmployee").submit(function (e) {
     obj.role_Id = $("#URoleId").val();
     obj.manager_id = $("#UManagerId").val();
     obj.divisi_id = parseInt($("#UDivisiId").val());
-    //obj.Gender = parseInt($("#gend").val());
+    obj.email = $("#UPEmail").val();
+    console.log(obj)
+
     $.ajax({
         url: "https://localhost:44302/api/Employee/",
         type: "PATCH",
@@ -283,7 +287,7 @@ $("#updateEmployee").submit(function (e) {
         //data: obj, //jika terkena 415 unsupported media type (tambahkan headertype Json & JSON.Stringify();)
     }).done((result) => {
         $('#dataTbl').DataTable().ajax.reload();
-        $('#updateModal').modal('hide');
+        //$('#updateModal').modal('hide');
         Swal.fire({
             icon: 'success',
             title: 'Success',

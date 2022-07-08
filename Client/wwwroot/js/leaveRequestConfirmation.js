@@ -143,11 +143,21 @@ function ApproveReq() {
         data: JSON.stringify(obj)
     }).done((result) => {
         console.log(result)
-        Swal.fire({
-            icon: 'success',
-            title: 'Success',
-            text: result.message,
-        }),
+        if (result.errorType == 200) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: result.message,
+            })
+        }
+        else {
+            Swal.fire({
+                icon: 'error',
+                title: 'fail',
+                text: result.message,
+            })
+        }
+        
         $('#dataTbl').DataTable().ajax.reload();
     }).fail((error) => {
         console.log(error)

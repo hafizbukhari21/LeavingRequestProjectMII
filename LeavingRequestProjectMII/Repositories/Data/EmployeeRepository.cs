@@ -162,6 +162,8 @@ namespace API.Repositories.Data
             }
             else
             {
+                
+                ResetJatahCuti(empChk.employee_id);//reset jatah cuti on 1 jan
                 empReturn = empChk;
                 return Variables.SUCCESS;
             }
@@ -209,6 +211,17 @@ namespace API.Repositories.Data
         {
             Employees emp = context.employees.FirstOrDefault(emp => emp.phoneNumber == phoneNumber);
             return emp != null;
+        }
+
+        public void ResetJatahCuti(string employee_id)
+        {
+            Employees emp = context.employees.Find(employee_id);
+            if(DateTime.Now.Month ==1 && DateTime.Now.Day == 1)
+            {
+                emp.sisaCuti = 12;
+                context.employees.Update(emp);
+                context.SaveChanges();
+            }
         }
 
         
