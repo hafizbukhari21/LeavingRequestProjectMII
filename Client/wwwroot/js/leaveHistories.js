@@ -112,6 +112,14 @@ function leaveDetail(reqId) {
             StartDate = start.format('YYYY-MM-DD')
             console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
         });
+
+        let modalUpdateFooter = document.querySelector("#modalFooterUpdate")
+        if (u.approvalStatusName == "Diterima" || u.approvalStatusName == "Ditolak") {
+            modalUpdateFooter.style.display = "none";
+        }
+        else {
+            modalUpdateFooter.style.display = "flex";
+        }
     })
 }
 
