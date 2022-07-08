@@ -4,9 +4,12 @@ $('#insertModal').on('hidden.bs.modal', function () {
 })
 
 $(document).ready(function () {
+    let inputLeaveForm = document.getElementsByClassName("insertEmployeeForm");
+
     AjaxManager()
     AjaxDivisi()
     AjaxRole()
+    ValidateForm(inputLeaveForm, SubmitEmployee)
     $('#dataTbl').DataTable({
         "ajax": {
             "url": "https://localhost:44302/api/employee",
@@ -92,8 +95,8 @@ $(document).ready(function () {
     });
 });
 
-$("#insertEmployee").submit(function (e) {
-    e.preventDefault();
+function SubmitEmployee () {
+    
     var obj = new Object(); 
     obj.name = $("#CName").val();
     obj.gender = $("#CGender").val();
@@ -185,7 +188,7 @@ $("#insertEmployee").submit(function (e) {
         }
         console.log(error)
     })
-})
+}
 
 function formReset() {
     document.getElementById("insertEmployee").reset();
