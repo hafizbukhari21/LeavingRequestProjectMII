@@ -16,7 +16,7 @@ namespace Client.Controllers
             return View();
         }
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpGet("Employees/")]
         public IActionResult Employees()
         {
