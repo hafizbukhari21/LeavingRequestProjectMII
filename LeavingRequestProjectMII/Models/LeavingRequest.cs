@@ -59,6 +59,6 @@ namespace API.Models
 
     public enum Approval_status
     {
-      Menunggu, Diterima, Ditolak, Revisi   
+      Menunggu, Diterima, Ditolak, Revisi, Cancel   
     }
 }

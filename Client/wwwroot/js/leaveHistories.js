@@ -79,6 +79,9 @@ $(document).ready(function () {
                         case "Revisi":
                             badge = "warning"
                             break;
+                        case "Cancel":
+                            badge = "secondary"
+                            break;
                     }
                     return `<span class="badge badge-${badge}">${data}</span>`
                 }
@@ -106,6 +109,25 @@ function triggerSpesificDataFromSessionStorage() {
     
     sessionStorage.removeItem("request_id")
 }
+
+$("#btnCancel").click(e => {
+    let request_id = $("#request_id").val()
+    alert(request_id)
+    $.ajax({
+        url: `https://localhost:44302/api/leavingrequest/emp/cancel/${request_id}`
+    }).done(e => {
+        switch (e.errorType) {
+            case 200:
+                SwallSuccess(e.message)
+                leaveDetail(request_id)
+                break
+            default:
+                SwallFail(e.message)
+                break
+        }
+    })
+    $("#dataTbl").ajax.reload()
+})
 
 function leaveDetail(reqId) {
     let data = {
@@ -143,7 +165,7 @@ function leaveDetail(reqId) {
         });
 
         let modalUpdateFooter = document.querySelector("#modalFooterUpdate")
-        if (u.approvalStatusName == "Diterima" || u.approvalStatusName == "Ditolak") {
+        if (u.approvalStatusName == "Diterima" || u.approvalStatusName == "Ditolak" || u.approvalStatusName == "Cancel") {
             modalUpdateFooter.style.display = "none";
         }
         else {
