@@ -54,6 +54,9 @@ function drawChart() {
                     case "Revisi":
                         colorStatus = "#f0ad4e"
                         break
+                    case "Cancel":
+                        colorStatus = "#292b2c"
+                        break
                 }
                 return [
                     e.nameEmployee,
