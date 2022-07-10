@@ -335,7 +335,7 @@
                             })
                             sound.play()
                         }
-                        else console.log("tidak ada data baru")
+                        //else console.log("tidak ada data baru")
                         localStorage.setItem("notifLenght", e.length)
 
                     }
@@ -344,7 +344,7 @@
 
                     e.forEach(elem => stringRetrun += `<button type="button" tabindex="0" class="dropdown-item" onclick="ReadNotif('${elem.request_id}')">${elem.leavingMessage}</button>`)
                     $("#listNotif").html(stringRetrun)
-                    console.log(e)
+                //    console.log(e)
                 })
             }
 
@@ -352,8 +352,9 @@
                 $.ajax({
                     url: `https://localhost:44302/api/leavingrequest/emp/${request_id}/isRead`
                 }).done(e => {
-                    if (e == 200) {
+                    if (e.errorType == 200) {
                         window.location.replace("../LeaveHistory")
+                        sessionStorage.setItem("request_id", e.request_id)
                     }
                 })
             }

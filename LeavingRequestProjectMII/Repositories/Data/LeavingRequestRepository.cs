@@ -22,15 +22,15 @@ namespace API.Repositories.Data
         }
 
         //untuk isRead Notifikasi 
-        public int IsReadNotif(string request_id)
+        public Tuple<int,LeavingRequest> IsReadNotif(string request_id)
         {
             LeavingRequest lr = context.leavingRequests.Find(request_id);
             lr.isRead = true;
             context.leavingRequests.Update(lr);
             int chk =context.SaveChanges();
 
-            if (chk > 0) return Variables.SUCCESS;
-            else return Variables.FAIL;
+            if (chk > 0) return new Tuple<int, LeavingRequest>(Variables.SUCCESS,lr);
+            else return new Tuple<int, LeavingRequest>(Variables.FAIL, null);
         }
 
         //untuk notfikasi update employee

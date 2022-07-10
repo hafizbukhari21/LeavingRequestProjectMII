@@ -6,9 +6,10 @@ console.log(idEmp)
 $(document).ready(function () {
     let formUpdate = document.getElementsByClassName("updateLeaveForm")
     ValidateForm(formUpdate, UpdateRequest)
-    
+    //triggerSpesificDataFromSessionStorage()
     GetCategory();
-    $('#dataTbl').DataTable({
+    let table = $('#dataTbl').DataTable({
+
         ajax: {
             url: `https://localhost:44302/api/leavingrequest/emp/${idEmp}`,
             "dataType": "json",
@@ -47,7 +48,9 @@ $(document).ready(function () {
             var btns = $('.dt-button');
             //btns.addClass('btn btn-primary btn-sm');
             btns.removeClass('dt-button');
+            triggerSpesificDataFromSessionStorage()
         },
+        
         columns: [
             {
                 "data": "requestTime",
@@ -84,15 +87,25 @@ $(document).ready(function () {
                 data: "request_id",
                 render: function (data, type, row, meta) {
                     return `<div class="btn-group text-center">
-                                <button type="button" class="btn btn-sm btn-warning" title="Delete" onClick="leaveDetail('${data}')" data-toggle="modal" data-target="#updateModal">
+                                <a type="button" class="btn btn-sm btn-warning" id="${data}" title="Delete" onClick="leaveDetail('${data}')" data-toggle="modal" data-target="#updateModal">
                                 <i class="fas fa-edit"></i>
-                                </button>
+                                </a>
                             </div>`
                 }
             }
         ]
     });
+    
+        
 });
+
+function triggerSpesificDataFromSessionStorage() {
+    
+    let requestId = sessionStorage.getItem("request_id")
+    document.querySelector("#" + requestId).click()
+    
+    sessionStorage.removeItem("request_id")
+}
 
 function leaveDetail(reqId) {
     let data = {
