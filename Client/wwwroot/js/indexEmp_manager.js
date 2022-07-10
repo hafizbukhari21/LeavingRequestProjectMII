@@ -40,9 +40,25 @@ function drawChart() {
 
             let rows = response.map(e => {
                 ConvertUTCToDate(e.startDate)
+                let colorStatus = ""
+                switch (e.status) {
+                    case "Menunggu":
+                        colorStatus = "#0275d8"
+                        break
+                    case "Diterima":
+                        colorStatus = "#5cb85c"
+                        break
+                    case "Ditolak":
+                        colorStatus = "#d9534f"
+                        break
+                    case "Revisi":
+                        colorStatus = "#f0ad4e"
+                        break
+                }
                 return [
                     e.nameEmployee,
                     e.status,
+                    colorStatus,
                     new Date(ConvertUTCToDate(e.startDate)),
                     new Date(ConvertUTCToDate(e.endDate)),
 
@@ -54,21 +70,13 @@ function drawChart() {
 
             dataTable.addColumn({ type: 'string', id: 'Employee' });
             dataTable.addColumn({ type: 'string', id: 'Status' });
+            dataTable.addColumn({ type: 'string', role: 'style' });
             dataTable.addColumn({ type: 'date', id: 'Start' });
             dataTable.addColumn({ type: 'date', id: 'End' });
 
             dataTable.addRows(rows);
 
-            var colors = [];
-            var colorMap = {
-                // should contain a map of category -> color for every category
-                CategoryA: '#e63b6f',
-                CategoryB: '#19c362',
-                CategoryC: '#592df7'
-            }
-            for (var i = 0; i < dataTable.getNumberOfRows(); i++) {
-                colors.push(colorMap[dataTable.getValue(i, 1)]);
-            }
+            
 
             chart.draw(dataTable);
 

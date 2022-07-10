@@ -33,11 +33,11 @@ namespace API.Controllers
 
         [HttpGet("emp/{request_id}/isRead")]
         [EnableCors("AllowOrigin")]
-        public int SetIsReadRequest(string request_id)
+        public ActionResult SetIsReadRequest(string request_id)
         {
-            int chk = leavingRequestRepository.IsReadNotif(request_id);
-            if (chk == Variables.SUCCESS) return Variables.SUCCESS;
-            else return Variables.FAIL;
+            Tuple<int,LeavingRequest> chk = leavingRequestRepository.IsReadNotif(request_id);
+            if (chk.Item1 == Variables.SUCCESS) return Ok(new { ErrorType = Variables.SUCCESS, request_id = chk.Item2.request_id });
+            else return Ok(new { ErrorType = Variables.FAIL});
         }
 
 
