@@ -10,7 +10,7 @@ $.ajax({
             height: 300,
             type: 'radialBar',
         },
-        series: [parseInt(e.sisaCuti)/12*100],
+        series: [Math.round(parseInt(e.sisaCuti) / 12 * 100)],
         labels: ['Sisa Cuti '+e.sisaCuti+' Hari'],
     }
 

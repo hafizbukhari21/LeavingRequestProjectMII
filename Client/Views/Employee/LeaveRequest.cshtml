@@ -55,16 +55,17 @@
             </table>
             <hr />
             <h2>Leave Detail</h2>
-            <form class="inputLeaveForm" novalidate id="inputLeave" enctype="multipart/form-data">
+            <form class="inputLeaveForm needs-validation" novalidate id="inputLeave" enctype="multipart/form-data">
                 @*<input type="hidden" class="form-control" id="approvalStatus" placeholder="approval status" value="Menunggu">
             <input type="hidden" class="form-control" id="employee_id" placeholder="employee id" value="Employee0006">*@
                 <div class="row">
                     <div class="form-group col-sm-4">
                         <label for="exampleFormControlSelect1">Leave Category</label>
-                        <select class="form-control" id="category_id">
+                        <select required class="form-control" id="category_id">
+                            <option value="">== Choose leave category ==</option>
                         </select>
                         <div class="invalid-feedback emailfeedbackInsert">
-                            WajibCategory
+                            Choose leave category
                         </div>
                     </div>
                     @*<div class="form-group col-sm-3">
@@ -86,21 +87,21 @@
                         <input required type="text" name="daterange" class="form-control inputDate" id="dateLeave" value="01/01/2020 - 01/10/2020" />
 
                         <div class="invalid-feedback emailfeedbackInsert">
-                            Start Date Wajib
+                            Date is required
                         </div>
                     </div>
                     <div class="form-group col-sm-4">
                         <label for="exampleFormControlFile1">Upload File</label>
                         <div class="input-group">
                             <div class="custom-file">
-                                <input required type="file" class="custom-file-input" id="fileBukti"
+                                <input required onchange="validateSize(this)" type="file" class="custom-file-input" id="fileBukti"
                                        aria-describedby="inputGroupFileAddon01">
                                 <label class="custom-file-label" id="fileBuktiLabel">Choose file</label>
                             </div>
                         </div>
                         @*<input required type="file" class="form-control-file" id="fileBukti">*@
                         <div class="invalid-feedback emailfeedbackInsert">
-                            File Wajib
+                            File is required
                         </div>
                     </div>
                 </div>
@@ -109,7 +110,7 @@
                         <label for="exampleFormControlTextarea1">Notes</label>
                         <textarea required class="form-control" id="leavingMessage" rows="3"></textarea>
                         <div class="invalid-feedback emailfeedbackInsert">
-                            File Wajib
+                            Fill in the reason fo leave
                         </div>
                     </div>
                 </div>

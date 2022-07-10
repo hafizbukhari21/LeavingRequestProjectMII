@@ -117,15 +117,9 @@ function SubmitEmployee () {
     }).done((result) => {
         console.log(result)
         $('#dataTbl').DataTable().ajax.reload();
-
-        //Swal.fire({
-        //    icon: 'success',
-        //    title: 'Success',
-        //    text: result.message,
-        //    footer: '<a href="">Why do I have this issue?</a>'
-        //})
         switch (result.errorType) {
             case 200:
+                document.getElementById("insertEmployee").className = "needs-validation";
                 formReset();
                 Swal.fire({
                     icon: 'success',
@@ -192,7 +186,6 @@ function SubmitEmployee () {
 
 function formReset() {
     document.getElementById("insertEmployee").reset();
-    $('#btnInput').prop("disabled", false);
 }
 
 function employeeDelete(empId) {

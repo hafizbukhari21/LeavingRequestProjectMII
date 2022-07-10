@@ -167,6 +167,7 @@ $("#insertDivisi").submit(function (e) {
         console.log(result)
         $('#dataTbl').DataTable().ajax.reload();
         formReset();
+        document.getElementById("insertDivisi").className = "needs-validation";
         //$('#insertDivisi').modal('hide');
         Swal.fire({
             icon: 'success',

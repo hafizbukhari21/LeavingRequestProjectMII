@@ -94,6 +94,7 @@ async function SubmitFormRequest() {
                     title: 'Success',
                     text: result.message,
                 })
+                document.getElementById("inputLeave").className = "needs-validation";
                 break;
             default:
                 $("#fileBuktiLabel").html("Choose File")
@@ -109,4 +110,71 @@ async function SubmitFormRequest() {
     }).fail((error) => {
         console.log(error)
     })
+}
+
+// validate file
+function validateSize(input) {
+    var redInput = `.form-control:focus {
+                      border-color: #red;
+                      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0, 0.6);
+                    }`
+    const fileSize = input.files[0].size / 1024 / 1024; // in MiB
+    //console.log(getExtFile(input.files[0].name))
+    const fileExt = getExtFile(input.files[0].name)
+    console.log(fileExt)
+    switch (fileExt) {
+        case "none":
+            break;
+        case "jpg":
+            break;
+        case "pdf":
+            break;
+        case "png":
+            break;
+        case "dock":
+            break;
+        case "doc":
+            break;
+        case "tiff":
+            break;
+        case "ppt":
+            break;
+        case "pptx":
+            break;
+        case "xlsx":
+            break;
+        case "xls":
+            break;
+        case "htm":
+            break;
+        case "mp3":
+            break;
+        case "mp4":
+            break;
+        case "txt":
+            break;
+        default:
+            Swal.fire({
+                icon: 'error',
+                title: 'Fail',
+                text: getExtFile(input.files[0].name)+" file not alowed",
+            })
+            //$("#fileBuktiLabel").val('')
+            document.getElementById("fileBukti").value = "";
+            break;
+    }
+
+    if (fileSize > 2) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Fail',
+            text: "File cannot be more than 2 mb",
+        })
+        document.getElementById("fileBukti").value = "";
+        // $(file).val(''); //for clearing with Jquery
+        /*const fileExt = getExtFile(input.files[0].name)
+        console.log(fileExt)*/
+    } else {
+        // Proceed further
+    }
 }
