@@ -264,6 +264,16 @@ namespace API.Repositories.Data
             return context.SaveChanges();
         }
 
+        public int CancelLeaving(string request_id)
+        
+        {
+            LeavingRequest leavingRequest = context.leavingRequests.Find(request_id);
+            leavingRequest.approvalStatus = Approval_status.Cancel;
+            leavingRequest.isRead = true;
+            context.leavingRequests.Update(leavingRequest);
+            return context.SaveChanges();
+        }
+
 
         public async Task<bool> TotalSisaHariCutiApprove(LeavingRequestInserModel leavingRequestInser)
         {

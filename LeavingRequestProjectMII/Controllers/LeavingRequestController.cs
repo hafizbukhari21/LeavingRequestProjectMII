@@ -178,6 +178,19 @@ namespace API.Controllers
         }
 
 
-       
+        [HttpGet("emp/cancel/{request_id}")]
+        [EnableCors("AllowOrigin")]
+
+        public ActionResult CancelRequest(string request_id)
+        {
+            
+            int ckhStatus = leavingRequestRepository.CancelLeaving(request_id);
+            if (ckhStatus > 0) return Ok(new GeneralResponse { ErrorType = Variables.SUCCESS, message = "Request Telah dibatalkan" });
+            else return BadRequest(new GeneralResponse { ErrorType = Variables.FAIL, message = "Terjadi Kesalahan Silahkan Coba Lagi" });
+        }
+
+
+
+
     }
 }
