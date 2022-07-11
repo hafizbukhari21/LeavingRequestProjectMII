@@ -57,7 +57,29 @@ function GetCategory() {
 }
 
 async function SubmitFormRequest() {
-    
+    Swal.fire({
+        title: 'Please Wait !!!',
+        html: `<div class="spinner-grow text-primary" role="status">
+                              <span class="sr-only">Loading...</span>
+                            </div>
+                            <div class="spinner-grow text-secondary" role="status">
+                              <span class="sr-only">Loading...</span>
+                            </div>
+                            <div class="spinner-grow text-success" role="status">
+                              <span class="sr-only">Loading...</span>
+                            </div>
+                            <div class="spinner-grow text-danger" role="status">
+                              <span class="sr-only">Loading...</span>
+                            </div>
+                            <div class="spinner-grow text-warning" role="status">
+                              <span class="sr-only">Loading...</span>
+                            </div>`,
+        allowOutsideClick: false,
+        onBeforeOpen: () => {
+            Swal.showLoading()
+        },
+        showConfirmButton: false,
+    });
     const fileBukti = document.querySelector('#fileBukti').files[0];
     const fileBuktiExt = getExtFile(fileBukti.name)
     const DateReqLeave = document.querySelector("#dateLeave").value
@@ -114,10 +136,6 @@ async function SubmitFormRequest() {
 
 // validate file
 function validateSize(input) {
-    var redInput = `.form-control:focus {
-                      border-color: #red;
-                      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0, 0.6);
-                    }`
     const fileSize = input.files[0].size / 1024 / 1024; // in MiB
     //console.log(getExtFile(input.files[0].name))
     const fileExt = getExtFile(input.files[0].name)

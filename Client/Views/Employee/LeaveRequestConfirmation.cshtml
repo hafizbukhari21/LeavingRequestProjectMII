@@ -46,7 +46,7 @@
             <div class="modal-content">
                 <form id="accReqForm" onsubmit="return false" class="accReqForm" novalidate>
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Edit Data</h5>
+                        @*<h5 class="modal-title" id="exampleModalLabel">Edit Data</h5>*@ <h5 class="modal-title" id="t-request_id"></h5> &nbsp; &nbsp; <h5 id="t-approvalStatusName" class=""></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -74,11 +74,11 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="form-group col-sm-6">
+                            @*<div class="form-group col-sm-6">
                                 <label for="group_name">Approval Status</label>
                                 <input readonly type="text" class="form-control" name="" id="approvalStatusName">
-                            </div>
-                            <div class="form-group col-sm-6">
+                            </div>*@
+                            <div class="form-group col-sm-12">
                                 <label for="group_name">File</label>
                                 <a id="downloadFileBukti" href="" download="" class="form-control btn btn-info" onclick=""><i class="fas fa-download"></i> Download File</a>                            </div>
                         </div>

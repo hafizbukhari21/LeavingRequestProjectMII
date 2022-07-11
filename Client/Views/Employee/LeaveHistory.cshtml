@@ -46,7 +46,7 @@
             <div class="modal-content">
                 <form id="updateReq" class="updateLeaveForm" novalidate>
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Edit Data</h5>
+                        @*<h5 class="modal-title" id="exampleModalLabel">Edit Data&nbsp;</h5>*@ <h5 class="modal-title" id="t-request_id"></h5> &nbsp; &nbsp; <h5 id="t-approvalStatusName" class=""></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -54,11 +54,13 @@
                     <div class="modal-body col-12">
                         <div class="row">
                             <div class="form-group col-sm-6">
-                                <label for="group_name">Leave Request</label>
-                                <input disabled type="text" class="form-control" name="" id="request_id">
+                                @*<label for="group_name">Leave Request</label>*@
+                                <input hidden type="text" class="form-control" name="" id="request_id">
                                 <input hidden type="text" class="form-control" name="" id="employee_id">
                                 <input hidden type="text" class="form-control" name="" id="namaFileBukti">
                                 <input hidden type="text" class="form-control" name="" id="tipeFileBukti">
+                                <label for="group_name">Start Date</label>
+                                <input required type="text" name="daterange" class="form-control inputDate" id="dateLeave" value="01/01/2020 - 01/10/2020" />
                             </div>
                             <div class="form-group col-sm-6">
                                 <label for="group_name">Leave Category</label>
@@ -68,17 +70,16 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="row">
+                        @*<div class="row">
                             <div class="form-group col-sm-6">
                                 <label for="group_name">Start Date</label>
                                 <input required type="text" name="daterange" class="form-control inputDate" id="dateLeave" value="01/01/2020 - 01/10/2020" />
                             </div>
-                            <div class="form-group col-sm-6">
+                           *<div class="form-group col-sm-6">
                                 <label for="group_name">Approval Status</label>
                                 <input readonly type="text" class="form-control" name="" id="approvalStatusName">
                             </div>
-
-                        </div>
+                        </div>*@
                         <div class="row">
 
                             <div class="form-group col-sm-6">
@@ -91,16 +92,16 @@
                                 @*<input type="file" class="form-control-file" id="newfileBukti">*@
                                 <div class="input-group">
                                     <div class="custom-file">
-                                        <input required onchange="validateSize(this)" type="file" class="custom-file-input" id="fileBukti"
+                                        <input onchange="validateSize(this)" type="file" class="custom-file-input" id="newfileBukti"
                                                aria-describedby="inputGroupFileAddon01">
-                                        <label class="custom-file-label" id="newfileBukti">Choose file</label>
+                                        <label class="custom-file-label" id="fileBuktiLabel">Choose file</label>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-sm-12">
-                                <label for="exampleFormControlTextarea1">Message</label>
+                                <label for="exampleFormControlTextarea1">Notes</label>
                                 <textarea required class="form-control" id="leavingMessage" rows="3"></textarea>
                             </div>
                         </div>
@@ -112,8 +113,8 @@
                         </div>
                     </div>
                     <div class="modal-footer" id="modalFooterUpdate">
-                        <button type="submit" class="btn btn-primary" id="btnApprove"> Save Changes</button>
                         <button type="button" class="btn btn-danger" id="btnCancel"> Cancel Request</button>
+                        <button type="submit" class="btn btn-primary" id="btnApprove"> Save Changes</button>
                     </div>
                 </form>
             </div>

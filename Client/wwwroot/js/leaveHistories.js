@@ -112,21 +112,54 @@ function triggerSpesificDataFromSessionStorage() {
 
 $("#btnCancel").click(e => {
     let request_id = $("#request_id").val()
-    alert(request_id)
-    $.ajax({
-        url: `https://localhost:44302/api/leavingrequest/emp/cancel/${request_id}`
-    }).done(e => {
-        switch (e.errorType) {
-            case 200:
-                SwallSuccess(e.message)
-                leaveDetail(request_id)
-                break
-            default:
-                SwallFail(e.message)
-                break
+    //alert(request_id)
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+    })
+    //sweet altert
+    swalWithBootstrapButtons.fire({
+        title: 'Are you sure want to cancel your leave request?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes!',
+        cancelButtonText: 'No!',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            /*swalWithBootstrapButtons.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+            ),*/
+                $.ajax({
+                    url: `https://localhost:44302/api/leavingrequest/emp/cancel/${request_id}`
+                }).done(e => {
+                    switch (e.errorType) {
+                        case 200:
+                            SwallSuccess(e.message)
+                            leaveDetail(request_id)
+                            break
+                        default:
+                            SwallFail(e.message)
+                            break
+                    }
+                    $('#dataTbl').DataTable().ajax.reload();
+                })
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+            swalWithBootstrapButtons.fire(
+                'Cancelled',
+                'Your leave request waiting for approvement :)',
+                'error'
+            )
         }
     })
-    $("#dataTbl").ajax.reload()
+
+    
 })
 
 function leaveDetail(reqId) {
@@ -145,10 +178,33 @@ function leaveDetail(reqId) {
         $("#employee_id").val(u.employee_id);
 
         $("#request_id").val(u.request_id);
+        $("#t-request_id").html(u.request_id);
         document.getElementById("category_id").value = u.category_id;
         $("#start_date").val(moment(u.startDate).format("MM/DD/yyyy").toString());
         $("#end_date").val(moment(u.endDate).format("MM/DD/yyyy").toString());
-        $("#approvalStatusName").val(u.approvalStatusName);
+        //$("#approvalStatusName").val(u.approvalStatusName);
+        switch (u.approvalStatusName) {
+            case "Menunggu":
+                document.getElementById("t-approvalStatusName").innerHTML = u.approvalStatusName;
+                document.getElementById("t-approvalStatusName").className = "modal-title badge badge-primary";
+                break
+            case "Diterima":
+                document.getElementById("t-approvalStatusName").innerHTML = u.approvalStatusName;
+                document.getElementById("t-approvalStatusName").className = "modal-title badge badge-success";
+                break
+            case "Ditolak":
+                document.getElementById("t-approvalStatusName").innerHTML = u.approvalStatusName;
+                document.getElementById("t-approvalStatusName").className = "modal-title badge badge-danger";
+                break
+            case "Revisi":
+                document.getElementById("t-approvalStatusName").innerHTML = u.approvalStatusName;
+                document.getElementById("t-approvalStatusName").className = "modal-title badge badge-warning";
+                break
+            default:
+                document.getElementById("t-approvalStatusName").innerHTML = u.approvalStatusName;
+                document.getElementById("t-approvalStatusName").className = "modal-title badge badge-secondary";
+                break
+        }
         $("#leavingMessage").val(u.leavingMessage);
         $("#approvalMessage").val(u.approvalMessage);
         $("#downloadFileBukti").attr("href", "data:application/octet-stream;base64," + u.fileBukti);
@@ -249,4 +305,72 @@ function GetCategory() {
             $("#category_id").append(`<option value="${elem.category_id}">${elem.nameCategory}</option>`)
         })
     })
+}
+
+$("#newfileBukti").change(function () {
+    let namaFile = document.querySelector('#newfileBukti').files[0];
+    $("#fileBuktiLabel").html(namaFile.name)
+});
+
+// validate file
+function validateSize(input) {
+    const fileSize = input.files[0].size / 1024 / 1024; // in MiB
+    //console.log(getExtFile(input.files[0].name))
+    const fileExt = getExtFile(input.files[0].name)
+    console.log(fileExt)
+    switch (fileExt) {
+        case "none":
+            break;
+        case "jpg":
+            break;
+        case "pdf":
+            break;
+        case "png":
+            break;
+        case "dock":
+            break;
+        case "doc":
+            break;
+        case "tiff":
+            break;
+        case "ppt":
+            break;
+        case "pptx":
+            break;
+        case "xlsx":
+            break;
+        case "xls":
+            break;
+        case "htm":
+            break;
+        case "mp3":
+            break;
+        case "mp4":
+            break;
+        case "txt":
+            break;
+        default:
+            Swal.fire({
+                icon: 'error',
+                title: 'Fail',
+                text: getExtFile(input.files[0].name) + " file not alowed",
+            })
+            //$("#fileBuktiLabel").val('')
+            document.getElementById("newfileBukti").value = "";
+            break;
+    }
+
+    if (fileSize > 2) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Fail',
+            text: "File cannot be more than 2 mb",
+        })
+        document.getElementById("fileBukti").value = "";
+        // $(file).val(''); //for clearing with Jquery
+        /*const fileExt = getExtFile(input.files[0].name)
+        console.log(fileExt)*/
+    } else {
+        // Proceed further
+    }
 }

@@ -77,6 +77,9 @@ $(document).ready(function () {
                         case "Revisi":
                             badge = "warning"
                             break;
+                        case "Cancel":
+                            badge = "secondary"
+                            break;
                     }
                     return `<span class="badge badge-${badge}">${data}</span>`
                 }
@@ -108,22 +111,45 @@ function leaveDetail(reqId) {
         contentType: 'application/json',
     }).done(u => {
         $("#request_ids").val(u.request_id);
+        $("#t-request_id").html(u.request_id);
         $("#employee_id").val(u.employee_id);
         $("#category_id").val(u.category_name);
         $("#startDate").val(moment(u.startDate).format("YYYY-MM-DD").toString());
         $("#endDate").val(moment(u.endDate).format("YYYY-MM-DD").toString());
-        $("#approvalStatusName").val(u.approvalStatusName);
+        //$("#approvalStatusName").val(u.approvalStatusName);
         $("#leavingMessage").val(u.leavingMessage);
         $("#downloadFileBukti").attr("href", "data:application/octet-stream;base64,"+ u.fileBukti);
         $("#downloadFileBukti").attr("download", u.namaFileBukti);
         $("#approvalMessage").val(u.approvalMessage)
         console.log(u)
         let modalUpdateFooter = document.querySelector("#modalFooterUpdate")
-        if (u.approvalStatus == 1 || u.approvalStatus == 2) {
+        if (u.approvalStatus == 1 || u.approvalStatus == 2 || u.approvalStatus == 4) {
             modalUpdateFooter.style.display = "none";
         }
         else {
             modalUpdateFooter.style.display = "flex";
+        }
+        switch (u.approvalStatusName) {
+            case "Menunggu":
+                document.getElementById("t-approvalStatusName").innerHTML = u.approvalStatusName;
+                document.getElementById("t-approvalStatusName").className = "modal-title badge badge-primary";
+                break
+            case "Diterima":
+                document.getElementById("t-approvalStatusName").innerHTML = u.approvalStatusName;
+                document.getElementById("t-approvalStatusName").className = "modal-title badge badge-success";
+                break
+            case "Ditolak":
+                document.getElementById("t-approvalStatusName").innerHTML = u.approvalStatusName;
+                document.getElementById("t-approvalStatusName").className = "modal-title badge badge-danger";
+                break
+            case "Revisi":
+                document.getElementById("t-approvalStatusName").innerHTML = u.approvalStatusName;
+                document.getElementById("t-approvalStatusName").className = "modal-title badge badge-warning";
+                break
+            default:
+                document.getElementById("t-approvalStatusName").innerHTML = u.approvalStatusName;
+                document.getElementById("t-approvalStatusName").className = "modal-title badge badge-secondary";
+                break
         }
     })
 }
