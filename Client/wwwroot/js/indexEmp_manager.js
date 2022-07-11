@@ -67,7 +67,10 @@ function drawChart() {
             //console.log(response)
             let data = response.filter(e => e.status === "Diterima").map(e => {
                 let startDate = Math.floor(new Date(ConvertUTCToDate(e.startDate)).getTime() )
-                let endDate = Math.floor(new Date(ConvertUTCToDate(e.endDate)).getTime() )
+                let endDate = Math.floor(new Date(ConvertUTCToDate(e.endDate)).getTime())
+                if (endDate - startDate == 0) {
+                    endDate = endDate + 20000000
+                }
                 return {
                     x: e.nameEmployee,
                     y: [startDate,endDate]
