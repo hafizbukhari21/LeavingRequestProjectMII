@@ -2,6 +2,7 @@
 google.charts.setOnLoadCallback(drawChart);
 
 
+
 $.ajax({
     url: `https://localhost:44302/api/employee/${idEmp}/sisaCuti`
 }).done(e => {
@@ -54,6 +55,9 @@ function drawChart() {
                     case "Revisi":
                         colorStatus = "#f0ad4e"
                         break
+                    case "Cancel":
+                        colorStatus = "#292b2c"
+                        break
                 }
                 return [
                     e.nameEmployee,
@@ -61,6 +65,7 @@ function drawChart() {
                     colorStatus,
                     new Date(ConvertUTCToDate(e.startDate)),
                     new Date(ConvertUTCToDate(e.endDate)),
+                    `<h1>dfdf adasdsad as dsad sad sad </h1>`,
 
 
                 ]
@@ -69,22 +74,57 @@ function drawChart() {
             console.log(rows)
 
             dataTable.addColumn({ type: 'string', id: 'Employee' });
+           
             dataTable.addColumn({ type: 'string', id: 'Status' });
             dataTable.addColumn({ type: 'string', role: 'style' });
             dataTable.addColumn({ type: 'date', id: 'Start' });
             dataTable.addColumn({ type: 'date', id: 'End' });
+            dataTable.addColumn({ type: 'string', role: 'tooltip', p: { html: true } });
 
             dataTable.addRows(rows);
 
-            
+
+            var options = {
+                tooltip: { isHtml: true }
+            }
 
             chart.draw(dataTable);
+
+
+            function myHandler(e) {
+                let startDate = ConvertUTCToDate(dataTable.getValue(e.row, 3))
+                let endDate = ConvertUTCToDate(dataTable.getValue(e.row, 4))
+                let duration = ((new Date(endDate) - new Date(startDate)) / (1000 * 3600 * 24))+1
+               
+                if (e.row != null) {
+                    
+                    $(".google-visualization-tooltip").html(`
+                        <div class="card" style="width: 18rem;">
+                              <div class="card-body">
+                                <h5 class="card-title">${dataTable.getValue(e.row, 1)}</h5>
+                                <p class="card-text">Tanggal Cuti dari ${startDate} s.d. ${endDate}</p>
+                                <p class="card-text">Durasi ${duration} Hari</p>
+                                
+                                </div>
+                            </div>
+
+                    `).css({ width: "auto", height: "auto" });;
+                }
+            }
+
+            google.visualization.events.addListener(chart, 'onmouseover', myHandler);
+
+            function customTooltip() {
+                return `<h1>dfdf adasdsad as dsad sad sad </h1>`
+            }
 
         }
     });
 
 
 }
+
+
 
 function ConvertUTCToDate(utc) {
     return moment(utc).format("YYYY-MM-DD").toString()
