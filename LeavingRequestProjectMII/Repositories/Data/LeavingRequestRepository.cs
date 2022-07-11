@@ -191,6 +191,7 @@ namespace API.Repositories.Data
             lrUpdate.startDate = leaving.startDate;
             lrUpdate.endDate = leaving.endDate;
             lrUpdate.isRead = true;
+            lrUpdate.approvalStatus = Approval_status.Menunggu;
 
             if(leaving.fileBukti!=null )
             {
