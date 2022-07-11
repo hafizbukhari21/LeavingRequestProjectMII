@@ -179,6 +179,8 @@ function validateSize(input) {
             })
             //$("#fileBuktiLabel").val('')
             document.getElementById("fileBukti").value = "";
+            $("#fileBuktiLabel").html("Choose File")
+
             break;
     }
 
@@ -189,6 +191,7 @@ function validateSize(input) {
             text: "File cannot be more than 2 mb",
         })
         document.getElementById("fileBukti").value = "";
+        $("#fileBuktiLabel").html("Choose File")
         // $(file).val(''); //for clearing with Jquery
         /*const fileExt = getExtFile(input.files[0].name)
         console.log(fileExt)*/

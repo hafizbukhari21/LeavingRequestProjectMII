@@ -209,6 +209,8 @@ function ApproveReq() {
     }).done((result) => {
         console.log(result)
         if (result.errorType == 200) {
+            let modalUpdateFooter = document.querySelector("#modalFooterUpdate")
+            modalUpdateFooter.style.display = "none";
             Swal.fire({
                 icon: 'success',
                 title: 'Success',
@@ -246,6 +248,8 @@ function RejectReq() {
         contentType: 'application/json',
         data: JSON.stringify(obj)
     }).done((result) => {
+        let modalUpdateFooter = document.querySelector("#modalFooterUpdate")
+        modalUpdateFooter.style.display = "none";
         console.log(result)
         Swal.fire({
             icon: 'success',
