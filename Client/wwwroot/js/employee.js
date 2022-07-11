@@ -119,6 +119,7 @@ function SubmitEmployee () {
         $('#dataTbl').DataTable().ajax.reload();
         switch (result.errorType) {
             case 200:
+                AjaxManager()
                 document.getElementById("insertEmployee").className = "needs-validation";
                 formReset();
                 Swal.fire({
@@ -308,12 +309,12 @@ function AjaxManager() {
         url: "https://localhost:44302/api/employee/allManager",
         type: "GET"
     }).done(e => {
+
+        let listManager = `<option value="">== Choose Your manager ==</option>`
         e.forEach(e => {
-            $(".CManagerId").append(`<option value="${e.employee_id}">${e.employee_id}-${e.name}</option>`)
-//            insertManagerDropDown.append(`
-//                <option value="${e.employee_id}">${e.name}</option>
-//`)
+            listManager += `<option value="${e.employee_id}">${e.employee_id}-${e.name}</option>` 
         })
+        $(".CManagerId").html(listManager)
     })
 }
 
