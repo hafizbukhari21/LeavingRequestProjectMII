@@ -7,7 +7,7 @@ $.ajax({
 }).done(e => {
     var options = {
         chart: {
-            height: 300,
+            height: 290,
             type: 'radialBar',
             toolbar: {
                 show: true,

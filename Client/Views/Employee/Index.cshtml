@@ -147,7 +147,7 @@
     @if (User.IsInRole("Manager"))
     {
         <div class="col-md-12 col-lg-4  ">
-            <div class="mb-3 card">
+            <div class="mb-3 card" style="height:60vh">
                 <div class="card-header-tab card-header-tab-animation card-header">
                     <div class="card-header-title">
                         <i class="header-icon lnr-apartment icon-gradient bg-love-kiss"> </i>
@@ -171,8 +171,8 @@
     }
     else
     {
-        <div class="col-md-12 col-lg-12  ">
-            <div class="mb-3 card">
+        <div class="col-md-12 col-lg-4  ">
+            <div class="mb-3 card" style="height:60vh">
                 <div class="card-header-tab card-header-tab-animation card-header">
                     <div class="card-header-title">
                         <i class="header-icon lnr-apartment icon-gradient bg-love-kiss"> </i>
@@ -193,13 +193,34 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-md-12 col-lg-8">
+            <div class="mb-3 card" style="height:60vh">
+                <div class="card-header-tab card-header-tab-animation card-header">
+                    <div class="card-header-title">
+                        <i class="header-icon lnr-apartment icon-gradient bg-love-kiss"> </i>
+                        Your Statistic
+                    </div>
+
+                </div>
+                <div class="card-body">
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="tabs-eg-77">
+                            <div id="statistic"></div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
     }
 
 
     @if (User.IsInRole("Manager"))
     {
         <div class="col-md-12 col-lg-8">
-            <div class="mb-3 card" style="height:50vh">
+            <div class="mb-3 card" style="height:60vh">
                 <div class="card-header-tab card-header-tab-animation card-header">
                     <div class="card-header-title">
                         <i class="header-icon lnr-apartment icon-gradient bg-love-kiss"> </i>
@@ -210,7 +231,7 @@
                             <li class="nav-item"><a href="javascript:void(0);" class="nav-link second-tab-toggle">Current</a></li>
                         </ul>*@
                 </div>
-                <div class="scroll-area-lg">
+                <div class="scroll-area-md">
 
                     <div class="scrollbar-container">
                         <ul class="rm-list-borders rm-list-borders-scroll list-group list-group-flush " id="listSisaCutiEmp">
