@@ -83,6 +83,7 @@ namespace API.Repositories.Data
                       fileBukti = lr.fileBukti,
                       tipeFileBukti = lr.tipeFileBukti.ToString(),
                        namaFileBukti = lr.namaFileBukti,
+                       name_employee = lr.employees.name
 
                   }).FirstOrDefault(lr => lr.request_id == request_id);
         }

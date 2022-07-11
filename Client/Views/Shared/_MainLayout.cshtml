@@ -344,7 +344,7 @@
 
                     let stringRetrun = ""
 
-                    e.forEach(elem => stringRetrun += `<button type="button" tabindex="0" class="dropdown-item" onclick="ReadNotif('${elem.request_id}')">${elem.leavingMessage}</button>`)
+                    e.forEach(elem => stringRetrun += `<button type="button" tabindex="0" class="dropdown-item text-truncate" onclick="ReadNotif('${elem.request_id}')">${elem.leavingMessage}</button>`)
                     $("#listNotif").html(stringRetrun)
                 //    console.log(e)
                 })

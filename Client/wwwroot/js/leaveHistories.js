@@ -269,6 +269,7 @@ async function UpdateRequest() {
     }).done((result) => {
         if (result.errorType == 200) {
             SwallSuccess(result.message)
+            $('#dataTbl').DataTable().ajax.reload();
         }
         else SwallFail(result.message)
         console.log(result);

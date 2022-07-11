@@ -112,7 +112,7 @@ function leaveDetail(reqId) {
     }).done(u => {
         $("#request_ids").val(u.request_id);
         $("#t-request_id").html(u.request_id);
-        $("#employee_id").val(u.employee_id);
+        $("#employee_id").val(u.name_employee);
         $("#category_id").val(u.category_name);
         $("#startDate").val(moment(u.startDate).format("YYYY-MM-DD").toString());
         $("#endDate").val(moment(u.endDate).format("YYYY-MM-DD").toString());
