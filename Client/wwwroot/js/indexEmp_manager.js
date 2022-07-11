@@ -7,7 +7,7 @@ $.ajax({
 }).done(e => {
     var options = {
         chart: {
-            height: 300,
+            height: 290,
             type: 'radialBar',
             toolbar: {
                 show: true,
@@ -69,7 +69,8 @@ function drawChart() {
                 let startDate = Math.floor(new Date(ConvertUTCToDate(e.startDate)).getTime() )
                 let endDate = Math.floor(new Date(ConvertUTCToDate(e.endDate)).getTime())
                 if (endDate - startDate == 0) {
-                    endDate = endDate + 20000000
+                    startDate = startDate + 28800000//start jam 8 pagi
+                    endDate = endDate + 64800000//sampe jam 6 sore
                 }
                 return {
                     x: e.nameEmployee,
