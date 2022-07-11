@@ -17,7 +17,7 @@ function SetstatisticEmployee() {
 
         var options = {
             chart: {
-                height:280,
+                height:260,
                 type: 'bar',
             },
            
