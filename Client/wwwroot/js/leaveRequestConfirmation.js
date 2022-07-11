@@ -89,7 +89,7 @@ $(document).ready(function () {
                 render: function (data, type, row, meta) {
                     return `<div class="btn-group text-center">
                                 <button type="button" class="btn btn-sm btn-warning" title="Delete" onClick="leaveDetail('${data}')" data-toggle="modal" data-target="#updateModal">
-                                <i class="fas fa-edit"></i> Show Detail
+                                <i class="fas fa-edit"></i> 
                                 </button>
                                 
                             </div>`
