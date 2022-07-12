@@ -66,9 +66,9 @@ $(document).ready(function () {
         columns: [
             {
                 "data": "requestTime",
-                "render": function (data, x, y, z) {
+                /*"render": function (data, x, y, z) {
                     return dateStringToDate(data)
-                },
+                },*/
                 visible: false
             },
             {

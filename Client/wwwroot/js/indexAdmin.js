@@ -32,6 +32,7 @@ $(document).ready(function () {
             labels: ['Male', 'Female'],
             chart: {
                 type: 'donut',
+                height:280,
                 toolbar: {
                     show: true,
                     offsetX: 0,
