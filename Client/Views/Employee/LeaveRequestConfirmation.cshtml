@@ -4,39 +4,41 @@
     Layout = "_MainLayout";
 }
 
-    <div class="container-fluid">
-        <div class="app-page-title">
-            <div class="page-title-wrapper">
-                <div class="page-title-heading">
-                    <div class="page-title-icon">
-                        <i class="pe-7s-mail-open-file icon-gradient bg-happy-itmeo">
-                        </i>
-                    </div>
-                    <div>
-                        <h2>Leave Confirmation</h2>
-                    </div>
+<div class="container-fluid">
+    <div class="app-page-title">
+        <div class="page-title-wrapper">
+            <div class="page-title-heading">
+                <div class="page-title-icon">
+                    <i class="pe-7s-mail-open-file icon-gradient bg-happy-itmeo">
+                    </i>
+                </div>
+                <div>
+                    <h2>Leave Confirmation</h2>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="card col-12 pt-3 pb-3">
-                <table class="table table-bordered table-hover" id="dataTbl">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Employee</th>
-                            <th>Category</th>
-                            <th>Approval Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
+    </div>
+    <div class="row">
+        <div class="card col-12 pt-3 pb-3">
+            <table class="table table-bordered table-hover" id="dataTbl">
+                <thead>
+                    <tr>
+                        <td>Request Time</td>
+                        <td>Start Date</td>
+                        <td>End Date</td>
+                        <th>Employee</th>
+                        <th>Category</th>
+                        <th>Approval Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
 
-            </div>
         </div>
     </div>
+</div>
 
 @section Modal{
 
@@ -75,12 +77,13 @@
                         </div>
                         <div class="row">
                             @*<div class="form-group col-sm-6">
-                                <label for="group_name">Approval Status</label>
-                                <input readonly type="text" class="form-control" name="" id="approvalStatusName">
-                            </div>*@
+                                    <label for="group_name">Approval Status</label>
+                                    <input readonly type="text" class="form-control" name="" id="approvalStatusName">
+                                </div>*@
                             <div class="form-group col-sm-12">
                                 <label for="group_name">File</label>
-                                <a id="downloadFileBukti" href="" download="" class="form-control btn btn-info" onclick=""><i class="fas fa-download"></i> Download File</a>                            </div>
+                                <a id="downloadFileBukti" href="" download="" class="form-control btn btn-info" onclick=""><i class="fas fa-download"></i> Download File</a>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-sm-12">
@@ -100,9 +103,9 @@
                         </div>
                     </div>
                     <div class="modal-footer" id="modalFooterUpdate">
-                        
-                        <button type="submit" class="btn btn-danger"  onclick="RejectReq()"><i class="fas fa-times-circle"></i> Reject</button>
-                        <button type="submit" class="btn btn-warning" onclick="RevisionReq()" ><i class="fas fa-exclamation-circle"></i> Revision</button>
+
+                        <button type="submit" class="btn btn-danger" onclick="RejectReq()"><i class="fas fa-times-circle"></i> Reject</button>
+                        <button type="submit" class="btn btn-warning" onclick="RevisionReq()"><i class="fas fa-exclamation-circle"></i> Revision</button>
                         <button type="submit" class="btn btn-primary" id="btnApprove" onclick="ApproveReq()"><i class="fas fa-check-circle"></i> Approve</button>
                     </div>
                 </form>
@@ -134,9 +137,10 @@
 
 
 @section CSSnya {
-    
+
 }
 
 @section JSnya {
+    <script src="~/js/tools.js"></script>
     <script src="~/js/leaveRequestConfirmation.js"></script>
 }

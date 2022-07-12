@@ -23,25 +23,37 @@ $(document).ready(function () {
                 extend: 'copy',
                 className: 'btn btn-success btn-sm',
                 text: '<i class="fas fa-copy"> </i>',
-                titleAttr: 'Copy to clipboard'
+                titleAttr: 'Copy to clipboard',
+                exportOptions: {
+                    columns: [1, 2, 3, 4, 5]
+                }
             },
             {
                 extend: 'excel',
                 className: 'btn btn-success btn-sm',
                 text: '<i class="fas fa-file-excel"> </i>',
-                titleAttr: 'Download to excel'
+                titleAttr: 'Download to excel',
+                exportOptions: {
+                    columns:[1,2,3,4,5]
+                }
             },
             {
                 extend: 'pdf',
                 className: 'btn btn-success btn-sm',
                 text: '<i class="fas fa-file-pdf"> </i>',
-                titleAttr: 'Download to pdf'
+                titleAttr: 'Download to pdf',
+                exportOptions: {
+                    columns: [1, 2, 3, 4, 5]
+                }
             },
             {
                 extend: 'print',
                 className: 'btn btn-success btn-sm',
                 text: '<i class="fas fa-print"> </i>',
-                titleAttr: 'Print this table'
+                titleAttr: 'Print this table',
+                exportOptions: {
+                    columns: [1, 2, 3, 4, 5]
+                }
             }
         ],
         initComplete: function () {
@@ -54,7 +66,24 @@ $(document).ready(function () {
         columns: [
             {
                 "data": "requestTime",
-                visible: false,
+                "render": function (data, x, y, z) {
+                    return dateStringToDate(data)
+                },
+                visible: false
+            },
+            {
+                "data": "startDate",
+                "render": function (data, x, y, z) {
+                    return dateStringToDate(data)
+                },
+                visible: false
+            },
+            {
+                "data": "endDate",
+                "render": function (data, x, y, z) {
+                    return dateStringToDate(data)
+                },
+                visible: false
             },
             {
                 "data": "employeeName"
@@ -90,7 +119,7 @@ $(document).ready(function () {
                 data: "request_id",
                 render: function (data, type, row, meta) {
                     return `<div class="btn-group text-center">
-                                <a type="button" class="btn btn-sm btn-warning" id="${data}" title="Delete" onClick="leaveDetail('${data}')" data-toggle="modal" data-target="#updateModal">
+                                <a type="button" class="btn btn-sm btn-warning" id="${data}" title="Show Detail" onClick="leaveDetail('${data}')" data-toggle="modal" data-target="#updateModal">
                                 <i class="fas fa-edit"></i>
                                 </a>
                             </div>`

@@ -41,7 +41,10 @@ $(document).ready(function () {
                 extend: 'print',
                 className: 'btn btn-success btn-sm',
                 text: '<i class="fas fa-print"> </i>',
-                titleAttr: 'Print this table'
+                titleAttr: 'Print this table',
+                exportOptions: {
+                    columns: [1, 2, 3, 4, 5]
+                }
             }
         ],
         initComplete: function () {
@@ -52,7 +55,24 @@ $(document).ready(function () {
         columns: [
             {
                 "data": "requestTime",
-                visible: false,
+                "render": function (data, x, y, z) {
+                    return dateStringToDate(data)
+                },
+                visible: false
+            },
+            {
+                "data": "startDate",
+                "render": function (data, x, y, z) {
+                    return dateStringToDate(data)
+                },
+                visible: false
+            },
+            {
+                "data": "endDate",
+                "render": function (data, x, y, z) {
+                    return dateStringToDate(data)
+                },
+                visible: false
             },
             {
                 "data": "employeeName"
