@@ -85,7 +85,7 @@ namespace API.Utils
                     <a href = '' style = 'font-size:1.4em;color: #00466a;text-decoration:none;font-weight:600' > e-Cuti </a>
                  </div>
                          <p style = 'font-size:1.1em'> Hi, " +email+ @"</p>
-                              <p> You have 5 minutes, please use the OTP code below on e-Cute Website: </p>
+                              <p> You have 5 minutes, please use the OTP code below on e-Cuti Website: </p>
                                <h2 style = 'background: #00466a;margin: 0 auto;width: max-content;padding: 0 10px;color: #fff;border-radius: 4px;' > " +otp+ @"</h2>
                               <p> Thank you for choosing e-Cuti. Use the following OTP to complete your Forgot Password procedures. OTP code is valid until <b>" +expiredTime+ @"</b> </p>
                                <p style = 'font-size:0.9em;' > Regards,<br/> e-Cuti </p>
