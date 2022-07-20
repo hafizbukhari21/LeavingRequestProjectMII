@@ -23,7 +23,7 @@
     <div class="row">
         
         <div class="card col-12 pt-3">
-            <h3>Requester Information</h3>
+            <h3><b>Requester Information</b></h3>
             <table>
                 <tbody>
                     <tr>
@@ -54,7 +54,7 @@
                 </tbody>
             </table>
             <hr />
-            <h2>Leave Detail</h2>
+            <h2><b>Leave Detail</b></h2>
             <form class="inputLeaveForm needs-validation" novalidate id="inputLeave" enctype="multipart/form-data">
                 @*<input type="hidden" class="form-control" id="approvalStatus" placeholder="approval status" value="Menunggu">
             <input type="hidden" class="form-control" id="employee_id" placeholder="employee id" value="Employee0006">*@
@@ -62,7 +62,7 @@
                     <div class="form-group col-sm-4">
                         <label for="exampleFormControlSelect1">Leave Category</label>
                         <select required class="form-control" id="category_id">
-                            <option value="">== Choose leave category ==</option>
+                            <option class="bg-secondary" value="">== Choose leave category ==</option>
                         </select>
                         <div class="invalid-feedback emailfeedbackInsert">
                             Choose leave category
@@ -83,7 +83,7 @@
                     </div>
                 </div>*@
                     <div class="form-group col-sm-4">
-                        <label for="exampleFormControlInput1">Date</label>
+                        <label for="exampleFormControlInput1"><i class="fas fa-question text-danger" data-toggle="tooltip" data-placement="top" title="Minimal cuti h+7 dari hari ini"></i> Date</label>
                         <input required type="text" name="daterange" class="form-control inputDate" id="dateLeave" value="01/01/2020 - 01/10/2020" />
 
                         <div class="invalid-feedback emailfeedbackInsert">

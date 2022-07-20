@@ -23,19 +23,28 @@ $(document).ready(function () {
                 extend: 'copy',
                 className: 'btn btn-success btn-sm',
                 text: '<i class="fas fa-copy"> </i>',
-                titleAttr: 'Copy to clipboard'
+                titleAttr: 'Copy to clipboard',
+                exportOptions: {
+                    columns: [1, 2, 3, 4, 5]
+                }
             },
             {
                 extend: 'excel',
                 className: 'btn btn-success btn-sm',
                 text: '<i class="fas fa-file-excel"> </i>',
-                titleAttr: 'Download to excel'
+                titleAttr: 'Download to excel',
+                exportOptions: {
+                    columns: [1, 2, 3, 4, 5]
+                }
             },
             {
                 extend: 'pdf',
                 className: 'btn btn-success btn-sm',
                 text: '<i class="fas fa-file-pdf"> </i>',
-                titleAttr: 'Download to pdf'
+                titleAttr: 'Download to pdf',
+                exportOptions: {
+                    columns: [1, 2, 3, 4, 5]
+                }
             },
             {
                 extend: 'print',
